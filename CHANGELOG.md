@@ -7,14 +7,115 @@ description: Central version history for the 5 core CMDS system files (CLAUDE.md
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-04-10T20:26
-tags: [CMDS, system, changelog, 6]
+date modified: 2026-05-04T00:10
+tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
 
 # CMDS System Files — Changelog
 
-> 5개 시스템 파일(CLAUDE.md, AGENTS.md, CMDS.md, 🏛 CMDS Head Quarter, 🏛 CMDS Guide)의 변경 이력을 추적합니다.
+> 공개 배포되는 5개 시스템 파일(CLAUDE.md, AGENTS.md, CMDS.md, 🏛 CMDS Head Quarter, 🏛 CMDS Guide)의 변경 이력을 추적합니다. 볼트 내부에는 추가로 3개 비공개 시스템 파일(ANTIGRAVITY.md, BRAIN.md, BRAIN_PROMPT.md)이 있어 총 8개로 운영되며, 이 3개는 vendor·product 전용이라 외부 배포 대상이 아닙니다.
+
+---
+
+## v4.5 — 2026-05-04 (4-Way Sync Workflow + Share Folder Restored)
+
+**트리거**: v4.4 배포 직후 사용자 지적 — `40. Docs/47. CMDS Docs/cmds-system-files-share/` (sanitized 외부 공유본) 가 4월 18일 이후 16일간 stale 상태로 방치됨. 원인은 `system-docs-updater` 스킬의 옛 "Quick Update Command" 가 backup 만 다루고 share 는 별도 섹션으로 분리되어 있어 매번 누락됨. 운영 워크플로 자체를 4-way fan-out 으로 재설계.
+
+### CLAUDE.md v3.5 → v3.6 (precedence 1)
+
+"📦 System Files Deployment" 섹션 재작성:
+- 단순 flow 다이어그램 → **4-way fan-out 다이어그램** (① 백업 → ② 공유 → ③ DEV → ④ Vercel 시각화)
+- 단순 `vercel deploy` 명령 → **All-in-One bash 스크립트** (4 destinations 모두 처리, sed sanitize 포함)
+- "⚠️ 누락 방지 룰" 박스 + 16일 stale 사고 사례 명시
+- 자동화 흐름 설명도 4-way 명시로 갱신
+
+### system-docs-updater 스킬 재구성
+
+`~/.claude/skills/system-docs-updater/SKILL.md`:
+- 기존 "Quick Update Command" (backup만) + 별도 "Quick Share Command" → **단일 "All-in-One Sync Command"** 통합
+- "4-way Sync Pre-Deploy Checklist" 추가 (체크박스 4개 — 모두 ✅ 후에만 deploy)
+- 누락 사고 패턴 #1, #2, #3 명시
+- 자동 leak 검증 (`exit 1` if SANITIZE 룰 미커버 시 중단)
+- Quick Verification Command 추가 (배포 후 즉시 실행 가능한 라이브 검증)
+
+### Share 폴더 복구 + sanitization 강화
+
+7개 share 파일 (5 system + SKILL_share + system-docs-map_share) 모두 즉시 재생성:
+- SANITIZE 룰 확장 — 기존 5개 (`vault-path` · `구요한` · `바람빛교회` · ...) 에 5개 추가 (`Yohan Koo` · `johnfkoo951` · `Cmdspace.contact@gmail.com` · `dev-path` · `home`)
+- 자동 leak 검증 통과 (실제 개인정보 0건)
+
+### 영속화 (다음 세션부터 자동 적용)
+
+3중 안전망:
+1. **CLAUDE.md** (precedence 1, 항상 LLM 컨텍스트 로드) — 4-way 명시
+2. **SKILL.md** — All-in-One Sync Command (구조적으로 누락 불가)
+3. **메모리** (`feedback_system_files_4way_sync.md`) — MEMORY.md 인덱스에 추가, 모든 새 세션에서 자동 로드
+
+### 검증 결과 (4 destinations 동시 갱신)
+
+| Destination | Files | mtime | 상태 |
+|-------------|:---:|:---:|:---:|
+| ① 백업 | 6 | 00:06 | ✅ |
+| ② 공유 | 7 | 00:06 | ✅ leak 0건 |
+| ③ DEV | 5 + 8 rules + ZIP | 00:06 | ✅ |
+| ④ Vercel | system.cmdspace.work | 200 OK | ✅ |
+
+---
+
+## v4.4 — 2026-05-03 (8-File Scheme + Codex/Antigravity Lanes)
+
+**트리거**: 다중 AI agent 운영 정착 — Codex 일상 사용 본격화 + Antigravity (Google Gemini) 시스템 파일 모더나이즈 + 8개 system file 의 precedence 정합성 확보.
+
+### 8-File System Scheme 확립
+
+볼트 내 시스템 파일을 4 그룹 8 파일로 정렬 (precedence 1-8):
+
+| Group | Files | Precedence |
+|-------|-------|:---:|
+| 🤖 LLM Coding Agents | CLAUDE.md · AGENTS.md | 1, 2 |
+| 🧪 Vendor-Specific | ANTIGRAVITY.md (Gemini) | 3 |
+| 📚 Context & Standards | CMDS.md · 🏛 Guide · 🏛 HQ | 4, 5, 6 |
+| 🧠 Gobi Persona | BRAIN.md · BRAIN_PROMPT.md | 7, 8 |
+
+**공개 배포 (이 사이트)**: precedence 1, 2, 4, 5, 6 — 즉 5개 파일. ANTIGRAVITY/BRAIN/BRAIN_PROMPT 는 vendor/product 전용이라 미배포.
+
+### AI Agent Output Lanes — 6 → 8 lane
+
+`00. Inbox/03. AI Agent/` 산출물 분리 lane 확장:
+
+```
+03-1/03-2: Claude Code (MBP / Studio)
+03-3/03-4: OpenClaw (MBP / Studio)
+03-5/03-6: Codex (MBP / Studio)        ← v4.3에서 추가
+03-7/03-8: Antigravity (MBP / Studio)  ← v4.4에서 추가
+```
+
+odd = MBP, even = Studio 컨벤션.
+
+### 파일별 변경 요약
+
+- **CLAUDE.md** v3.4 → **3.5**: Antigravity 03-7/03-8 lane 반영, 배포 flow rules count 7→8 (blank-line-rules.md 포함), "8 system files 중 5개 공개" 명시
+- **AGENTS.md** v2.4 → **2.5**: Antigravity 03-7/03-8 lane 추가, ANTIGRAVITY 가 별도 system file 임을 명시
+- **CMDS.md** v2.4 → **2.5**: precedence 3→4 정렬 (ANTIGRAVITY 가 3 차지), Antigravity lane 본문 반영, stray numeric tag (`3`) 제거
+- **🏛 CMDS Guide** v2.4 → **2.5**: precedence 4→5 정렬, Antigravity lane 추가, `94. System Prompts/` → `94. Agent Settings/claude/` 폴더 rename 반영, `99. Format/` 중복 entry 제거, Sync Settings lane 표기 갱신, Version History 백필 (v2.3/v2.4/v2.5)
+- **🏛 CMDS Head Quarter** v1.3 → **1.4**: precedence 5→6 정렬, Antigravity 03-7/03-8 lane 추가
+- **(비공개) ANTIGRAVITY.md** bare → **2.0**: 전체 modernization — 8-file scheme 의 precedence 3 vendor-specific 자리 부여, 죽은 `00. Inbox/03. Antigravity/` 경로를 03-7/03-8 lane 으로 교체, frontmatter 표준화 (description/audience/precedence/version/changelog 추가), Required Properties 5→7 (description 추가), 모든 룰 파일 `@` 참조 추가, file reference 3-way decision tree 반영
+
+### 룰 (`.claude/rules/`)
+
+- 8개 룰 파일 정렬 — `blank-line-rules.md` 신규 포함 (Obsidian-tight markdown 강제)
+- `file-creation-rules.md`, `directory-structure.md` 모두 03-7/03-8 lane 반영
+- `wikilink-rules.md` 대폭 확장 — 파일 참조 3종 결정 트리 (`[[wikilink]]` · `@import` · 백틱) + 외부 경로 / 코드 식별자 표기 가이드
+
+### 정합성 검증
+
+전수 스캔 결과:
+- ✅ Precedence 1→2→3→4→5→6 완벽 정렬
+- ✅ "5 Core Files" 잔존 0건 (전부 "8 system files"로 갱신)
+- ✅ `03-1~03-4` outdated 표기 0건
+- ✅ `03. Antigravity/` 죽은 경로 의도적 경고 2건만 잔존 (사용 금지 안내용)
+- ✅ stray numeric tag artifact 제거 (CMDS `[..., 3]`, ANTIGRAVITY `[..., 1]`)
 
 ---
 

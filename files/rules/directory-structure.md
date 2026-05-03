@@ -8,7 +8,11 @@
 │   ├── 03-1. Claude Code (MBP)/
 │   ├── 03-2. Claude Code (Studio)/
 │   ├── 03-3. OpenClaw (MBP)/
-│   └── 03-4. OpenClaw (Studio)/
+│   ├── 03-4. OpenClaw (Studio)/
+│   ├── 03-5. Codex (MBP)/
+│   ├── 03-6. Codex (Studio)/
+│   ├── 03-7. Antigravity (MBP)/
+│   └── 03-8. Antigravity (Studio)/
 ├── 04. Excalidraw/             # Visual diagrams
 ├── 05. Canvas/                 # Canvas notes
 ├── 06. Automation/             # Automation (Make.com, n8n, STT)

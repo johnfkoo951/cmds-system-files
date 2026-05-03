@@ -3,17 +3,15 @@ type: documentation
 aliases:
   - CMDS Context Guide
   - System Philosophy
-description: Context and philosophy guide for all LLM assistants working with the CMDS vault. Explains system purpose, user profile (Yohan Koo), 9 categories (100-900), and the Connect→Merge→Develop→Share process. Reference first when starting a new conversation about the CMDS vault.
+description: "Context and philosophy guide for all LLM assistants working with the CMDS vault. Explains system purpose, user profile (Yohan Koo), 9 categories (100-900), and the Connect→Merge→Develop→Share process. Reference first when starting a new conversation about the CMDS vault."
 author:
   - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-04-18T15:40
-tags:
-  - CMDS
-  - system
+date modified: 2026-05-03
+tags: [CMDS, system]
 audience: All LLM assistants
 scope: context-philosophy
-precedence: 3
+precedence: 4
 memory-type: user
 required-for:
   - context-understanding
@@ -24,14 +22,17 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.2"
+version: "2.5"
 status: completed
 changelog:
+  - "2.5 (2026-05-03): Aligned precedence to 8-file scheme (3→4 to make room for ANTIGRAVITY at 3). Added Antigravity 03-7/03-8 output lanes throughout. Removed stray numeric tag artifact (`3`)."
+  - "2.4 (2026-05-03): Added Codex MBP/Studio output lanes and clarified Codex as a daily AI coding agent alongside Claude Code."
+  - "2.3 (2026-04-20): 구요한 프로필 정정 — 박사 논문 집필 중단 상태 명시, 개인사업자(법인 신설 준비중), 주업=사업+교육으로 재프레이밍. 현재 4대 초점(옵시디언 PKM · System Files · LLM Wiki · 9Yohan) + LG 임원/회장단 교육 언급 추가."
   - "2.2 (2026-04-07): 필수 프로퍼티 7개 반영 (description 추가, English required)"
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> 	**🔄 Last Updated: 2026-04-18** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
+> 	**🔄 Last Updated: 2026-05-03** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CMDS.md
 
@@ -41,10 +42,11 @@ This file provides LLM assistants with essential context about the CMDS (커맨�
 
 > 컨텍스트 압축 후에도 반드시 기억해야 할 핵심 컨텍스트:
 > 1. **CMDS**: Connect → Merge → Develop → Share (지식 생애주기)
-> 2. **구요한**: PhD ABD, KM 전문가, 생성형 AI 교육자, 컨설턴트
-> 3. **9개 카테고리**: 100 Themes → 200 Literature → 300 Data → 400 Methods → 500 Products → 600 Specialties → 700 Creatives → 800 Outputs → 900 Divisions
-> 4. **볼트 규모**: 10,000+ 노트, 120+ 플러그인
-> 5. **기술 규칙**: CLAUDE.md (precedence 1) 또는 AGENTS.md (precedence 2) 참조
+> 2. **구요한**: 박사 수료(ABD 상태, 논문 집필은 현재 멈춤) · CMDSPACE 개인사업자(법인 설립 준비중) · 주업은 사업+교육. 연구하면서 가르치는 **실천가**.
+> 3. **현재 4대 초점**: (a) 옵시디언 기반 PKM (b) System Files 체계 (c) LLM Wiki 위성 볼트 (d) 9Yohan 멀티 에이전트. 대표 교육 현장: **LG 임원 교육 · LG 회장단 교육**.
+> 4. **9개 카테고리**: 100 Themes → 200 Literature → 300 Data → 400 Methods → 500 Products → 600 Specialties → 700 Creatives → 800 Outputs → 900 Divisions
+> 5. **볼트 규모**: 10,000+ 노트, 120+ 플러그인
+> 6. **기술 규칙**: CLAUDE.md (precedence 1) / AGENTS.md (precedence 2) / ANTIGRAVITY.md (precedence 3, Gemini 전용) 참조. 이외 5개 system file 까지 합쳐 **총 8개** (BRAIN.md, BRAIN_PROMPT.md 는 Gobi 페르소나 시스템 전용 — 일반 LLM coding agent 의 컨텍스트로 들어가지 않음).
 
 <!-- STATIC: 아래 시스템 구조와 철학은 거의 변경되지 않습니다 -->
 
@@ -52,24 +54,39 @@ This file provides LLM assistants with essential context about the CMDS (커맨�
 
 ## System Documentation Overview
 
-This vault has **5 core system files** that complement each other. You are currently reading the **context guide**.
+This vault has **8 system files** organized by audience. You are currently reading the **context guide** (precedence 4).
 
-### The 5 Core Files
+### The 8 System Files (by audience group)
 
-**🤖 AI Documents** (loaded into context window):
+#### 🤖 LLM Coding Agents (always-loaded technical context)
 
-| File                    | Your Use Case                          | Key Content                                      |
-| ----------------------- | -------------------------------------- | ------------------------------------------------ |
-| **CMDS.md** (this file) | Understanding WHY & WHAT               | User profile, system philosophy, workflows       |
-| **CLAUDE.md**           | Technical implementation (Claude Code) | Claude Code specific rules, commands             |
-| **AGENTS.md**           | Technical implementation (Other AI)    | Gemini CLI, Codex, Cursor, etc.                  |
+| File          | Audience                  | Purpose                               | Precedence |
+| ------------- | ------------------------- | ------------------------------------- | :--------: |
+| **CLAUDE.md** | Claude Code               | Claude Code 기술 규칙·command 매핑    | 1          |
+| **AGENTS.md** | Codex / Cursor / Windsurf | 타 AI coding agent 일반 기술 규칙     | 2          |
 
-**👤 Human Documents** (referenced in Obsidian):
+#### 🧪 Vendor-Specific Agent
 
-| File                        | Your Use Case      | Key Content                         |
-| --------------------------- | ------------------ | ----------------------------------- |
-| **🏛 CMDS Head Quarter.md** | Quick navigation   | 91 category links, GPT links        |
-| **🏛 CMDS Guide.md**        | Standards reference | Properties templates, naming rules  |
+| File               | Audience                       | Purpose                                  | Precedence |
+| ------------------ | ------------------------------ | ---------------------------------------- | :--------: |
+| **ANTIGRAVITY.md** | Google Gemini / Antigravity IDE | Gemini 전용 행동 규칙·도구 매핑          | 3          |
+
+#### 📚 Context & Standards (referenced by all agents)
+
+| File                        | Audience           | Purpose                                              | Precedence |
+| --------------------------- | ------------------ | ---------------------------------------------------- | :--------: |
+| **CMDS.md** (this file)     | All LLM assistants | WHY & WHAT — 시스템 철학·사용자·9 카테고리           | 4          |
+| **🏛 CMDS Guide.md**        | User + AI          | Standards — Properties v2, 템플릿, naming            | 5          |
+| **🏛 CMDS Head Quarter.md** | User + AI          | Navigation — 91 카테고리 hub                         | 6          |
+
+#### 🧠 Gobi Persona System (Gobi 앱 entry point — *외부 LLM coding agent 아님*)
+
+| File                | Audience                | Purpose                                                          | Precedence |
+| ------------------- | ----------------------- | ---------------------------------------------------------------- | :--------: |
+| **BRAIN.md**        | Gobi agent + 사람       | 구요한 brain profile (사람을 기술하는 grounding source)          | 7          |
+| **BRAIN_PROMPT.md** | Gobi agent              | Rules of Engagement (BRAIN.md 를 *어떻게* 사용할지의 메타 지침)  | 8          |
+
+> **중요**: BRAIN.md / BRAIN_PROMPT.md 는 *Claude Code · Gemini CLI · Codex 등 일반 LLM coding agent 의 context window 로 들어가지 않음*. Gobi 앱이 외부 인터페이스(예: web)에서 구요한 페르소나로 답할 때만 사용. 다른 6개 파일과 *audience 가 본질적으로 다름*.
 
 ### When to Reference Each File
 
@@ -84,8 +101,12 @@ This vault has **5 core system files** that complement each other. You are curre
 - Need Claude-specific technical specs
 
 **Reference AGENTS.md when**:
-- Other AI coding agents (Gemini CLI, Codex) working with vault
+- Codex / Cursor / Windsurf 등 일반 AI agent 작업 중
 - Need general technical specs without Claude-specific content
+
+**Reference ANTIGRAVITY.md when**:
+- Google Gemini / Antigravity IDE 가 작업 중
+- Gemini 전용 도구 매핑·행동 규칙 필요
 
 **Reference 🏛 CMDS Head Quarter.md when**:
 - Need the full category structure at a glance
@@ -95,15 +116,21 @@ This vault has **5 core system files** that complement each other. You are curre
 - Creating new notes (need Properties template)
 - Checking standard note types or naming conventions
 
+**Reference BRAIN.md / BRAIN_PROMPT.md when**:
+- Gobi 페르소나 시스템 작업 중 (예: persona 톤 갱신, brain profile 보강)
+- 일반 코딩 작업에서는 *건드리지 않음*
+
 ### Quick Decision Tree
 
 ```
 Are you trying to...
-├─ Understand the system? → CMDS.md (you are here)
-├─ Write code (Claude Code)? → CLAUDE.md
-├─ Write code (Other AI)? → AGENTS.md
-├─ Navigate to a category? → 🏛 CMDS Head Quarter.md
-└─ Check standards/templates? → 🏛 CMDS Guide.md
+├─ Understand the system?         → CMDS.md (you are here)
+├─ Write code (Claude Code)?      → CLAUDE.md
+├─ Write code (Codex/Cursor)?     → AGENTS.md
+├─ Write code (Gemini)?           → ANTIGRAVITY.md
+├─ Navigate to a category?        → 🏛 CMDS Head Quarter.md
+├─ Check standards/templates?     → 🏛 CMDS Guide.md
+└─ Update Gobi persona system?    → BRAIN.md / BRAIN_PROMPT.md
 ```
 
 **This file provides the "story" behind the system. For technical "how-to", see CLAUDE.md or AGENTS.md.**
@@ -121,11 +148,13 @@ This vault is synced across two Macs via **Obsidian Sync** (official Obsidian cl
 
 - All subfolders and files are kept identical across both machines
 - AI coding agent outputs are separated by environment subfolders under `00. Inbox/03. AI Agent/`:
-	- `03-1. Claude Code (MBP)` / `03-2. Claude Code (Studio)` — Claude Code
-	- `03-3. OpenClaw (MBP)` / `03-4. OpenClaw (Studio)` — OpenClaw
+		- `03-1. Claude Code (MBP)` / `03-2. Claude Code (Studio)` — Claude Code
+		- `03-3. OpenClaw (MBP)` / `03-4. OpenClaw (Studio)` — OpenClaw
+		- `03-5. Codex (MBP)` / `03-6. Codex (Studio)` — Codex
+		- `03-7. Antigravity (MBP)` / `03-8. Antigravity (Studio)` — Antigravity (Google)
 
 ### Public Deployment of System Files
-The 5 core system files (plus 7 shared rules) are published at **https://system.cmdspace.work** so that LLM agents and human collaborators can reference them without vault access.
+8 system files 중 **공개 가능한 5개** (CLAUDE.md / AGENTS.md / CMDS.md / 🏛 CMDS Guide / 🏛 CMDS Head Quarter) + 8 shared rules 가 **https://system.cmdspace.work** 에 배포되어 LLM agent 와 외부 협업자가 vault 접근 없이 참조할 수 있도록 함. 나머지 3개(ANTIGRAVITY.md / BRAIN.md / BRAIN_PROMPT.md)는 vendor-specific 또는 Gobi 페르소나 전용이라 외부 배포 대상에서 제외.
 
 - **Hosting**: Vercel project `cmds-system-files-v2` (team `johnfkoo951's projects`)
 - **DNS**: Cloudflare (`cmdspace.work`) — A record `system → 76.76.21.21`
@@ -151,33 +180,70 @@ The 5 core system files (plus 7 shared rules) are published at **https://system.
 
 ## The User: 구요한 (Yohan Koo)
 
-### Professional Identity
-- **PhD ABD** (All But Dissertation) in Educational Technology/Knowledge Management
-- **Knowledge Management Specialist**: Second Brain, Zettelkasten, PKM systems
-- **Generative AI Expert**: ChatGPT, Claude, prompt engineering, AI education
-- **Educator**: University lecturer, workshop facilitator, curriculum developer
-- **Consultant**: AI transformation, knowledge management, educational innovation
-- **Creative Professional**: YouTube creator, music producer, digital artist
+### Professional Identity (as of 2026-04)
+
+구요한은 **연구자가 아니라 "연구하면서 가르치는 실천가"** 로 자신을 정의합니다. 그의 시간과 에너지는 박사 논문이 아니라 사업과 교육에 쓰입니다.
+
+- **Business Operator**: Sole proprietor of **CMDSPACE (커맨드스페이스)**, currently transitioning to a corporation. Builds products, education, and consulting services around personal knowledge management × generative AI.
+- **Educator (primary role)**: Delivers corporate executive education — notably **LG 임원 교육 · LG 회장단 교육** — along with university lectures and public workshops. Teaches what he is actively researching in his own vault.
+- **PhD ABD (paused)**: Completed coursework for the PhD in Educational Technology / Knowledge Management (ABD status). **Dissertation writing is currently paused.** Academic identity remains in the background; active identity is business + education.
+- **Knowledge Management Practitioner-Researcher**: Researches PKM · Second Brain · Zettelkasten through a 10,000+ note Obsidian vault that functions as both lab and teaching material.
+- **Generative AI Practitioner**: Works daily with Claude (Claude Code, Claude Agent SDK), ChatGPT custom GPTs, Obsidian × LLM integration, and multi-agent orchestration.
+- **Creative Professional**: Newsletter (더배러), YouTube, music, digital art — all produced from the same vault.
+
+### Four Current Focus Areas (as of 2026-04)
+
+구요한 is currently concentrating research and teaching on four tightly interconnected axes. These are **not separate projects but one integrated experiment** on *"how the individual knowledge worker redesigns knowledge labor in the LLM era."*
+
+1. **Obsidian-Based Personal Knowledge Management** — a 3+ year / 10,000+ note vault as the substrate of everything else.
+2. **System Files Infrastructure** — total 8 system files in vault: 5 publicly deployed (CLAUDE.md, AGENTS.md, CMDS.md, 🏛 CMDS Guide, 🏛 CMDS Head Quarter) + 3 internal-only (ANTIGRAVITY.md for Gemini, BRAIN.md / BRAIN_PROMPT.md for Gobi persona). Shared `.claude/rules/` accompanies the 5 public files at `system.cmdspace.work`.
+3. **LLM Wiki Satellite Vault** — implementing Karpathy's LLM Wiki pattern (Raw Sources · Wiki · Queries) in a separate `CMDS_LLM_Wiki` vault.
+4. **9Yohan Multi-Agent System** — mapping 900 Divisions × historical "Yohan" figures × the 9 fruits of the Spirit into a 9-agent orchestration (kepler.map / goethe.sense / dewey.learn / bach.score / neumann.compute / baptist.prepare / mccarthy.reason / huizinga.play / calvin.advise).
+
+These four axes are simultaneously **productized** (consulting, education), **published** (더배러 newsletter, public web), and **validated on the toughest stage**: top-level corporate education including LG executive and chairman-group training.
+
+### Multi-Vault Ecosystem (확장 컨텍스트)
+
+The mothership operates within a **7-vault ecosystem**, each governed by different authoring authority and purpose. All other 6 vaults branch from this mothership and reference its system files.
+
+| Type | Vault | 멤버 | 역할 |
+|------|-------|------|------|
+| 🌍 Mothership | `CMDSPACE_Local_MBP` | 구요한 | 모든 vault 의 substrate |
+| 🛰 Compiled Satellite | `CMDS_LLM_Wiki` | 구요한 + LLM | 학습·연구·정리 (focus axis #3) |
+| 🤖 Personal Product | `CMDS_Gobi` | 구요한 | 고비 스페이스/데스크탑 사용 |
+| 🤝 Pair | `CMDS_JoonLab` | 구요한 + 박준 | 교육·강의·컨설팅·코칭 |
+| 🤝 Pair | `CMDSPACE_Admin` | 구요한 + 이태극 | 운영 총괄 |
+| 👥 Team (5인) | `GOBI` | 구요한·이태극·김진영·강민석·Greg Moon | 커맨드스페이스 × 고비 팀 |
+| 📤 Distribution | `cmds-vault` | 구요한 → 외부 | CMDS 스타터킷 (외부 사용자) |
+
+→ Canonical reference (운영·결정·governance): `CMDS_LLM_Wiki/20. Wiki/23. Guides/Multi-Vault Architecture` ([obsidian:// link](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture)).
+
+**기술 규칙**은 [[CLAUDE.md]] § Companion Vaults 참조.
 
 ### Work Context
 구요한 operates **9 professional divisions** (📖 900 Divisions):
 1. **Knowledge Management & Research** (901)
-2. **Editorial & Content Creation** (902)
-3. **Education & Training** (903)
+2. **Writing & Publishing** (902) — _renamed 2026-04-19 from "Editorial & Content Creation"_
+3. **Teaching & Curriculum** (903) — _renamed 2026-04-19 from "Education & Training"_
 4. **Creative Arts & Media** (904)
-5. **Data Science & Analytics** (905)
-6. **Partnerships & Outreach** (906)
-7. **Technology & Development** (907)
+5. **Research Methods & Analytics** (905) — _renamed 2026-04-19 from "Data Science & Analytics"_
+6. **Partnerships & Networks** (906) — _renamed 2026-04-19 from "Partnerships & Outreach"_
+7. **Product & Engineering** (907) — _renamed 2026-04-19 from "Technology & Development"_
 8. **Events & Community Engagement** (908)
-9. **Consulting & Professional Services** (909)
+9. **Consulting & Advisory** (909) — _renamed 2026-04-19 from "Consulting & Professional Services"_
+
+> **903 ↔ 909 경계 규칙** (2026-04-19 확정)
+> - **903 Teaching & Curriculum**: 공개 플랫폼(패캠/인프런) · 대학 수업 · 오픈 수강생 대상 공개 강의
+> - **909 Consulting & Advisory**: 기업/공공기관 맞춤 교육 · 경영진 1on1 코칭 · 조직 진단
+> - 고객이 "기관"이면 909, "개인·불특정 수강생"이면 903
 
 ### Primary Activities
-- Conducting PhD research on knowledge management and AI
-- Teaching university courses on AI, research methods, knowledge management
-- Consulting with corporations on AI transformation and knowledge management
-- Creating educational content (YouTube, articles, courses)
-- Managing multiple projects simultaneously across different domains
-- Building and maintaining a 10,000+ note knowledge base
+- **Teaching & Consulting** (primary time allocation): Designing and delivering AI × PKM programs — **LG 임원 교육 · LG 회장단 교육**, other corporate training, university courses, public workshops.
+- **Vault Engineering**: Continuously refining the Obsidian vault, System Files infrastructure, LLM Wiki satellite, and 9Yohan agent system — researching *by building*.
+- **Content Production**: Running the **더배러 (The Better)** newsletter, YouTube appearances, article/book writing — all produced from and refined through the vault.
+- **Business Operations**: Growing CMDSPACE from sole proprietor toward a formal corporation, partnering with collaborators, shipping consulting deliverables.
+- **Knowledge Base Maintenance**: Building and maintaining the 10,000+ note vault as both working system and teaching artifact.
+- **PhD (paused)**: Coursework complete (ABD); dissertation writing is currently on hold — the active work above takes precedence.
 
 ---
 
@@ -313,18 +379,36 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 
 ### 📖 900 Divisions — Operations & Management
 **Purpose**: Organize and manage the operational structure of 구요한's professional activities
-**Contains**:
+**Contains** (2026-04-19 개명 반영, 구 이름은 alias로 유지):
 - 📚 901 Knowledge Management & Research Division
-- 📚 902 Editorial & Content Creation Division
-- 📚 903 Education & Training Division
+- 📚 902 Writing & Publishing Division _(구: Editorial & Content Creation)_
+- 📚 903 Teaching & Curriculum Division _(구: Education & Training)_
 - 📚 904 Creative Arts & Media Division
-- 📚 905 Data Science & Analytics Division
-- 📚 906 Partnerships & Outreach Division
-- 📚 907 Technology & Development Division
+- 📚 905 Research Methods & Analytics Division _(구: Data Science & Analytics)_
+- 📚 906 Partnerships & Networks Division _(구: Partnerships & Outreach)_
+- 📚 907 Product & Engineering Division _(구: Technology & Development)_
 - 📚 908 Events & Community Engagement Division
-- 📚 909 Consulting & Professional Services Division
+- 📚 909 Consulting & Advisory Division _(구: Consulting & Professional Services)_
+
+**9Yohan Constellation (2026-04-19 확정)**: 각 Division은 역사적 "요한"과 성령의 열매에 매핑됨. 정본은 `00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/2026-04-19-9yohan-orchestration/canonical.md`.
+
+| Division | Head | Fruit | Handle |
+|----------|------|------|--------|
+| 901 | 케플러 요한 | 온유 | `kepler.map` |
+| 902 | 괴테 요한 | 사랑 | `goethe.sense` |
+| 903 | 듀이 요한 | 자비 | `dewey.learn` |
+| 904 | 바흐 요한 | 희락 | `bach.score` |
+| 905 | 노이만 요한 | 절제 | `neumann.compute` |
+| 906 | 세례요한 | 오래 참음 | `baptist.prepare` |
+| 907 | 매카시 요한 | 양선 | `mccarthy.reason` |
+| 908 | 하위징아 요한 | 화평 | `huizinga.play` |
+| 909 | 칼뱅 요한 | 충성 | `calvin.advise` |
 
 **Role in Workflow**: Meta-organizational layer that manages how all other categories are operationalized in 구요한's professional life.
+
+**903 ↔ 909 경계 규칙**:
+- **903 Teaching & Curriculum**: 공개 플랫폼 · 대학 · 오픈 수강생 대상 · 고객이 "개인/불특정"
+- **909 Consulting & Advisory**: 기업/공공기관 맞춤 · 경영진 1on1 · 조직 진단 · 고객이 "기관"
 
 ---
 
@@ -410,7 +494,7 @@ Every note in CMDS contains structured metadata that enables powerful queries an
 ---
 type:           # Note category (see types below)
 aliases: []     # Alternative names
-description:    # English 1-2 sentence summary for LLMs
+description: "" # English 1-2 sentence summary for LLMs
 author:
   - "[[구요한]]"
 date created:   # YYYY-MM-DD
@@ -489,7 +573,7 @@ tags: []        # Topical tags
 
 ### Development Workflow
 1. **Plan** feature or tool → Design in [[📚 630 Development]]
-2. **Build** with Claude Code → Output to `00. Inbox/03. AI Agent/`
+2. **Build** with Claude Code or Codex → Output to the appropriate lane under `00. Inbox/03. AI Agent/`
 3. **Test** and iterate → Reference [[📚 491 Codes]] or [[📚 493 Scripts]]
 4. **Deploy** → Document in [[📚 806 Webpages]] or [[📚 830 Projects]]
 5. **Maintain** → Track in skills, plugins, or automation workflows
@@ -500,6 +584,7 @@ tags: []        # Topical tags
 
 ### AI Tools Used Daily
 - **Claude Code**: Code generation, skill/plugin development, vault automation, writing assistance
+- **Codex**: Code generation, repo/vault edits, cross-agent review, and portable execution of AGENTS.md workflows
 - **ChatGPT** (Custom GPTs): Knowledge work, reasoning, analysis
 - **Gemini CLI**: Cross-validation, web search integration
 - **Midjourney**: AI image generation, visual content
@@ -518,7 +603,7 @@ tags: []        # Topical tags
 ### AI-Generated Content
 - **Prompts Library**: [[📚 492 Prompts]] — Reusable prompt templates
 - **Code Snippets**: [[📚 491 Codes]] — AI-generated and human-curated code
-- **Agent Settings**: `90. Settings/94. Agent Settings/claude/` — **원본** (Obsidian Sync 대상). 각 Mac 의 `.claude/{agents,commands,rules,skills}` 는 이 원본으로 향하는 symlink 로 연결되어 동기화됨.
+- **Agent Settings**: `90. Settings/94. Agent Settings/claude/` — Claude Code 원본 (Obsidian Sync 대상). 각 Mac 의 `.claude/{agents,commands,rules,skills}` 는 이 원본으로 향하는 symlink 로 연결되어 동기화됨. Codex-native skills live in `.agents/skills/`.
 
 ---
 
@@ -533,6 +618,10 @@ tags: []        # Topical tags
 	- `03-2. Claude Code (Studio)/` — Claude Code outputs on Mac Studio
 	- `03-3. OpenClaw (MBP)/` — OpenClaw outputs on MacBook Pro
 	- `03-4. OpenClaw (Studio)/` — OpenClaw outputs on Mac Studio
+	- `03-5. Codex (MBP)/` — Codex outputs on MacBook Pro
+	- `03-6. Codex (Studio)/` — Codex outputs on Mac Studio
+	- `03-7. Antigravity (MBP)/` — Antigravity outputs on MacBook Pro
+	- `03-8. Antigravity (Studio)/` — Antigravity outputs on Mac Studio
 - `04. Excalidraw/` — Visual diagrams
 - `05. Canvas/` — Canvas notes
 - `06. Automation/` — Automation workflows (06-1. Make.com, 06-2. n8n Lecture, 06-3. STT)
@@ -655,10 +744,10 @@ When 구요한 asks you to work with the vault, understand the context:
 
 ### Research Context
 If discussing research topics:
-- Connect to PhD work ([[📚 801 PhD]])
-- Reference relevant literature ([[📖 200 Literature]])
-- Consider methodological approaches ([[📖 400 Methodologies]])
-- Think about potential publications ([[📚 821 Academic Journals]])
+- Frame as **applied research on PKM × LLM × agents** (not dissertation work — see `Professional Identity` · dissertation writing is currently paused).
+- Default to one of the **4 current focus axes**: Obsidian PKM / System Files / LLM Wiki / 9Yohan. If the topic doesn't fit, say so explicitly.
+- Reference relevant literature ([[📖 200 Literature]]) and methodological approaches ([[📖 400 Methodologies]]) as usual.
+- Outputs usually become **newsletter editions, consulting decks, or teaching material** first; academic publications are secondary.
 
 ### Teaching Context
 If discussing courses or lectures:

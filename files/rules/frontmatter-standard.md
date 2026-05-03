@@ -6,7 +6,7 @@ Every note in this vault MUST include these 7 required properties:
 ---
 type:           # Note type (note, meeting, people, terminology, curriculum, channel, CMDS, etc.)
 aliases: []     # Alternative names (array format)
-description:    # 1-2 sentence English summary for LLMs (see rule #6)
+description: "" # 1-2 sentence English summary for LLMs — ALWAYS wrap in double quotes (see rules #6–#7)
 author:
   - "[[구요한]]"  # Author as quoted wikilink array
 date created:   # YYYY-MM-DD or YYYY-MM-DDTHH:mm (ISO 8601)
@@ -26,9 +26,45 @@ tags: []        # Relevant tags (array format)
 	- ✅ Good: `"Meeting minutes from 2026-04-07 LG AX camp retrospective. Contains CEO feedback summary and next-action items."`
 	- ❌ Bad: `"회의록입니다"` (Korean, non-descriptive)
 	- ❌ Bad: `"This is a note"` (no signal for relevance)
+7. **`description` must be wrapped in double quotes `"..."`**: Long free-text strings (esp. `description`) must always use double-quote form. YAML 1.2 forbids `": "` (colon + space) and `" #"` (space + hash) inside plain (unquoted) scalars — they silently break the parser, causing description to truncate or corrupt all subsequent frontmatter fields. This is not a style preference; it is a parser-correctness requirement.
+	- ✅ Safe: `description: "Draft curriculum ... Operations: 3 main + 6 assistants ..."`
+	- ❌ Breaks Obsidian Properties panel: `description: Draft curriculum ... Operations: 3 main ...` (plain scalar with embedded `: `)
+	- **Rule of thumb**: if the value contains any `:`, `#`, `[`, `]`, `{`, `}`, `,`, `&`, `*`, `?`, `|`, `>`, `!`, `%`, `@`, or spans beyond a short phrase, quote it. For multi-line text use `>-` (folded) or `|-` (literal) block scalars instead.
 
 ## Optional Properties
 
 - `CMDS:` — CMDS category reference (quoted wikilink)
 - `index:` — Index reference (quoted wikilink)
 - `status:` — One of 5 standard values above
+
+### `CMDS:` vs `index:` — Direction Rule ⚠️
+
+Per 🏛 CMDS Guide (authoritative):
+
+| Property | Points to | Examples |
+|----------|-----------|----------|
+| `CMDS:` | **📚 specific subcategory** (2nd-level, N01–N99) | `"[[📚 102 Topics]]"`, `"[[📚 210 Literature Reviews]]"`, `"[[📚 240 Books]]"`, `"[[📚 491 Codes]]"`, `"[[📚 840 Lectures]]"` |
+| `index:` | **🏷 Index note** (aggregator in `90. Settings/96. Index/`) | `"[[🏷 Research Notes]]"`, `"[[🏷 Meeting Notes]]"`, `"[[🏷 Books]]"`, `"[[🏷 People]]"`, `"[[🏷 Prompts]]"`, `"[[🏷 Syntax and Codes]]"`, `"[[🏷 Lecture Notes]]"` |
+
+**Common mistakes to avoid**:
+
+- ❌ `CMDS: "[[📖 100 Themes]]"` (📖 top-level is conceptual; never a frontmatter value)
+- ❌ `index: "[[📚 102 Topics]]"` (📚 belongs in `CMDS:`, not `index:`)
+- ✅ `CMDS: "[[📚 102 Topics]]"` + `index: "[[🏷 Research Notes]]"`
+
+**Default 🏷 per CMDS range** (pick the closest fit, override if content dictates):
+
+| CMDS range | Default `index:` |
+|------------|-----------------|
+| `📚 10X` (Themes) | `[[🏷 Research Notes]]` |
+| `📚 2XX` (Literature) | `[[🏷 Research Notes]]` · `[[🏷 Books]]` for 240 |
+| `📚 491 Codes` · `📚 493 Scripts` | `[[🏷 Syntax and Codes]]` |
+| `📚 492 Prompts` | `[[🏷 Prompts]]` |
+| `📚 5XX` (Products) | `[[🏷 Guideline]]` · `[[🏷 References]]` |
+| `📚 6XX` (Specialties) | `[[🏷 Research Notes]]` |
+| `📚 802 Articles` | `[[🏷 Draft Article]]` · `[[🏷 Outcomes]]` |
+| `📚 840/841` (Lectures/Curriculum) | `[[🏷 Lecture Notes]]` |
+| `📚 831 Consulting` | `[[🏷 Meeting Notes]]` · `[[🏷 Project Notes]]` |
+| `📚 820 Research` | `[[🏷 Research Notes]]` |
+
+The 📖 top-level names (📖 100 Themes, 📖 200 Literature …) are **conceptual labels** used in prose and UI copy, never inside frontmatter wikilinks.

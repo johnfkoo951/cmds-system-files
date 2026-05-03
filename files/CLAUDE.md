@@ -3,11 +3,11 @@ type: documentation
 aliases:
   - Claude Code Guide
   - CC System File
-description: Claude Code specific technical implementation guide. Defines file creation/editing rules, YAML/Markdown indentation rules, vault commands, and code output paths. Reference when Claude Code is writing or modifying code in the CMDS vault.
+description: "Claude Code specific technical implementation guide. Defines file creation/editing rules, YAML/Markdown indentation rules, vault commands, and code output paths. Reference when Claude Code is writing or modifying code in the CMDS vault."
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-04-18T15:40
+date modified: 2026-05-04
 tags:
   - CMDS
   - system
@@ -26,26 +26,42 @@ optional-for:
 token-estimate: 5800
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "3.1"
+version: "3.6"
 status: completed
 changelog:
+  - "3.6 (2026-05-04): Documented 4-way sync (backup + share + DEV + Vercel) as a single comprehensive bash command in 'System Files Deployment' section. Added 누락 방지 룰 + 사고 사례 (2026-04-18 ~ 05-03 share folder 16일 stale)를 명시. system-docs-updater 스킬도 Quick Update Command → All-in-One Sync Command 로 재구성."
+  - "3.5 (2026-05-03): Added Antigravity 03-7/03-8 output lanes. Fixed deployment flow rules count (7→8, includes blank-line-rules). Clarified that 5 of 8 system files are publicly deployed."
+  - "3.4 (2026-05-03): Synced AI Agent output lane rules with AGENTS.md by documenting Codex MBP/Studio lanes in shared rules."
+  - '3.3 (2026-04-23): description 필드 double-quote 강제 규칙 추가 — YAML plain scalar의 ": " 금지로 Obsidian Properties 렌더 깨짐 방지 (frontmatter-standard rule #7, pre-flight checklist, Essential 섹션 반영).'
+  - "3.2 (2026-04-20): Project Overview 정정 — 사용자 포지셔닝(개인사업자/법인 신설 준비/박사 논문 중단/LG 임원·회장단 교육/4대 초점) 반영. 상세 프로필은 CMDS.md 2.3 로 위임."
   - "3.1 (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)"
   - "3.0 (2026-04-01): @include 기반 공통 규칙 분리, 9개 아키텍처 패턴 적용"
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-04-18** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-05-04** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> **📌 Related System Files (5 Core Files)** — `precedence` 순서대로 로드
-> - @CLAUDE.md → [[CLAUDE.md]] - Technical implementation (precedence: 1)
-> - @AGENTS.md → [[AGENTS.md]] - Other AI agents guide (precedence: 2)
-> - @CMDS.md → [[CMDS.md]] - System philosophy & context (precedence: 3)
-> - @🏛 CMDS Guide → [[🏛 CMDS Guide]] - Standards & templates (precedence: 4)
-> - @🏛 CMDS Head Quarter → [[🏛 CMDS Head Quarter]] - Navigation hub (precedence: 5)
+> **📌 Related System Files (8 System Files)** — `precedence` 순서대로 로드, audience 별 그룹
+>
+> **🤖 LLM Coding Agents** (always-loaded technical context):
+> - @CLAUDE.md → [[CLAUDE.md]] — Claude Code specific (precedence: 1)
+> - @AGENTS.md → [[AGENTS.md]] — Other AI coding agents: Codex, Cursor, Windsurf (precedence: 2)
+>
+> **🧪 Vendor-Specific Agent**:
+> - @ANTIGRAVITY.md → [[ANTIGRAVITY.md]] — Google Gemini / Antigravity IDE 전용 (precedence: 3)
+>
+> **📚 Context & Standards** (referenced by all agents):
+> - @CMDS.md → [[CMDS.md]] — System philosophy & user context (precedence: 4)
+> - @🏛 CMDS Guide → [[🏛 CMDS Guide]] — Standards & templates (precedence: 5)
+> - @🏛 CMDS Head Quarter → [[🏛 CMDS Head Quarter]] — Navigation hub (precedence: 6)
+>
+> **🧠 Gobi Persona System** (Gobi 앱 entry point — *외부 LLM coding agent 아님*):
+> - @BRAIN.md → [[BRAIN.md]] — 구요한 brain profile (사람을 기술하는 grounding source, 사람도 읽음) (precedence: 7)
+> - @BRAIN_PROMPT.md → [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (BRAIN.md 를 *어떻게* 사용할지) (precedence: 8)
 
 <!-- STATIC: 아래 내용은 거의 변경되지 않는 규칙입니다. AI는 높은 신뢰도로 캐시할 수 있습니다. -->
 
@@ -61,17 +77,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @.claude/rules/mermaid-rules.md
 
+@.claude/rules/blank-line-rules.md
+
 ### Pre-Flight Checklist (Before Every Write/Edit)
 
 Every time you create or edit a .md file, verify:
 
 - [ ] **YAML frontmatter uses 2 SPACES** (not tabs)
 - [ ] **Markdown body uses TAB** (not spaces)
+- [ ] **No unnecessary blank lines** between heading→sub-heading, heading→content, list end→next heading (Obsidian-tight)
 - [ ] **Wikilinks in YAML are quoted**: `"[[link]]"` not `[[link]]`
+- [ ] **File reference form is correct**: vault 내부 → `[[wikilink]]` (default) · 에이전트 자동 로드 필요 → `@path/to/file.md` · vault 외부(`/DEV/`, `~/.claude/`) → 백틱 코드. 인라인 코드로 vault 내부 .md 파일명 쓰지 말 것 (decision tree: `.claude/rules/wikilink-rules.md`)
 - [ ] **Mermaid node/edge labels are quoted**: `A["label"]`, no `[/` start
 - [ ] **Arrays use proper format**: hyphen + space + value
 - [ ] **Dates use ISO 8601**: `YYYY-MM-DD` format
 - [ ] **`description` field present and in English**: 1-2 sentences explaining the note for LLMs
+- [ ] **`description` wrapped in double quotes `"..."`**: unquoted `: ` or ` #` inside description breaks YAML parser and corrupts Obsidian Properties rendering
 - [ ] **File saved in correct location**: Code → `00. Inbox/03. AI Agent/{environment subfolder}/`
 - [ ] **Filename follows convention**: `YYYY-MM-DD-description.ext`
 
@@ -85,14 +106,21 @@ Every time you create or edit a .md file, verify:
 > 3. **Mermaid 라벨: 큰따옴표** `A["label"]` / `[/` 로 시작 금지
 > 4. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
 > 5. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
-> 6. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
-> 7. **배열 포맷**: hyphen + space (`- value`)
+> 6. **`description` 은 항상 `"..."` double-quote**: 안에 `: ` / ` #` 들어가면 YAML 파서 깨짐 (Obsidian Properties 렌더 실패)
+> 7. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
+> 8. **배열 포맷**: hyphen + space (`- value`)
+> 9. **빈 줄 최소화 (Obsidian-tight)**: 헤딩→sub-heading, 헤딩→콘텐츠, 리스트 끝→다음 헤딩 사이 빈 줄 X. `---` / `##` 단락 분리에만 빈 줄 허용
+> 10. **파일 참조 3종 결정 트리**: vault 내부 .md → `[[wikilink]]` (default · 이모지 prefix 정확히) · 에이전트 자동 로드 필요 → `@path/to/file.md` · vault 외부 경로/코드 → 백틱. 인라인 코드로 vault 내부 .md 쓰면 wikilink 깨짐
 
 ---
 
 ## Project Overview
 
-This is an Obsidian vault for the CMDSPACE knowledge management system created by Yohan Koo. It implements the CMDS framework - a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series) and follows the CMDS Process: Connect → Merge → Develop → Share.
+This is an Obsidian vault for the **CMDSPACE (커맨드스페이스)** knowledge management system operated by Yohan Koo (구요한). CMDSPACE is currently a **sole proprietorship transitioning to a formal corporation**. The operator is a PhD ABD (dissertation writing currently paused) whose primary time is spent on **business + education** — notably corporate executive programs including **LG 임원 교육 · LG 회장단 교육**.
+
+The vault implements the CMDS framework — a comprehensive Personal Knowledge Management (PKM) system with 9 major categories (100-900 series) — and follows the CMDS Process: Connect → Merge → Develop → Share.
+
+**Active research-through-practice axes** (what the user is simultaneously researching and teaching): (1) Obsidian-based PKM, (2) System Files infrastructure, (3) LLM Wiki satellite vault, (4) 9Yohan multi-agent system. Detailed context in [[CMDS.md]].
 
 ## 💻 Working Environments
 
@@ -143,7 +171,7 @@ Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않기 때문에, Cla
 
 ### 📦 System Files Deployment (system.cmdspace.work)
 
-**5개 시스템 파일(CLAUDE, AGENTS, CMDS, HQ, Guide)** 은 `system.cmdspace.work` 에 공개 배포됩니다. 배포 스택/경로/명령은 아래와 같습니다.
+**8 system files 중 공개 가능한 5개(CLAUDE, AGENTS, CMDS, HQ, Guide)** 만 `system.cmdspace.work` 에 배포. 나머지 3개(ANTIGRAVITY = Gemini 전용, BRAIN/BRAIN_PROMPT = Gobi 페르소나 전용)는 vendor·product 특화라 외부 배포 대상에서 제외. 배포 스택/경로/명령은 아래와 같습니다.
 
 #### 배포 스택
 
@@ -164,46 +192,92 @@ Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않기 때문에, Cla
 
 ```
 /Users/yohankoo/DEV/cmds-system-files/
-├── index.html                    ← 메인 웹페이지 (Brutalist Edition)
+├── index.html                    ← 메인 웹페이지 (v4.3 Landing)
+├── docs/index.html               ← 기술 문서 (v4.3 Editorial Docs)
 ├── README.md                     ← GitHub 리드미
 ├── CHANGELOG.md                  ← 버전 이력
 ├── .vercel/project.json          ← Vercel 링크 (gitignored)
 ├── files/                        ← 다운로드 배포본
 │   ├── CLAUDE.md, AGENTS.md, CMDS.md, CMDS-Guide.md, CMDS-Head-Quarter.md
 │   ├── CMDS-System-Files.zip     ← 위 5개 + rules/ 번들
-│   └── rules/ (7개 .md)          ← .claude/rules/ 미러
-└── rules/ (7개 .md)              ← 레포 루트에도 복사본
+│   └── rules/ (8개 .md)          ← .claude/rules/ 미러
+└── rules/ (8개 .md)              ← 레포 루트에도 복사본
 ```
 
-#### 동기화 플로우 (볼트 → 프로덕션)
+#### 동기화 플로우 (볼트 → 4 destinations → 프로덕션)
+
+볼트 원본은 **항상 4 곳에 동기화** (누락하면 외부 배포·공유 문서가 stale). `system-docs-updater` 스킬이 4-way fan-out 을 담당.
 
 ```
-[볼트 원본]                                         [GitHub]
- CLAUDE.md              ┐                           johnfkoo951/cmds-system-files
- AGENTS.md              │                                    ↑
- CMDS.md                │ system-docs-updater 스킬     git push (선택, 백업용)
- 🏛 CMDS Guide.md       │ (복사 + ZIP 재생성)                │
- 🏛 CMDS Head Quarter.md│                                    │
- .claude/rules/*.md (7) │                            [DEV]   │
-                        └─→ /Users/yohankoo/DEV/cmds-system-files/
-                                    │
-                                    │ vercel deploy --prod --yes
-                                    ↓
-                             [Vercel] cmds-system-files-v2
-                                    │
-                                    │ 도메인 바인딩
-                                    ↓
-                             system.cmdspace.work  (Cloudflare DNS A → Vercel IP)
+[볼트 원본 5개 공개]                              [① 백업 — 볼트 내부]
+ CLAUDE.md              ┐                         40. Docs/47. CMDS Docs/
+ AGENTS.md              │                         cmds-system-files/
+ CMDS.md                │  ┌──────────────────→   *_backup.md (복사 그대로)
+ 🏛 CMDS Guide.md       │  │
+ 🏛 CMDS Head Quarter.md│  │  ┌───────────────→  [② 공유 — 볼트 내부]
+ .claude/rules/*.md (8) │  │  │                   40. Docs/47. CMDS Docs/
+                        │  │  │                   cmds-system-files-share/
+                        │  │  │                   *_share.md (sed sanitize)
+                        ├──┼──┘
+                        │  │  ┌───────────────→  [③ DEV — Vercel 배포 소스]
+                        │  │  │                   /Users/yohankoo/DEV/
+                        │  │  │                   cmds-system-files/files/
+                        │  │  │                   *.md + rules/ + ZIP 재생성
+                        ├──┼──┘
+                        │  │  ┌───────────────→  [④ GitHub — 코드 백업]
+                        │  │  │                   johnfkoo951/cmds-system-files
+                        └──┴──┘                   (수동 git push, 자동 배포 X)
+                                  │
+                                  │ vercel deploy --prod --yes (③ 후)
+                                  ↓
+                          [Vercel] cmds-system-files-v2
+                                  │
+                                  │ 도메인 바인딩 + Cloudflare DNS
+                                  ↓
+                          system.cmdspace.work  (즉시 반영)
 ```
 
-#### 배포 명령 (최소)
+> **⚠️ 누락 방지 룰**: 시스템 파일 수정 후 ① + ② + ③ 모두 갱신해야 정합성 유지. ② share 폴더를 빼먹으면 외부에 공유한 sanitized 사본이 outdated 됨 (실제로 2026-04-30~05-03 사이 share 폴더 13~16일 stale 상태로 방치됐었음).
+
+#### 배포 명령 (4-way 통합)
 
 ```bash
-cd /Users/yohankoo/DEV/cmds-system-files
-vercel deploy --prod --yes
+VAULT="/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP"
+DEV="/Users/yohankoo/DEV/cmds-system-files"
+BACKUP="$VAULT/40. Docs/47. CMDS Docs/cmds-system-files"
+SHARE="$VAULT/40. Docs/47. CMDS Docs/cmds-system-files-share"
+
+# Sanitization (개인정보 → 플레이스홀더)
+SANITIZE='s|/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP|{vault-path}|g; s|/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org|{vault-path-secondary}|g; s|/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki|{satellite-vault-path}|g; s|/Users/yohankoo/DEV/cmds-system-files|{dev-path}|g; s|/Users/yohankoo|{home}|g; s|구요한|{your-name}|g; s|Yohan Koo|{your-name-en}|g; s|johnfkoo951|{your-handle}|g; s|Cmdspace.contact@gmail.com|{contact-email}|g; s|바람빛교회|{church-name}|g'
+
+# ① 백업 (5개 + 비공개 ANTIGRAVITY 1개)
+for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md" ANTIGRAVITY.md; do
+  dst=$(echo "$src" | sed 's|🏛 CMDS Guide|CMDS-Guide|;s|🏛 CMDS Head Quarter|CMDS-Head-Quarter|;s|\.md|_backup.md|')
+  cp "$VAULT/$src" "$BACKUP/$dst"
+done
+
+# ② 공유 (5개만 — sanitized)
+for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md"; do
+  dst=$(echo "$src" | sed 's|🏛 CMDS Guide|CMDS-Guide|;s|🏛 CMDS Head Quarter|CMDS-Head-Quarter|;s|\.md|_share.md|')
+  sed -e "$SANITIZE" "$VAULT/$src" > "$SHARE/$dst"
+done
+
+# ③ DEV 배포 소스 (5개 공개 + 8 rules + ZIP)
+cp "$VAULT/CLAUDE.md"               "$DEV/files/CLAUDE.md"
+cp "$VAULT/AGENTS.md"               "$DEV/files/AGENTS.md"
+cp "$VAULT/CMDS.md"                 "$DEV/files/CMDS.md"
+cp "$VAULT/🏛 CMDS Guide.md"        "$DEV/files/CMDS-Guide.md"
+cp "$VAULT/🏛 CMDS Head Quarter.md" "$DEV/files/CMDS-Head-Quarter.md"
+cp "$VAULT/.claude/rules/"*.md      "$DEV/rules/"
+cp "$VAULT/.claude/rules/"*.md      "$DEV/files/rules/"
+cd "$DEV/files" && rm -f CMDS-System-Files.zip && \
+  zip -rq CMDS-System-Files.zip CLAUDE.md AGENTS.md CMDS.md CMDS-Guide.md CMDS-Head-Quarter.md rules/
+
+# ④ Vercel 배포 (실제 프로덕션 반영)
+cd "$DEV" && vercel deploy --prod --yes
 ```
 
-→ `system.cmdspace.work` 에 즉시 반영 (캐시 갱신 포함).
+→ 4-way 통합 후 `system.cmdspace.work` 에 즉시 반영 (캐시 갱신 포함). ④ 만 실행하면 ① ② ③ 누락이라 외부 공유본/백업/배포본 불일치 발생.
 
 #### 새 Mac 에서 배포 권한 확보
 
@@ -221,58 +295,132 @@ vercel link --project cmds-system-files-v2 --yes
   ↓
 "sync system files 배포" 또는 skill 호출
   ↓
-스킬이 5개 MD + 7개 rules 을 DEV/ 에 복사
+스킬이 4 destinations 동시 갱신:
+  ① 백업 (40. Docs/.../cmds-system-files/*_backup.md) — 5개 공개 + ANTIGRAVITY (private 는 비공개 백업만)
+  ② 공유 (40. Docs/.../cmds-system-files-share/*_share.md) — 5개 sanitized
+  ③ DEV (DEV/files/*.md + rules/ + ZIP 재생성) — 5개 공개 + 8 rules
+  ④ (선택) GitHub git push
   ↓
-ZIP 재생성 (DEV/files/CMDS-System-Files.zip)
-  ↓
-vercel deploy --prod  (수동으로 실행)
+vercel deploy --prod --yes  (수동으로 실행 — 사용자가 ① ② ③ 검증 후)
 ```
+
+> **반드시 ② 공유 폴더도 갱신**. Skill 의 "Quick Update Command" 가 backup 만 다루고 share 는 별도 섹션이라 *과거에 share 누락 사고 있었음* (2026-04-18 ~ 2026-05-03 share 폴더 stale 상태). 4-way fan-out 명시 필요.
 
 자세한 스킬 동작은 `system-docs-updater` 참조.
 
 ### Important Notes:
 - All relative paths in this document (e.g., `00. Inbox/03. AI Agent/`) are relative to the base path above
 - When switching between environments, Claude Code will automatically use the appropriate base path
-- AI coding outputs are separated by environment subfolder (`03-1` ~ `03-4`) to track which machine/agent created each file
+- AI coding outputs are separated by environment subfolder (`03-1` ~ `03-8`) to track which machine/agent created each file. Lanes: 03-1/03-2 = Claude Code, 03-3/03-4 = OpenClaw, 03-5/03-6 = Codex, 03-7/03-8 = Antigravity (Google) — odd = MBP, even = Studio.
 
-## 🛰 Satellite Vaults
+## 🛰 Companion Vaults — 6 Other Vaults Beyond Mothership
 
-This mothership vault has companion **satellite vaults** — separate Obsidian vaults with specialized purposes. Not part of Obsidian Sync; each has its own git repo.
+This mothership vault has **6 companion vaults** — separate Obsidian vaults with specialized purposes, classified by *governance* (who has authoring authority) and *purpose*. Not part of Obsidian Sync; each has its own git repo (or external sync).
 
-### Registered Satellites
+> **Canonical reference**: `CMDS_LLM_Wiki` 의 [[Multi-Vault Architecture]] 가이드가 모든 vault 의 멤버·합의 모델·workflow 의 single source of truth. 이 섹션은 mothership 측 요약.
 
-| Satellite | Path | Purpose | Entry Point |
-|-----------|------|---------|-------------|
-| `CMDS_LLM_Wiki` | `/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki` | Karpathy LLM Wiki pattern implementation (3-Layer: Raw Sources / Wiki / Schema). LLM ingests external sources (articles, papers, transcripts) and compiles them into a persistent wiki. | [[🛰 CMDS_LLM_Wiki Satellite Vault]] |
+### Vault Inventory by Governance (2026-04-30)
+
+| Type | Vault | Path | 멤버 | Purpose |
+|------|-------|------|------|---------|
+| 🌍 **Mothership** | `CMDSPACE_Local_MBP` | (this vault) | 구요한 (Solo) | 마더십 — 모든 작업의 substrate |
+| 🛰 **Compiled Satellite** | `CMDS_LLM_Wiki` | `/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki` | 구요한 + LLM | 학습·연구·정리된 지식 (Karpathy LLM Wiki 패턴) |
+| 🤖 **Personal Product** | `CMDS_Gobi` | `/Users/yohankoo/Local Obsidian_MBP/CMDS_Gobi` | 구요한 (Solo) | 고비 스페이스 / 고비 데스크탑 개인 사용 |
+| 🤝 **Pair Collaboration** | `CMDS_JoonLab` | `/Users/yohankoo/Local Obsidian_MBP/CMDS_JoonLab` | 구요한 + 박준 | 교육·강의·컨설팅·코칭 |
+| 🤝 **Pair Collaboration** | `CMDSPACE_Admin` | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Admin` | 구요한 + 이태극 | 커맨드스페이스 운영 총괄 |
+| 👥 **Team Collaboration** | `GOBI` | `/Users/yohankoo/Local Obsidian_MBP/GOBI` | 5인 (구요한·이태극·김진영·강민석·Greg Moon) | 커맨드스페이스 × 고비 팀 |
+| 📤 **Public Distribution** | `cmds-vault` | `/Users/yohankoo/Local Obsidian_MBP/cmds-vault` | 구요한 → 외부 | CMDS 스타터킷 (외부 사용자 배포) |
+
+### 멤버 별 vault 매핑
+
+| 멤버 | 참여 vault |
+|------|-----------|
+| **구요한** | 7 vault 모두 |
+| **박준** | CMDS_JoonLab |
+| **이태극** | CMDSPACE_Admin + GOBI (2 vault 동시 참여) |
+| **김진영 / 강민석 / Greg (Greg Moon)** | GOBI |
+| **외부 사용자** | cmds-vault (다운로드) |
+
+→ 박준은 *JoonLab 만*. 이태극은 *2 vault 참여*. 다른 사람의 콘텐츠가 *섞이지 않도록* governance 분리.
+
+### Registered Satellites (Karpathy 의미의 satellite — LLM 협업)
+
+| Satellite | Purpose | Entry Point |
+|-----------|---------|-------------|
+| `CMDS_LLM_Wiki` | Karpathy LLM Wiki pattern (3-Layer: Raw Sources / Wiki / Schema). LLM ingests external sources and compiles persistent wiki. | [[🛰 CMDS_LLM_Wiki Satellite Vault]] |
 
 ### Cross-Vault Reference Convention
 
 Obsidian does not support direct wikilinks between vaults. Use the following:
 
-**To reference satellite notes from this (mothership) vault:**
+**To reference any companion vault from this (mothership) vault:**
 
 ```yaml
 # Frontmatter
-source-vault: CMDS_LLM_Wiki
+source-vault: CMDS_LLM_Wiki   # 또는 CMDS_JoonLab, CMDS_Gobi, GOBI, CMDSPACE_Admin, cmds-vault
 related:
   - "[[🛰 CMDS_LLM_Wiki Satellite Vault]]"  # always link the entry point
 ```
 
 ```markdown
-# Body text (concrete satellite pages)
-→ LLM Wiki: LLM Wiki Pattern (Concepts)
-→ LLM Wiki: MOC-Knowledge Management
+# Body text (companion vault pages, obsidian:// URL 권장)
+[Multi-Vault Architecture](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture)
+
+# 또는 텍스트 참조
+→ LLM Wiki: Multi-Vault Architecture
+→ JoonLab: 강의 자료 / 2026-04-15 LG 임원 교육
+→ GOBI: 제품 PRD / 2026-04 마케팅
 ```
 
-**To reference this vault from satellite:**
+**To reference this vault from any companion:**
 
-Satellite notes use `source-vault: CMDSPACE_Local_MBP` and body text like `→ CMDSPACE: {category}/{note name}`.
+Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + obsidian:// URL 사용 (`obsidian://open?vault=CMDSPACE_Local_MBP&file=...`).
 
-### When to Work in Which Vault
+### When to Work in Which Vault — Governance 우선 결정 트리
 
-- **Mothership (here)**: personal PKM, journals, project tracking, lectures, life context
-- **Satellite LLM Wiki**: LLM-driven deep-dive into an external topic via ingested sources
-- When uncertain: if the primary author is the LLM compiling raw sources, it belongs in the satellite; if the primary author is the human recording/thinking, it belongs here.
+```
+새 자료가 생겼다 → 누가 합의 권한 가짐?
+├─ 나 혼자 → 무엇을 위함?
+│   ├─ 일상 PKM → 🌍 mothership (here)
+│   ├─ 학습·연구·정리 (LLM compile) → 🛰 CMDS_LLM_Wiki
+│   ├─ 고비 제품 개인 사용 → 🤖 CMDS_Gobi
+│   └─ 임시·미분류 → mothership/00. Inbox
+├─ 나 + 박준 → 🤝 CMDS_JoonLab
+├─ 나 + 이태극 (운영) → 🤝 CMDSPACE_Admin
+├─ 5인 팀 (Gobi) → 👥 GOBI
+└─ 외부 배포 → 📤 cmds-vault
+```
+
+**핵심 원칙** ([[Multi-Vault Architecture]] § 1 — 5 Forces):
+1. **주저자 분리** — 사람 vs LLM, 개인 vs 협업 (Contamination Mitigation)
+2. **합의 모델 분리** — Solo / Pair / Team / Public 의 git/sync 충돌 방식이 다름
+3. **수명 분리** — Permanent vs Project-bound vs Time-boxed
+4. **도구 분리** — vault 별 plugin / hook / `.claude/` 다를 수 있음
+5. **검색 인덱스 분리** — qmd collection 단위로 분리 가능
+
+**Anti-pattern**: 다음은 새 vault 만들지 말 것:
+- 단순 카테고리 분리 (mothership 의 9 categories 로 충분)
+- 임시 프로젝트 (00. Inbox 또는 mothership 의 project 폴더)
+- 혼자 쓰는 새 도메인 (mothership 의 새 subcategory 로 처리)
+
+### Canonical Guide References (LLM Wiki 측 가이드)
+
+새 vault 결정·운영·검색 인프라·인덱싱·임베딩 관리는 모두 satellite `CMDS_LLM_Wiki` 의 가이드를 *single source of truth* 로 참조한다. mothership 에서는 이 가이드들로 링크하고, 자세한 내용은 satellite 측에서 유지·갱신.
+
+| 주제 | Canonical Guide | 위치 |
+|------|----------------|------|
+| Vault 운영·결정·governance | [Multi-Vault Architecture](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FMulti-Vault%20Architecture) | LLM Wiki |
+| 검색 방법 5 종 종합 비교 (master) | [Wiki Search Methods Comparison](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FWiki%20Search%20Methods%20Comparison) | LLM Wiki |
+| BM25 (어휘 검색) | [BM25 Search (qmd lex)](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FBM25%20Search%20%28qmd%20lex%29) | LLM Wiki/23. Guides |
+| Vector (의미 검색) | [Vector Search (qmd vec)](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FVector%20Search%20%28qmd%20vec%29) | LLM Wiki/23. Guides |
+| HyDE (가설 답변 검색) | [HyDE Search (qmd hyde)](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FHyDE%20Search%20%28qmd%20hyde%29) | LLM Wiki/23. Guides |
+| Grep (정규식·분포) | [Grep Search](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FGrep%20Search) | LLM Wiki/23. Guides |
+| Graphify (구조·커뮤니티) | [Graphify Knowledge Graph](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FGraphify%20Knowledge%20Graph) | LLM Wiki/23. Guides |
+| 인덱싱·로컬 임베딩 운영 (qmd, GGUF, hook) | [Wiki Indexing and Embedding Maintenance](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FWiki%20Indexing%20and%20Embedding%20Maintenance) | LLM Wiki |
+| RAG / VectorDB / GraphDB 산업 매크로 | [Search Technology Landscape](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FSearch%20Technology%20Landscape) | LLM Wiki |
+| LLM Wiki 토큰 절감 전략 | [LLM Wiki Token Optimization Strategies](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F23.%20Guides%2FLLM%20Wiki%20Token%20Optimization%20Strategies) | LLM Wiki |
+
+→ Mothership 의 system files 는 *철학·전체 정책*, satellite 의 가이드는 *실행 디테일*. 갱신 권한은 satellite 측에 있음. 이 mothership 섹션은 *주기적으로 satellite 가이드 와 정합성 확인* 필요.
 
 ### Cross-Vault Query from Mothership
 
@@ -393,50 +541,50 @@ inbox 항목 빠르게 분류·등록
 
 ## System Documentation Structure
 
-This vault has **5 core system files** that work together to provide complete guidance:
+This vault has **8 system files** that work together to provide complete guidance, organized by audience:
 
-### 🤖 AI Documents (loaded into context window)
+### 🤖 LLM Coding Agents (always-loaded context)
 
-| File                      | Purpose                        | Audience              | Focus                                               |
-| ------------------------- | ------------------------------ | --------------------- | --------------------------------------------------- |
-| **CLAUDE.md** (this file) | Technical implementation guide | Claude Code           | **HOW** - Code workflows, file operations, commands |
-| **AGENTS.md**             | General AI coding agent guide  | Gemini CLI, Codex etc | **HOW** - Technical rules for other AI agents       |
-| **CMDS.md**               | Context & philosophy guide     | All LLM assistants    | **WHY & WHAT** - System purpose, user context       |
+| File                      | Audience               | Focus                                                |
+| ------------------------- | ---------------------- | ---------------------------------------------------- |
+| **CLAUDE.md** (this file) | Claude Code            | **HOW** - Claude Code 기술 규칙, file ops, commands  |
+| **AGENTS.md**             | Codex, Cursor, Windsurf | **HOW** - 타 AI coding agent 용 기술 규칙           |
 
-### 👤 Human Documents (referenced in Obsidian)
+### 🧪 Vendor-Specific Agent
 
-| File                        | Purpose               | Audience  | Focus                                 |
-| --------------------------- | --------------------- | --------- | ------------------------------------- |
-| **🏛 CMDS Head Quarter.md** | Navigation hub        | User      | **WHERE** - Category map, quick links |
-| **🏛 CMDS Guide.md**        | Operational standards | User + AI | **STANDARDS** - Properties, templates |
+| File                | Audience                       | Focus                                                       |
+| ------------------- | ------------------------------ | ----------------------------------------------------------- |
+| **ANTIGRAVITY.md**  | Google Gemini / Antigravity IDE | **HOW (Gemini)** - Gemini 전용 행동 규칙·도구 매핑          |
+
+### 📚 Context & Standards (referenced by all agents)
+
+| File                        | Audience           | Focus                                                |
+| --------------------------- | ------------------ | ---------------------------------------------------- |
+| **CMDS.md**                 | All LLM assistants | **WHY & WHAT** - 시스템 철학·사용자 프로필·9 카테고리 |
+| **🏛 CMDS Guide.md**        | User + AI          | **STANDARDS** - Properties v2, 템플릿, naming        |
+| **🏛 CMDS Head Quarter.md** | User               | **WHERE** - 91 카테고리 네비게이션 허브              |
+
+### 🧠 Gobi Persona System (Gobi 앱 entry point — *외부 LLM coding agent 아님*)
+
+| File                | Audience                | Focus                                                          |
+| ------------------- | ----------------------- | -------------------------------------------------------------- |
+| **BRAIN.md**        | Gobi agent + 사람       | **WHO** - 구요한 brain profile (사람을 기술하는 grounding source) |
+| **BRAIN_PROMPT.md** | Gobi agent              | **HOW (Gobi)** - Rules of Engagement (BRAIN.md 사용 메타 지침)  |
+
+> BRAIN.md / BRAIN_PROMPT.md 는 *Claude Code · Gemini CLI 등 일반 LLM coding agent 의 컨텍스트로 들어가지 않음*. Gobi 앱이 외부에서 구요한 페르소나로 답할 때만 사용. 다른 system files 와 audience 가 다르다는 점이 핵심.
 
 ### When to Use Which File
 
-- **You are here (CLAUDE.md)**: For Claude Code technical implementation
-	- File creation/editing rules
-	- Obsidian-specific syntax (wikilinks, YAML)
-	- Vault commands and operations
-	- Code output location (`00. Inbox/03. AI Agent/`)
+- **CLAUDE.md (you are here)**: Claude Code 기술 규칙
+- **AGENTS.md**: Codex/Cursor/Windsurf 등 타 AI coding agent
+- **ANTIGRAVITY.md**: Google Gemini / Antigravity IDE
+- **CMDS.md**: 시스템 철학·사용자 컨텍스트
+- **🏛 CMDS Guide**: Properties 표준·템플릿
+- **🏛 CMDS Head Quarter**: 91 카테고리 네비게이션
+- **BRAIN.md**: Gobi 페르소나 시스템의 brain profile
+- **BRAIN_PROMPT.md**: Gobi agent 의 Rules of Engagement
 
-- **Use AGENTS.md**: For other AI coding agents (Gemini CLI, Codex, Cursor, etc.)
-	- General technical rules without Claude-specific content
-	- Simpler, more portable structure
-
-- **Use CMDS.md**: For understanding context and purpose
-	- Why this system exists
-	- User's professional background and workflow
-	- Detailed explanation of 9 categories (100-900)
-	- CMDS Process (Connect → Merge → Develop → Share)
-
-- **Use [[🏛 CMDS Head Quarter]]**: For navigation
-	- Quick access to all 91 subcategories
-
-- **Use [[🏛 CMDS Guide]]**: For standards compliance
-	- Required Properties format
-	- Standard note types
-	- File naming conventions
-
-**Remember**: This file (CLAUDE.md) is **Claude Code specific**. For other AI agents, use **AGENTS.md**.
+**Remember**: This file (CLAUDE.md) is **Claude Code specific**. For other AI agents, use **AGENTS.md** (general) or **ANTIGRAVITY.md** (Gemini).
 
 ## File Creation Rules
 

@@ -15,10 +15,10 @@
 1. **프로젝트 코드 위치**: `/Users/yohankoo/DEV/video-projects/<descriptive-name>/` 에 생성
 	- 폴더명: 영문, 케밥 케이스, 날짜 프리픽스 없음 (예: `lg-ceo-value-video`)
 	- 이곳에 `package.json`, `src/`, `public/`, `out/`, `node_modules/` 모두 위치
-2. **볼트 내 추적 MD 위치**: `00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/YYYY-MM-DD-<descriptive-name>.md`
+2. **볼트 내 추적 MD 위치**: `00. Inbox/03. AI Agent/{current agent lane}/YYYY-MM-DD-<descriptive-name>.md` (Codex MBP: `03-5. Codex (MBP)/`)
 	- 기획, 나레이션 초안, 진행 로그, 결정사항, 이슈, 컨텍스트만 담는다
 	- 상단에 **DEV 절대경로** 명시 필수
-3. **인덱스 업데이트**: `[[🏷 Video Projects]]` (경로: `00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/2026-04-14-video-projects-index.md`) 에 새 항목 추가
+3. **인덱스 업데이트**: `[[🏷 Video Projects]]` (기존 Claude 인덱스 경로: `00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/2026-04-14-video-projects-index.md`) 에 새 항목 추가
 4. **DEV 프로젝트 루트 README**: 각 프로젝트 폴더에 `README.md` 생성, 볼트 추적 MD로 역참조
 
 ### 볼트 내 추적 MD 필수 섹션
@@ -58,7 +58,7 @@ npm run build
 ---
 type: note
 aliases: [Project Name]
-description: Tracking note for the <project>. Project source lives at /Users/yohankoo/DEV/video-projects/<name>/. Reference when <situation>.
+description: "Tracking note for the <project>. Project source lives at /Users/yohankoo/DEV/video-projects/<name>/. Reference when <situation>."
 author:
   - "[[구요한]]"
 date created: YYYY-MM-DD

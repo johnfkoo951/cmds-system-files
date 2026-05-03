@@ -3,17 +3,17 @@ type: CMDS
 aliases:
   - CMDS HQ
   - Head Quarter
-description: Central navigation hub for the CMDS vault. Provides links to 91 sub-categories across 9 main categories (100-900), a CMDS Process summary, vault folder structure (00-90), and working environment information. Reference when navigating the vault or locating a specific category.
+description: "Central navigation hub for the CMDS vault. Provides links to 91 sub-categories across 9 main categories (100-900), a CMDS Process summary, vault folder structure (00-90), and working environment information. Reference when navigating the vault or locating a specific category."
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-04-14T22:13
+date modified: 2026-05-03
 tags:
   - CMDS
   - system
 audience: User (구요한)
 scope: navigation
-precedence: 5
+precedence: 6
 memory-type: reference
 required-for:
   - navigation
@@ -22,16 +22,18 @@ optional-for:
   - code-generation
 token-estimate: 1800
 index: "[[🏛 CMDS Guide]]"
-version: "1.2"
+version: "1.4"
 status: completed
 changelog:
+  - "1.4 (2026-05-03): Aligned precedence to 8-file scheme (5→6). Added Antigravity 03-7/03-8 output folders to Working Environments."
+  - "1.3 (2026-05-03): Added Codex MBP/Studio output folders to Working Environments."
   - "1.2 (2026-04-07): description 필드 English 규칙 적용"
   - "1.1 (2026-04-01): precedence/memory-type/token-estimate 추가"
   - "1.0 (2026-03-15): CMDS Process 설명 추가, Vault Folders 섹션 추가"
 share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
 share_updated: 2025-08-25T11:43:35+09:00
 ---
-> **🔄 Last Updated: 2026-04-01** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
+> **🔄 Last Updated: 2026-05-03** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
 
 Links:: [[🏛 CMDS Head Quarter]] | [[🏛 CMDS Guide]]
 References:: [[🏛 000 YHN Home]]
@@ -123,15 +125,15 @@ References:: [[🏛 000 YHN Home]]
 	- [[📚 842 Course Development and Resources]]
 	- [[📚 843 Class Administration and Management]]
 - #### [[📖 900 Divisions]]
-	- [[📚 901 Knowledge Management & Research Division]]
-	- [[📚 902 Editorial & Content Creation Division]]
-	- [[📚 903 Education & Training Division]]
-	- [[📚 904 Creative Arts & Media Division]]
-	- [[📚 905 Data Science & Analytics Division]]
-	- [[📚 906 Partnerships & Outreach Division]]
-	- [[📚 907 Technology & Development Division]]
-	- [[📚 908 Events & Community Engagement Division]]
-	- [[📚 909 Consulting & Professional Services Division]]
+	- [[📚 901 Knowledge Management & Research Division]] · 케플러 요한 · 온유
+	- [[📚 902 Writing & Publishing Division]] · 괴테 요한 · 사랑
+	- [[📚 903 Teaching & Curriculum Division]] · 듀이 요한 · 자비
+	- [[📚 904 Creative Arts & Media Division]] · 바흐 요한 · 희락
+	- [[📚 905 Research Methods & Analytics Division]] · 노이만 요한 · 절제
+	- [[📚 906 Partnerships & Networks Division]] · 세례요한 · 오래 참음
+	- [[📚 907 Product & Engineering Division]] · 매카시 요한 · 양선
+	- [[📚 908 Events & Community Engagement Division]] · 하위징아 요한 · 화평
+	- [[📚 909 Consulting & Advisory Division]] · 칼뱅 요한 · 충성
 ## CMDS Process
 #### CMDS Process란?
 - **Connect**: 관심사와 주제를 연결하여 아이디어를 발굴하는 단계
@@ -190,8 +192,8 @@ References:: [[🏛 000 YHN Home]]
 
 | 환경 | 기기 | AI 코드 출력 폴더 |
 |------|------|--------------------|
-| Primary | MacBook Pro | `03-1. Claude Code (MBP)` / `03-3. OpenClaw (MBP)` |
-| Secondary | Mac Studio | `03-2. Claude Code (Studio)` / `03-4. OpenClaw (Studio)` |
+| Primary | MacBook Pro | `03-1. Claude Code (MBP)` / `03-3. OpenClaw (MBP)` / `03-5. Codex (MBP)` / `03-7. Antigravity (MBP)` |
+| Secondary | Mac Studio | `03-2. Claude Code (Studio)` / `03-4. OpenClaw (Studio)` / `03-6. Codex (Studio)` / `03-8. Antigravity (Studio)` |
 
 ## Satellite Vaults
 > [!tip] 이 볼트의 자매 볼트

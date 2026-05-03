@@ -10,6 +10,10 @@
 | `03-2. Claude Code (Studio)/` | Claude Code | Mac Studio |
 | `03-3. OpenClaw (MBP)/` | OpenClaw | MacBook Pro |
 | `03-4. OpenClaw (Studio)/` | OpenClaw | Mac Studio |
+| `03-5. Codex (MBP)/` | Codex | MacBook Pro |
+| `03-6. Codex (Studio)/` | Codex | Mac Studio |
+| `03-7. Antigravity (MBP)/` | Antigravity (Google) | MacBook Pro |
+| `03-8. Antigravity (Studio)/` | Antigravity (Google) | Mac Studio |
 
 **Auto-detection**: Check base path to determine machine:
 - `/Users/yohankoo/Local Obsidian_MBP/` → MBP
@@ -28,7 +32,7 @@ When creating projects with multiple related files:
 2. **THEN** create all related files inside that folder
 
 ```
-00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/
+00. Inbox/03. AI Agent/03-5. Codex (MBP)/
 └── 2026-01-18-project-name/
     ├── index.html
     ├── styles.css

@@ -3,15 +3,15 @@ type: CMDS
 aliases:
   - CMDS Guide
   - guide
-description: Operational standards guide for the CMDS vault. Defines the 7 required Properties, standard note types, file naming conventions, folder structure, citation styles, and template examples. Reference when creating new notes or validating existing ones.
+description: "Operational standards guide for the CMDS vault. Defines the 7 required Properties, standard note types, file naming conventions, folder structure, citation styles, and template examples. Reference when creating new notes or validating existing ones."
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-04-14T22:14
+date modified: 2026-05-03
 tags: [CMDS, system, guideline, index, NoteClass, operation, 태그는자유로워야지, maps, example, service]
 audience: User + AI
 scope: operational-standards
-precedence: 4
+precedence: 5
 memory-type: reference
 required-for:
   - file-creation
@@ -20,12 +20,13 @@ optional-for:
   - search
   - analysis
 token-estimate: 4800
-links:
-  - "[[🏛 CMDS Head Quarter|CMDS HQ]]"
+links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.3"
+version: "2.5"
 status: completed
 changelog:
+  - "2.5 (2026-05-03): Aligned precedence to 8-file scheme (4→5). Added Antigravity 03-7/03-8 output lanes. Fixed `94. System Prompts/` → `94. Agent Settings/claude/` (folder rename was missed). Removed duplicate `99. Format/` entry. Updated Sync Settings lane reference (03-1~03-4 → 03-1~03-8). Backfilled Version History with v2.3/v2.4/v2.5 entries."
+  - "2.4 (2026-05-03): Added Codex MBP/Studio AI Agent folders and clarified description double-quote examples."
   - "2.3 (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)"
   - "2.2 (2026-04-01): precedence/memory-type/token-estimate 추가, tags 정리"
   - "2.1 (2026-03-15): 폴더 구조 현행화, 새 type 추가"
@@ -36,9 +37,9 @@ share_expires: 2026-01-29T11:02:12.926Z
 
 # CMDS Guide
 
-> **🔄 Last Updated: 2026-03-15** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-05-03** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 >
-> 📌 **Version 2.1** - Properties 표준화 및 체계 개선판
+> 📌 **Version 2.5** - Properties 표준화 + 8-file precedence 정렬 + Antigravity lane 반영판
 
 ## Properties
 ### 필수 Properties (Required)
@@ -47,7 +48,7 @@ share_expires: 2026-01-29T11:02:12.926Z
 ---
 type:           # 노트 유형 (아래 표준 type 참조)
 aliases: []     # 별칭 (배열 형식)
-description:    # 1-2 문장 영어 요약 (LLM용, 아래 규칙 참조)
+description: "" # 1-2 문장 영어 요약 (LLM용, 반드시 double quote)
 author:
   - "[[구요한]]"  # 작성자 (wikilink 형식)
 date created:   # 생성일 (YYYY-MM-DDTHH:mm:ss)
@@ -101,18 +102,18 @@ tags: []        # 태그 (배열 형식)
 
 CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/query`) 가 자동으로 기록하는 프로퍼티. 모두 **camelCase**, 배열 필드는 quoted wikilink.
 
-| 필드 | 기록하는 커맨드 | 용도 |
-|------|---------------|------|
-| `sourceInbox: []` | `/connect` | Theme stub 이 어느 inbox 파일에서 캡처됐는지 배열로 기록 |
-| `mergePurpose: ""` | `/merge` | 합성 목적 (7 재활용 축 중 하나 + 한 줄 맥락). 다운스트림 `/share` 의 format 자동 추천에 사용 |
-| `sourceNotes: []` | `/merge` | 합성에 쓰인 후보 노트들의 wikilink 배열 (N→1 traceability) |
+| 필드                     | 기록하는 커맨드           | 용도                                                                         |
+| ---------------------- | ------------------ | -------------------------------------------------------------------------- |
+| `sourceInbox: []`      | `/connect`         | Theme stub 이 어느 inbox 파일에서 캡처됐는지 배열로 기록                                    |
+| `mergePurpose: ""`     | `/merge`           | 합성 목적 (7 재활용 축 중 하나 + 한 줄 맥락). 다운스트림 `/share` 의 format 자동 추천에 사용           |
+| `sourceNotes: []`      | `/merge`           | 합성에 쓰인 후보 노트들의 wikilink 배열 (N→1 traceability)                              |
 | `mainVaultRelated: []` | `/merge`, `/query` | LLM Wiki satellite vault 페이지 참조 (text ref 형식: `"→ LLM Wiki: {page name}"`) |
-| `developSources: []` | `/develop` | artifact 가 참조한 method/data/specialty 노트들 |
-| `shareSourceNotes: []` | `/share` | 산출물이 어느 합성 노트에서 나왔는지 |
-| `shareFormat: ""` | `/share` | newsletter / slides / video / social / article / proposal 등 |
-| `sharePurpose: ""` | `/share` | 왜 이 share 가 일어났는지 (예: "4월 LG CNS 강의용") |
-| `queryOrigin: ""` | `/query` | 원 질문 verbatim (file-back 된 답변 노트에 기록) |
-| `querySources: []` | `/query` | 답변 합성에 쓰인 노트 배열 |
+| `developSources: []`   | `/develop`         | artifact 가 참조한 method/data/specialty 노트들                                   |
+| `shareSourceNotes: []` | `/share`           | 산출물이 어느 합성 노트에서 나왔는지                                                       |
+| `shareFormat: ""`      | `/share`           | newsletter / slides / video / social / article / proposal 등                |
+| `sharePurpose: ""`     | `/share`           | 왜 이 share 가 일어났는지 (예: "4월 LG CNS 강의용")                                     |
+| `queryOrigin: ""`      | `/query`           | 원 질문 verbatim (file-back 된 답변 노트에 기록)                                      |
+| `querySources: []`     | `/query`           | 답변 합성에 쓰인 노트 배열                                                            |
 
 사용 예시 (merge 된 Literature 노트):
 
@@ -120,7 +121,7 @@ CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/
 ---
 type: note
 aliases: []
-description: Synthesized analysis comparing RAG and Compiled Wiki patterns for team research sharing workflows. Reference when deciding between retrieval-based vs pre-compiled knowledge architectures.
+description: "Synthesized analysis comparing RAG and Compiled Wiki patterns for team research sharing workflows. Reference when deciding between retrieval-based vs pre-compiled knowledge architectures."
 author:
   - "[[구요한]]"
 date created: 2026-04-14
@@ -277,7 +278,11 @@ mainVaultRelated:
 │   ├── 03-1. Claude Code (MBP)/    # Claude Code — MacBook Pro
 │   ├── 03-2. Claude Code (Studio)/ # Claude Code — Mac Studio
 │   ├── 03-3. OpenClaw (MBP)/       # OpenClaw — MacBook Pro
-│   └── 03-4. OpenClaw (Studio)/    # OpenClaw — Mac Studio
+│   ├── 03-4. OpenClaw (Studio)/    # OpenClaw — Mac Studio
+│   ├── 03-5. Codex (MBP)/          # Codex — MacBook Pro
+│   ├── 03-6. Codex (Studio)/       # Codex — Mac Studio
+│   ├── 03-7. Antigravity (MBP)/    # Antigravity (Google) — MacBook Pro
+│   └── 03-8. Antigravity (Studio)/ # Antigravity (Google) — Mac Studio
 ├── 04. Excalidraw/             # 다이어그램
 ├── 05. Canvas/                 # Canvas 노트
 ├── 06. Automation/             # 자동화 (06-1. Make.com, 06-2. n8n Lecture, 06-3. STT)
@@ -355,12 +360,16 @@ mainVaultRelated:
 ├── 91. Templates/              # 노트 템플릿
 ├── 92. Templates (archived)/   # 아카이브 템플릿
 ├── 93. Generated Text/         # AI 생성 텍스트
-├── 94. System Prompts/         # AI 시스템 프롬프트
+├── 94. Agent Settings/         # AI agent 원본 (.claude/ symlink target)
+│   └── claude/
+│       ├── agents/             # Claude subagent 정의
+│       ├── commands/           # CMDS Process 슬래시 커맨드
+│       ├── rules/              # 8개 공통 룰 .md
+│       └── skills/             # Claude Code skills
 ├── 95. Fonts/                  # 폰트 파일
 ├── 96. Index/                  # 인덱스 파일
 ├── 97. File Class/             # 파일 분류
 ├── 98. Format/                 # 포맷 정의
-├── 99. Format/                 # 포맷 (추가)
 └── 99. Others/                 # 기타 설정
 ```
 ## Properties Template Examples
@@ -545,12 +554,15 @@ date modified: 2026-03-30
 | Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
 
 - 모든 하위 경로와 파일이 동일하게 유지됩니다
-- AI 코드 출력은 환경별 하위 폴더(`03-1` ~ `03-4`)로 구분하여 출처를 추적합니다
+- AI 코드 출력은 환경별 하위 폴더(`03-1` ~ `03-8`)로 구분하여 출처를 추적합니다 (Claude Code · OpenClaw · Codex · Antigravity × MBP/Studio)
 
 ### Sync Config 경로
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History
+- **v2.5** (2026-05-03): 8-file precedence 정렬 (4→5), Antigravity 03-7/03-8 lane 추가, `94. System Prompts/` → `94. Agent Settings/claude/` 폴더 이름 갱신, `99. Format/` 중복 제거, Sync Settings lane 표기 갱신 (`03-1~03-8`)
+- **v2.4** (2026-05-03): Codex MBP/Studio AI Agent 폴더 추가, description double-quote 예시 명확화
+- **v2.3** (2026-04-07): 필수 프로퍼티 7개로 확장 (description 추가, English required for LLMs)
 - **v2.2** (2026-03-30): Property 네이밍 규칙 섹션 추가, `channel` 노트 타입 도입
 	- camelCase/snake_case/Obsidian 기본값 규칙 명시 및 교육용 예시 추가
 	- `myRate` 표준 강화 (`rating` 사용 금지)
