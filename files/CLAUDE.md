@@ -7,8 +7,10 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-05-20
-tags: [CMDS, system]
+date modified: 2026-05-22
+tags:
+  - CMDS
+  - system
 audience: Claude Code
 scope: technical-implementation
 precedence: 1
@@ -24,9 +26,10 @@ optional-for:
 token-estimate: 5800
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.0"
+version: "4.1"
 status: completed
 changelog:
+  - "4.1 (2026-05-22): 8→9 system files 전환 — DESIGN.md (precedence 9, Visual Language tier) 추가. Related System Files 표를 9-file 로 갱신. 공개 배포 파일 5→6개로 확장 (DESIGN.md 공개 결정). Tags 진짜 정리(`1, 2` 잔존분 제거)."
   - "4.0 (2026-05-20): Tags 실제 정리 (3.8 changelog 가 claim 했지만 실제로는 `1, 2` 잔존 — 이번에 진짜 제거). Last Updated 헤더 및 date modified 2026-05-20 동기화. CMDS.md v2.6 다이어트와 한 세트."
   - "3.9 (2026-05-04): Documented 2-Layer Version System (매크로 = CHANGELOG.md / 마이크로 = 파일별 version) in 'System Files Deployment' section. 사용자 질문 ('파일마다 버전 다른 게 괜찮나? 전체 버전은?') 에 응답 — 두 layer 가 보완적이며 매크로 entry 마다 파일별 version snapshot matrix 가 매핑 추적 보장."
   - "3.8 (2026-05-04): Removed stray numeric tag artifact (`tags: [CMDS, system, 1, 2]` ← `1, 2` came from precedence/audience leak). Restored proper YAML array format. Routine cleanup, no content changes."
@@ -41,13 +44,13 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-05-20** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-05-22** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> **📌 Related System Files (8 System Files)** — `precedence` 순서대로 로드, audience 별 그룹
+> **📌 Related System Files (9 System Files)** — `precedence` 순서대로 로드, audience 별 그룹
 >
 > **🤖 LLM Coding Agents** (always-loaded technical context):
 > - @CLAUDE.md → [[CLAUDE.md]] — Claude Code specific (precedence: 1)
@@ -64,6 +67,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 > **🧠 Gobi Persona System** (Gobi 앱 entry point — *외부 LLM coding agent 아님*):
 > - @BRAIN.md → [[BRAIN.md]] — 구요한 brain profile (사람을 기술하는 grounding source, 사람도 읽음) (precedence: 7)
 > - @BRAIN_PROMPT.md → [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (BRAIN.md 를 *어떻게* 사용할지) (precedence: 8)
+>
+> **🎨 Visual Language** (always-loaded when producing visual artifacts):
+> - @DESIGN.md → [[DESIGN.md]] — Visual language spec (v4.3 standards · Anti-Slop · Skill↔Surface mapping) (precedence: 9)
 
 <!-- STATIC: 아래 내용은 거의 변경되지 않는 규칙입니다. AI는 높은 신뢰도로 캐시할 수 있습니다. -->
 
@@ -173,7 +179,7 @@ Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않기 때문에, Cla
 
 ### 📦 System Files Deployment (system.cmdspace.work)
 
-**8 system files 중 공개 가능한 5개(CLAUDE, AGENTS, CMDS, HQ, Guide)** 만 `system.cmdspace.work` 에 배포. 나머지 3개(ANTIGRAVITY = Gemini 전용, BRAIN/BRAIN_PROMPT = Gobi 페르소나 전용)는 vendor·product 특화라 외부 배포 대상에서 제외. 배포 스택/경로/명령은 아래와 같습니다.
+**9 system files 중 공개 가능한 6개(CLAUDE, AGENTS, CMDS, HQ, Guide, DESIGN)** 만 `system.cmdspace.work` 에 배포. 나머지 3개(ANTIGRAVITY = Gemini 전용, BRAIN/BRAIN_PROMPT = Gobi 페르소나 전용)는 vendor·product 특화라 외부 배포 대상에서 제외. 배포 스택/경로/명령은 아래와 같습니다.
 
 #### 📐 2-Layer Version System
 
@@ -225,7 +231,7 @@ CMDS 시스템 파일은 **2-layer 버전 시스템** 사용:
 볼트 원본은 **항상 4 곳에 동기화** (누락하면 외부 배포·공유 문서가 stale). `system-docs-updater` 스킬이 4-way fan-out 을 담당.
 
 ```
-[볼트 원본 5개 공개]                              [① 백업 — 볼트 내부]
+[볼트 원본 6개 공개]                              [① 백업 — 볼트 내부]
  CLAUDE.md              ┐                         40. Docs/47. CMDS Docs/
  AGENTS.md              │                         cmds-system-files/
  CMDS.md                │  ┌──────────────────→   *_backup.md (복사 그대로)
@@ -268,28 +274,29 @@ SHARE="$VAULT/40. Docs/47. CMDS Docs/cmds-system-files-share"
 # Sanitization (개인정보 → 플레이스홀더)
 SANITIZE='s|/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP|{vault-path}|g; s|/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org|{vault-path-secondary}|g; s|/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki|{satellite-vault-path}|g; s|/Users/yohankoo/DEV/cmds-system-files|{dev-path}|g; s|/Users/yohankoo|{home}|g; s|구요한|{your-name}|g; s|Yohan Koo|{your-name-en}|g; s|johnfkoo951|{your-handle}|g; s|Cmdspace.contact@gmail.com|{contact-email}|g; s|바람빛교회|{church-name}|g'
 
-# ① 백업 (5개 + 비공개 ANTIGRAVITY 1개)
-for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md" ANTIGRAVITY.md; do
+# ① 백업 (6개 공개 + 비공개 ANTIGRAVITY 1개)
+for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md" DESIGN.md ANTIGRAVITY.md; do
   dst=$(echo "$src" | sed 's|🏛 CMDS Guide|CMDS-Guide|;s|🏛 CMDS Head Quarter|CMDS-Head-Quarter|;s|\.md|_backup.md|')
   cp "$VAULT/$src" "$BACKUP/$dst"
 done
 
-# ② 공유 (5개만 — sanitized)
-for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md"; do
+# ② 공유 (6개만 — sanitized)
+for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md" DESIGN.md; do
   dst=$(echo "$src" | sed 's|🏛 CMDS Guide|CMDS-Guide|;s|🏛 CMDS Head Quarter|CMDS-Head-Quarter|;s|\.md|_share.md|')
   sed -e "$SANITIZE" "$VAULT/$src" > "$SHARE/$dst"
 done
 
-# ③ DEV 배포 소스 (5개 공개 + 8 rules + ZIP)
+# ③ DEV 배포 소스 (6개 공개 + 8 rules + ZIP)
 cp "$VAULT/CLAUDE.md"               "$DEV/files/CLAUDE.md"
 cp "$VAULT/AGENTS.md"               "$DEV/files/AGENTS.md"
 cp "$VAULT/CMDS.md"                 "$DEV/files/CMDS.md"
 cp "$VAULT/🏛 CMDS Guide.md"        "$DEV/files/CMDS-Guide.md"
 cp "$VAULT/🏛 CMDS Head Quarter.md" "$DEV/files/CMDS-Head-Quarter.md"
+cp "$VAULT/DESIGN.md"               "$DEV/files/DESIGN.md"
 cp "$VAULT/.claude/rules/"*.md      "$DEV/rules/"
 cp "$VAULT/.claude/rules/"*.md      "$DEV/files/rules/"
 cd "$DEV/files" && rm -f CMDS-System-Files.zip && \
-  zip -rq CMDS-System-Files.zip CLAUDE.md AGENTS.md CMDS.md CMDS-Guide.md CMDS-Head-Quarter.md rules/
+  zip -rq CMDS-System-Files.zip CLAUDE.md AGENTS.md CMDS.md CMDS-Guide.md CMDS-Head-Quarter.md DESIGN.md rules/
 
 # ④ Vercel 배포 (실제 프로덕션 반영)
 cd "$DEV" && vercel deploy --prod --yes
@@ -314,9 +321,9 @@ vercel link --project cmds-system-files-v2 --yes
 "sync system files 배포" 또는 skill 호출
   ↓
 스킬이 4 destinations 동시 갱신:
-  ① 백업 (40. Docs/.../cmds-system-files/*_backup.md) — 5개 공개 + ANTIGRAVITY (private 는 비공개 백업만)
-  ② 공유 (40. Docs/.../cmds-system-files-share/*_share.md) — 5개 sanitized
-  ③ DEV (DEV/files/*.md + rules/ + ZIP 재생성) — 5개 공개 + 8 rules
+  ① 백업 (40. Docs/.../cmds-system-files/*_backup.md) — 6개 공개 + ANTIGRAVITY (private 는 비공개 백업만)
+  ② 공유 (40. Docs/.../cmds-system-files-share/*_share.md) — 6개 sanitized
+  ③ DEV (DEV/files/*.md + rules/ + ZIP 재생성) — 6개 공개 + 8 rules
   ④ (선택) GitHub git push
   ↓
 vercel deploy --prod --yes  (수동으로 실행 — 사용자가 ① ② ③ 검증 후)
@@ -559,7 +566,7 @@ inbox 항목 빠르게 분류·등록
 
 ## System Documentation Structure
 
-This vault has **8 system files** that work together to provide complete guidance, organized by audience:
+This vault has **9 system files** that work together to provide complete guidance, organized by audience:
 
 ### 🤖 LLM Coding Agents (always-loaded context)
 
@@ -591,6 +598,12 @@ This vault has **8 system files** that work together to provide complete guidanc
 
 > BRAIN.md / BRAIN_PROMPT.md 는 *Claude Code · Gemini CLI 등 일반 LLM coding agent 의 컨텍스트로 들어가지 않음*. Gobi 앱이 외부에서 구요한 페르소나로 답할 때만 사용. 다른 system files 와 audience 가 다르다는 점이 핵심.
 
+### 🎨 Visual Language (always-loaded when producing visual artifacts)
+
+| File          | Audience                              | Focus                                                                       |
+| ------------- | ------------------------------------- | --------------------------------------------------------------------------- |
+| **DESIGN.md** | All LLM agents producing visual artifacts | **HOW (Visual)** - v4.3 standards · Anti-Slop · Skill↔Surface mapping (precedence 9) |
+
 ### When to Use Which File
 
 - **CLAUDE.md (you are here)**: Claude Code 기술 규칙
@@ -599,6 +612,7 @@ This vault has **8 system files** that work together to provide complete guidanc
 - **CMDS.md**: 시스템 철학·사용자 컨텍스트
 - **🏛 CMDS Guide**: Properties 표준·템플릿
 - **🏛 CMDS Head Quarter**: 91 카테고리 네비게이션
+- **DESIGN.md**: 시각 산출물 (웹·PDF·슬라이드·이미지·영상) 만들 때
 - **BRAIN.md**: Gobi 페르소나 시스템의 brain profile
 - **BRAIN_PROMPT.md**: Gobi agent 의 Rules of Engagement
 

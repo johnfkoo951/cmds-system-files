@@ -7,7 +7,7 @@ description: "Technical guide for non-Claude AI coding agents (Gemini CLI, Codex
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-05-20
+date modified: 2026-05-22
 tags:
   - CMDS
   - system
@@ -25,9 +25,10 @@ optional-for:
 token-estimate: 3200
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.5"
+version: "2.6"
 status: completed
 changelog:
+  - "2.6 (2026-05-22): 8→9 system files 전환 — DESIGN.md (precedence 9, Visual Language tier) 추가. Related System Files 표를 9-file 로 갱신. 공개 배포 카운트 5→6 갱신."
   - "2.5 (2026-05-03): Added Antigravity 03-7/03-8 output lanes for symmetry with Claude Code/OpenClaw/Codex. ANTIGRAVITY.md now full system file (precedence 3) — see [[ANTIGRAVITY.md]] for Gemini-specific notes."
   - "2.4 (2026-05-03): Codex MBP/Studio output lanes, Codex command/tool mapping, .agents skill registry, qmd refresh fallback, and description double-quote backfill added."
   - '2.3 (2026-04-23): description 필드 double-quote 강제 규칙 추가 — YAML plain scalar의 ": " 금지로 Obsidian Properties 렌더 깨짐 방지 (Essential 섹션 반영, frontmatter-standard rule #7 준거).'
@@ -36,13 +37,13 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-05-20** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
+> **🔄 Last Updated: 2026-05-22** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
 This file provides guidance to AI coding agents (Codex, Cursor, Windsurf, etc.) when working with this Obsidian vault. **Google Gemini / Antigravity 사용 시에는 [[ANTIGRAVITY.md]] 가 우선** 참조됨.
 
-> **📌 Related System Files (8 System Files)** — precedence 순서대로 로드, audience 별 그룹
+> **📌 Related System Files (9 System Files)** — precedence 순서대로 로드, audience 별 그룹
 >
 > **🤖 LLM Coding Agents** (always-loaded technical context):
 > - @CLAUDE.md → [[CLAUDE.md]] — Claude Code specific (precedence: 1)
@@ -59,6 +60,9 @@ This file provides guidance to AI coding agents (Codex, Cursor, Windsurf, etc.) 
 > **🧠 Gobi Persona System** (Gobi 앱 entry point — *외부 LLM coding agent 아님*):
 > - @BRAIN.md → [[BRAIN.md]] — 구요한 brain profile (사람을 기술하는 grounding source) (precedence: 7)
 > - @BRAIN_PROMPT.md → [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (BRAIN.md 사용 메타 지침) (precedence: 8)
+>
+> **🎨 Visual Language** (always-loaded when producing visual artifacts):
+> - @DESIGN.md → [[DESIGN.md]] — Visual language spec (v4.3 standards · Anti-Slop · Skill↔Surface mapping) (precedence: 9)
 
 ---
 
@@ -94,7 +98,7 @@ All code-related outputs start under `00. Inbox/03. AI Agent/` and are separated
 | `03-8. Antigravity (Studio)/` | Antigravity (Google) | Mac Studio |
 
 ### Public Deployment
-- **Web**: https://system.cmdspace.work (8 system files 중 공개 가능한 5개 + rules + ZIP. ANTIGRAVITY/BRAIN/BRAIN_PROMPT 3개는 vendor·product 전용이라 미배포)
+- **Web**: https://system.cmdspace.work (9 system files 중 공개 가능한 6개 [CLAUDE/AGENTS/CMDS/Guide/HQ/DESIGN] + rules + ZIP. ANTIGRAVITY/BRAIN/BRAIN_PROMPT 3개는 vendor·product 전용이라 미배포)
 - **Hosting**: Vercel — team `johnfkoo951's projects`, project **`cmds-system-files-v2`** (Project ID: `prj_CDfy1Qhc2WmxI2nj76w0EJv3zq8h`)
 - **DNS**: Cloudflare (`cmdspace.work` zone) — A record `system → 76.76.21.21`, proxy OFF
 - **DEV source folder**: `/Users/yohankoo/DEV/cmds-system-files/`

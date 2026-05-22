@@ -7,7 +7,7 @@ description: "Central navigation hub for the CMDS vault. Provides links to 91 su
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-05-20
+date modified: 2026-05-22
 tags:
   - CMDS
   - system
@@ -22,9 +22,10 @@ optional-for:
   - code-generation
 token-estimate: 1800
 index: "[[🏛 CMDS Guide]]"
-version: "1.4"
+version: "1.5"
 status: completed
 changelog:
+  - "1.5 (2026-05-22): 9-file scheme 인지 갱신 — HQ 본문은 카테고리 navigation 전용이라 system files 표 없음. Frontmatter changelog 만 갱신해 정합성 표시. DESIGN.md 의 시각 산출물 spec 으로의 역할은 CLAUDE/AGENTS/ANTIGRAVITY/CMDS 가 다룸."
   - "1.4 (2026-05-03): Aligned precedence to 8-file scheme (5→6). Added Antigravity 03-7/03-8 output folders to Working Environments."
   - "1.3 (2026-05-03): Added Codex MBP/Studio output folders to Working Environments."
   - "1.2 (2026-04-07): description 필드 English 규칙 적용"
@@ -33,7 +34,7 @@ changelog:
 share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
 share_updated: 2025-08-25T11:43:35+09:00
 ---
-> **🔄 Last Updated: 2026-05-20** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
+> **🔄 Last Updated: 2026-05-22** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
 
 Links:: [[🏛 CMDS Head Quarter]] | [[🏛 CMDS Guide]]
 References:: [[🏛 000 YHN Home]]
