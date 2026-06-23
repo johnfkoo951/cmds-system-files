@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-06-16
+date modified: 2026-06-23
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,35 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.9.2 — 2026-06-23 (wikilink-rules §4 Dependency Update)
+
+**트리거**: 회의록·프로젝트 파일을 이동·개명하는 작업 중, "파일 이동·개명·삭제 시 인바운드 의존 링크를 함께 갱신하라"는 규칙이 배포 rule `wikilink-rules.md` 에 부재함을 확인. 사용자 지시로 §4 신설.
+
+**왜 v4.9.2 (patch) 인가**: 6개 시스템 .md 스키마·콘텐츠 변경 없이, 배포 8 rules 중 `wikilink-rules.md` 1개에 §4 섹션만 추가. 구조 변경 없음 → patch. 단 rule = 배포 surface 이므로 Vercel 재배포 수행.
+
+### File Version Snapshot (9 files 변경 없음, rules bundle 만 변경)
+
+| File | Version | Δ from v4.9.1 |
+|------|:-------:|:-------------:|
+| CLAUDE.md | 4.3 | — |
+| AGENTS.md | 2.7 | — |
+| ANTIGRAVITY.md | 2.2 | — |
+| CMDS.md | 2.8 | — |
+| 🏛 CMDS Guide.md | 2.7 | — |
+| 🏛 CMDS Head Quarter.md | 1.6 | — |
+| DESIGN.md | 1.1 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+### Changes
+
+- **wikilink-rules.md §4 추가** — "파일 이동·개명·삭제 → 의존 파일 갱신(Dependency Update)". 변경 전 `grep -rl` 인바운드 전수 → basename 변경 시 전 링크 갱신(표 셀 `\|`) → `@import` 경로 → 인덱스·MOC·허브 → 변경 후 0건 재검증 체크리스트.
+- 8 rules 중 `wikilink-rules.md` 만 변경. 6개 시스템 .md 변경 없음.
+- ③ DEV (`rules/` + `files/rules/`) 갱신, `CMDS-System-Files.zip` 재생성, ⑤ Vercel 재배포.
+- 위성: ⑥ cmds-vault 스타터킷 rules 동일 갱신은 PR 로 별도 진행(다른 기여자 있어 main 직접 push 금지). ⑦ CMDS_LLM_Wiki dep / ⑧ starter-kit drift 는 본 변경과 무관(no-op).
 
 ---
 
