@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-08-29
+date modified: 2026-09-21
 tags:
   - CMDS
   - system
@@ -23,12 +23,14 @@ optional-for:
   - search
   - analysis
   - reading
-token-estimate: 12500
+token-estimate: 14500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.9"
+version: "4.11"
 status: completed
 changelog:
+  - "4.11 (2026-09-21): project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)를 별개 계층으로 명시하고, 볼트 밖에서도 쓰는 자산은 볼트를 정본으로 두고 user-scope 를 symlink 하는 절차를 추가. 배경: 9Yohan 에이전트 9개가 user-scope 일반 폴더에 있어 Obsidian Sync·git 어디에도 들어가지 않은 채 MBP 로컬에만 존재했다. 절차 정본은 directory-structure.md. token-estimate 12500→14500 재실측. 부수 정정: rules 카운트 8 → 9 (file-move-rules.md 누락, 3곳)."
+  - "4.10 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
   - "4.9 (2026-08-29): CMDS Process 커맨드 8 → 10 확장 — `/seeds` (제목만 걸어둔 씨앗 노트를 씨앗/잔해/How-to 로 분류·클러스터링 → 글감 제안 + 📚 101 Interests / 📚 102 Topics 허브 생성, 마더십 전용) 와 `/harvest` (7볼트 생태계 교차 수확 — 끊긴 쌍·이미 컴파일된 씨앗·위키 고아·개념 drift, companion 볼트는 읽기 전용) 신설. Command Map 표·결정 트리 갱신. 배경: /lint all 에서 제목만 있는 노트 833건(인바운드 있는 47 / 없는 786)이 확인됐고, 이는 결함이 아니라 의도적 백로그이므로 read-only 진단인 lint 가 아니라 전용 생성 커맨드가 담당하도록 분리."
   - "4.8 (2026-08-27): Cross-vault 상호참조 표준 도입 (macro v4.10.2) — wikiVaultRelated(모선→위키)/mainVaultRelated(위키→모선) 방향별 필드 + advanced-uri 마크다운 링크 표준 + 플러그인 부재 시 obsidian://open 폴백. Cross-Vault Reference Convention 섹션·인용 표기·v2 필드 목록 갱신. 정본은 wikilink-rules.md §6. tags inline 회귀 복원 (6번째 재발)."
   - "4.7 (2026-08-22): 데일리·위클리 로그 이관 (macro v4.10.1) — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. /daily·/weekly 산출 경로 표 갱신. 근거: 데일리는 트리아지 대상이 아닌 영구 시계열 로그 — Inbox 성격과 모순."
@@ -52,7 +54,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-08-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-09-21** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -110,7 +112,7 @@ Every time you create or edit a .md file, verify:
 - [ ] **Dates use ISO 8601**: `YYYY-MM-DD` format
 - [ ] **`description` field present and in English**: 1-2 sentences explaining the note for LLMs
 - [ ] **`description` wrapped in double quotes `"..."`**: unquoted `: ` or ` #` inside description breaks YAML parser and corrupts Obsidian Properties rendering
-- [ ] **File saved in correct location**: Code → `00. Inbox/03. AI Agent/{environment subfolder}/`
+- [ ] **File lifecycle/location checked**: 볼트 코드의 초기 위치는 에이전트 Inbox, 기존 DEV 작업은 해당 프로젝트. 완료 JSON/PY는 외부 보관하고 메인 MD에 기획·경로·재개 기록
 - [ ] **Filename follows convention**: `YYYY-MM-DD-description.ext`
 
 ---
@@ -121,7 +123,7 @@ Every time you create or edit a .md file, verify:
 > 1. **YAML frontmatter: 2 SPACES** / **Markdown body: TAB**
 > 2. **Wikilinks in YAML: 반드시 큰따옴표** `"[[link]]"`
 > 3. **Mermaid 라벨: 큰따옴표** `A["label"]` / `[/` 로 시작 금지
-> 4. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/`
+> 4. **코드 초기 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/` (기존 DEV 프로젝트는 해당 위치 유지). 완료 JSON/PY는 외부 보관, 기획·경로·재개는 메인 MD — file-creation-rules의 Completed Artifact Closeout 준수.
 > 5. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
 > 6. **`description` 은 항상 `"..."` double-quote**: 안에 `: ` / ` #` 들어가면 YAML 파서 깨짐 (Obsidian Properties 렌더 실패)
 > 7. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
@@ -165,6 +167,8 @@ This vault is accessed from two different Mac environments:
 ### Claude Settings Sync (Symlink Strategy) — 결정 로그 (2026-04-14)
 
 Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않는다. **결정**: `90. Settings/94. Agent Settings/claude/` 를 **원본** 으로 두고, 각 Mac 의 `.claude/` 하위 4개 폴더 (`agents`/`commands`/`rules`/`skills`) 를 상대 경로 symlink 로 연결한다. `settings.json`·`settings.local.json`·`sessions/` 는 머신 로컬 전용 (symlink 안 함). 트리 구조·이유·새 Mac 수동 설정법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션이 정본.
+
+**user-scope 추가 (2026-09-21)**: `~/.claude/agents` 도 같은 볼트 폴더로 symlink 한다. project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)는 **별개 계층**이고 Claude Code 가 양쪽을 모두 읽는다 — 볼트 밖(`/DEV/` 등)에서도 써야 하는 9Yohan 에이전트가 user-scope 일반 폴더에 있어 Sync·git 어디에도 안 들어가던 문제를 이렇게 닫았다. 절차는 정본 참조.
 
 **주의**: Obsidian Sync 가 symlink 자체를 실체 폴더로 복제해버리는 경우가 있다. 새 Mac 에서 처음 볼트를 받으면 `.claude/` 가 일반 폴더일 수 있으니, **각 Mac 마다 symlink 를 수동으로 재설정** 해야 한다.
 
@@ -213,8 +217,8 @@ CMDS 시스템 파일은 **2-layer 버전 시스템** 사용:
 ├── files/                        ← 다운로드 배포본
 │   ├── CLAUDE.md, AGENTS.md, CMDS.md, CMDS-Guide.md, CMDS-Head-Quarter.md, DESIGN.md
 │   ├── CMDS-System-Files.zip     ← 위 6개 + rules/ 번들
-│   └── rules/ (8개 .md)          ← .claude/rules/ 미러
-└── rules/ (8개 .md)              ← 레포 루트에도 복사본
+│   └── rules/ (9개 .md)          ← .claude/rules/ 미러
+└── rules/ (9개 .md)              ← 레포 루트에도 복사본
 ```
 
 #### 동기화 플로우 (볼트 → 8 destinations → 프로덕션)
@@ -248,7 +252,7 @@ for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quar
   sed -e "$SANITIZE" "$VAULT/$src" > "$SHARE/$dst"
 done
 
-# ③ DEV 배포 소스 (6개 공개 + 8 rules + ZIP)
+# ③ DEV 배포 소스 (6개 공개 + 9 rules + ZIP)
 cp "$VAULT/CLAUDE.md"               "$DEV/files/CLAUDE.md"
 cp "$VAULT/AGENTS.md"               "$DEV/files/AGENTS.md"
 cp "$VAULT/CMDS.md"                 "$DEV/files/CMDS.md"
@@ -747,7 +751,7 @@ find . -name "*.md" -mtime -7 -type f | head -20
 
 ## Critical Workflow Rules
 
-1. **Code Output Location**: ALL code MUST go to `00. Inbox/03. AI Agent/{environment subfolder}/`
+1. **Code Output Lifecycle**: 볼트에서 시작한 경량 코드는 초기 `00. Inbox/03. AI Agent/{environment subfolder}/`, 기존 DEV 작업은 해당 프로젝트. 완료 JSON/PY는 [[90. Settings/94. Agent Settings/claude/rules/file-creation-rules|file-creation-rules]]의 Completed Artifact Closeout에 따라 외부 보관하고 기획·결과·경로·재개 방법은 메인 MD에 남긴다.
 2. **Required Properties**: Every note needs 7 fields: type, aliases, **description** (English, LLM hint), author, date created, date modified, tags
 3. **Properties v2.0 Standards**:
 	- Dates: ISO 8601 (YYYY-MM-DD)

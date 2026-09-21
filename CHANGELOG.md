@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-07-13
+date modified: 2026-09-21
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,40 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.12.0 — 2026-09-21 (Agent scope 분리 + 누적 미배포분 릴리스)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.11.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.11 | ⬆ 4.9 → 4.11 |
+| AGENTS.md | 2.16 | ⬆ 2.12 → 2.16 |
+| ANTIGRAVITY.md | 2.8 | ⬆ 2.5 → 2.8 |
+| CMDS.md | 2.13 | ⬆ 2.10 → 2.13 |
+| 🏛 CMDS Guide.md | 2.11 | ⬆ 2.10 → 2.11 |
+| 🏛 CMDS Head Quarter.md | 1.8 | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+> 이 릴리스는 **2026-09-03 ~ 09-21 사이 누적된 미배포 변경**을 함께 싣는다. v4.11.0 배포 이후 5개 파일이 개별적으로 갱신됐으나 매크로 엔트리가 끊기지 않아 라이브에 반영되지 않은 상태였다 (`system-version-audit.py` 가 "미배포 변경 5건" 으로 검출).
+
+### Changes
+
+- **Agent scope 분리 (CLAUDE 4.11 · 이번 릴리스의 신규 변경)** — project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)가 **별개 계층**이며 Claude Code 가 양쪽을 모두 읽는다는 사실을 명시. 볼트 밖(`/DEV/` 등)에서도 써야 하는 자산은 **볼트를 정본으로 두고 user-scope 를 symlink** 한다.
+	- 배경: 9Yohan 에이전트 9개가 user-scope 일반 폴더에 있어 Obsidian Sync·git 어디에도 포함되지 않은 채 한 머신에만 존재했다. 두 번째 Mac 으로 전파되지 않았고 백업 대상도 아니었다.
+	- `directory-structure.md` 에 scope 구분 표 + user-scope 트리 + 새 머신 연결 절차를 추가 (절차 정본).
+- **완료 산출물 외부 보관 (Completed Artifact Closeout)** — 개발·검토가 끝난 JSON/PY 보조 산출물을 볼트 밖으로 이관하고, 기획·결과·보관 위치·재개 방법은 메인 볼트 MD 에 남기는 종료 절차. 작업 중의 초기 Inbox 저장과 완료 후 보관을 구분한다. (CLAUDE 4.10 · AGENTS 2.14 · ANTIGRAVITY 2.8 · CMDS 2.13)
+- **버전·카운트 드리프트 자동 검출** — `system-version-audit.py` 신설로 "정본이 딴 데 있는 숫자" 를 감시. 경로와 달리 링크가 죽지 않아 아무도 모르는 종류의 드리프트를 잡는다. 첫 수확: `CMDS.md` 의 스타터킷 버전 주장 v1.7.0 → v1.11.0 (넉 달 stale), `ANTIGRAVITY.md` 의 서브카테고리 수 91 → 87 (두 달 stale). (CMDS 2.11 · ANTIGRAVITY 2.6)
+- **Cross-vault 참조 방향 교정** — 마더십 `wikiVaultRelated` / 위키 `mainVaultRelated` 의 방향 구분, 실재 대상 기준 advanced-uri 예시, `open` 폴백과 legacy 읽기 호환, 반대 볼트 쓰기 권한 경계를 명시. (Guide 2.11)
+- **공통 필드·볼트 프로필 (I01)** — Main/Wiki 프로필 v1.0.1 과 읽기 전용 resolver 진입점. 프로필 선택(`resolved`)과 실제 콘텐츠 검증 PASS 를 구분한다. frontmatter 로컬 탐색 값은 실제 발급·대상 확인한 Hookmark URI 를 쓰되 기존 필드명·legacy 값·Raw 원문과 재현 경로를 보존. (AGENTS 2.15 · 2.16)
+- **Git·parity 검사 진입점** — scoped Git 상태 검사와 filesystem parity 를 함께 안내. Claude symlink 정본 경로 검사와 명시 파일 날짜 검사 추가. (AGENTS 2.13)
+- **웹 surface 카운트·버전 라벨 정정 (배포 전 sweep 에서 적발)** — 랜딩·docs 의 버전 라벨이 `v4.10.2` 에 정체해 있었다 (v4.11.0 배포 때 HTML sweep 누락). 함께 `eight shared rules` → `nine` (실측 9 — `file-move-rules.md` 누락), `eight slash commands` → `ten` (v4.11.0 에서 `/seeds`·`/harvest` 추가분 미반영), 한국어 대응 표현도 동일 교정. `CLAUDE.md` 본문의 `rules/ (8개 .md)` 3곳도 9 로 정정.
+
+- **메타데이터 날짜 정렬 (E09)** — 변경 이력보다 오래된 `date modified`·`Last Updated` 를 교정일로 갱신. 본문 전체 사실의 재검증이나 공개 배포를 뜻하지 않는다. (CMDS 2.12 · ANTIGRAVITY 2.7)
 
 ---
 

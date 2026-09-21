@@ -53,6 +53,15 @@
 `.claude/`는 숨김 폴더라 Obsidian Sync 대상이 아닙니다.
 원본 파일은 `90. Settings/94. Agent Settings/claude/`에 두고, `.claude/`에서 symbolic link로 연결합니다.
 
+**두 scope 를 구분할 것** (2026-09-21 확정):
+
+| Scope | 경로 | 적용 범위 |
+|-------|------|----------|
+| **project-scope** | `<vault>/.claude/{agents,commands,rules,skills}` | 이 볼트에서 작업할 때만 로드 |
+| **user-scope** | `~/.claude/{agents,commands,skills}` | 모든 프로젝트(`/DEV/` 포함)에서 로드 |
+
+둘은 별개 계층이며 Claude Code 가 **양쪽을 모두 읽는다**. user-scope 는 홈 디렉토리라 Obsidian Sync·git 어디에도 들어가지 않으므로, 볼트 밖에서도 써야 하는 자산은 **볼트를 정본으로 두고 user-scope 를 symlink** 한다. 2026-09-21 에 9Yohan 에이전트 9개가 이 방식으로 이관됐다 — 그 전까지는 MBP 로컬에만 존재해 Studio 전파·백업 대상이 아니었다.
+
 ```
 .claude/
 ├── agents   → symlink → 90. Settings/94. Agent Settings/claude/agents
@@ -62,6 +71,16 @@
 ├── sessions/          (로컬 전용, 링크 안 함)
 ├── settings.json      (로컬 전용, 링크 안 함)
 └── settings.local.json (로컬 전용, 링크 안 함)
+```
+
+user-scope (홈) — 볼트 밖에서도 쓰는 자산만:
+
+```
+~/.claude/
+├── agents   → symlink → <vault>/90. Settings/94. Agent Settings/claude/agents
+│                         (9Yohan 9개 + 기존 2개, 2026-09-21~)
+├── commands/          (로컬 전용)
+└── skills/            (로컬 전용)
 ```
 
 ### 새 머신에서 수동 설정
@@ -80,6 +99,17 @@ ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/commands" commands
 ls -l  # l로 시작하면 symlink
 rm -rf agents_backup rules_backup skills_backup commands_backup
 ```
+
+**user-scope agents 도 연결** (볼트 밖 `/DEV/` 등에서 9Yohan 을 쓰려면 필수):
+
+```bash
+# 홈은 볼트 밖이므로 절대경로 symlink 를 쓴다
+[ -d ~/.claude/agents ] && ! [ -L ~/.claude/agents ] && mv ~/.claude/agents ~/.claude/agents_local_backup
+ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/agents" ~/.claude/agents
+ls -l ~/.claude/ | grep agents   # l 로 시작하면 성공
+```
+
+기존 user-scope 파일이 있었다면 `agents_local_backup` 안의 내용을 볼트 폴더로 합친 뒤 백업을 정리한다.
 
 ## CMDS Categories (100-900)
 

@@ -8,9 +8,11 @@
 |------|------|------|
 | **Vault 내부 파일** 일반 참조 (default) | `[[wikilink]]` | `[[canonical]]`, `[[🏛 CMDS Head Quarter]]` |
 | **에이전트가 작업 시 자동 로드해야 할** 핵심 파일 | `@` import | `@.claude/rules/wikilink-rules.md`, `@1. Identity/canonical.md` |
-| **Vault 외부 경로** (`/DEV/` · `~/.claude/skills/` · `/Users/...` 등) | 백틱 코드 | `` `/Users/yohankoo/DEV/9yohan-constellation/index.html` `` |
+| **Vault 외부 경로를 본문·명령에서 설명** (`/DEV/` · `~/.claude/skills/` · `/Users/...` 등) | 백틱 코드 | `` `/Users/yohankoo/DEV/9yohan-constellation/index.html` `` |
 | 외부 URL · 라이브 사이트 | 그대로 | `https://9yohan.cmdspace.work` |
 | 코드 식별자 · 명령어 · handle | 백틱 코드 | `` `kepler.map` ``, `` `vercel deploy --prod` `` |
+
+**Frontmatter의 로컬 파일·폴더 탐색 값은 별도 규칙이다 (2026-09-16).** 실제 Hookmark가 발급한 `hook://file/…` URI를 대상 bookmark의 경로와 대조한 뒤 큰따옴표로 기록한다. 이 문자열은 형식 자리표시자이며 실제 링크를 조립하는 예제가 아니다. 앱·ID·query를 추측하지 않고, 미확보 사유와 실제 경로는 본문에 남긴다. `file://`로 조용히 폴백하거나 legacy·Raw 원문을 일괄 치환하지 않는다. 상세 절차는 [[90. Settings/94. Agent Settings/claude/rules/frontmatter-standard|frontmatter-standard]]의 Frontmatter 로컬 파일·폴더 링크를 따른다. 볼트 내부 wikilink와 6절의 교차 볼트 URI는 유지한다.
 
 **Default 는 `[[wikilink]]`**. `@` import 와 백틱은 명확한 이유가 있을 때만 사용.
 
@@ -128,7 +130,7 @@ CLAUDE.md 가 사용하는 표준 패턴 — *기능* 과 *navigation* 양쪽 �
 
 ## 3. 백틱 코드 — Vault 외부 경로 · 코드 식별자
 
-다음은 wikilink 대상이 아니므로 **백틱 코드**로 표기:
+다음은 wikilink 대상이 아니므로 **본문·명령·재현 기록에서는 백틱 코드**로 표기한다. frontmatter 탐색 값은 위 Hookmark 규칙을 따른다:
 
 - Vault 외부 절대경로: `` `/Users/yohankoo/DEV/9yohan-constellation/` ``
 - `~/.claude/skills/...` 같은 글로벌 스킬 경로
@@ -144,23 +146,21 @@ Vault 외부 파일은 Obsidian 이 resolve 하지 못함. wikilink 로 쓰면 �
 
 ## 4. 파일 이동·개명·삭제 → 의존 파일 갱신 (Dependency Update) ⚠️
 
-파일을 **이동(move)·개명(rename)·삭제(delete)** 하면 그 파일을 가리키던 다른 파일들의 링크가 깨진다. **항상** 변경 전후로 인바운드 의존성을 찾아 함께 갱신할 것. "갱신할 때 의존성 체크"는 파일 변경 작업의 *기본값*이다.
+**정본은 [[90. Settings/94. Agent Settings/claude/rules/file-move-rules|file-move-rules]]이다.** 이동·개명 전에 아래 경로를 명시적으로 읽고 그 분류·적용·검증 절차를 따른다. 삭제는 의존성 검사를 함께 적용하되 별도의 삭제 권한이 필요하다.
 
-### Rule
+@.claude/rules/file-move-rules.md
 
-1. **변경 전 인바운드 전수 검색**: `grep -rl "<old-basename>" "<vault>"` (또는 Obsidian `backlinks file=<name>`). wikilink(`[[X]]`) · 임베드(`![[X]]`) · `@import` · 본문 텍스트 참조 모두 확인.
-2. **basename 이 바뀌면 모든 인바운드 `[[old]]` → `[[new]]`** 로 갱신. 표시 텍스트 유지가 필요하면 aliased 형식 `[[new-basename|보이던 텍스트]]`. (표 셀 안에서는 `|` 를 `\|` 로 이스케이프.)
-3. **이동만 하고 basename 이 그대로면** wikilink 는 안 깨짐(Obsidian 은 basename 으로 resolve) → wikilink 갱신 불필요. 단 `@import`(경로 기반) · 절대경로 · `![[...]]` 임베드 경로는 점검.
-4. **`@import`(CLAUDE.md 등)** 는 basename 이 아니라 *경로*로 resolve → 이동 시 반드시 경로 갱신.
-5. **삭제 시**: 인바운드가 남으면 깨진 링크 / Inbox 빈 placeholder 생성. 단 일부 unresolved 링크는 *의도된 지식 씨앗*이므로 무조건 지우지 말 것(판단 후 처리).
-6. **인덱스·MOC·프로젝트 허브** 노트는 거의 항상 인바운드 보유 → 개명 시 1순위 갱신 대상.
+- **basename이 같다는 이유만으로 모든 wikilink가 안전한 것은 아니다.** basename-only 링크도 의도한 동일 대상을 유지하는지 확인한다. 경로형 wikilink·임베드·@import·활성 백틱/설정 경로·교차 볼트 URI는 정확 경로와 기준 볼트를 검증한다.
+- 이동되는 문서 자체의 상대경로 의존성도 새 위치에서 확인한다. 동명 파일·다른 볼트의 같은 경로·표시 alias를 대상 정체성과 혼동하지 않는다.
+- **활성 참조만 갱신하고 역사·Raw Source 원문·의도된 씨앗은 보존한다.** 같은 문서에 역사와 현재 navigation이 섞이면 참조·구역별로 분류한다. 미확인 항목은 자동 치환하지 않는다.
+- **완료 기준은 선언 범위의 잘못된 활성 대상 0건 + 보호 역사·원문 바이트 불변 + 검사 누락·미확인 0건이다.** 옛 문자열은 역사·원문·씨앗·표시 alias로 남을 수 있다. 그 잔존 이유를 ledger에 적으며 검색 총 0건을 요구하지 않는다.
+- 기존 경로 감사기는 보조 신호다. 휴리스틱 통과·파일 존재만으로 정확한 대상·역사 보존을 보증하지 않는다. 권한 밖 참조와 미검증 표면은 별도로 보고한다.
 
-### Checklist (파일 변경 시 매번)
-
-- [ ] 변경 전 `grep -rl "<old-name>"` 로 인바운드 전수 확인
-- [ ] basename 변경 시 모든 `[[old]]` → `[[new]]` (표 셀은 `\|`)
-- [ ] `@import` 경로 / 인덱스·MOC·허브 링크 갱신
-- [ ] 변경 후 `grep -rl "<old-name>"` 재실행 → **0 건** 확인
+### Checklist (파일 이동·개명 시)
+- [ ] 정본 절차를 읽고 원래 → 새 볼트/경로 매핑·권한·원본/보호 바이트 기준선 기록
+- [ ] 선언한 범위에서 active/history/raw/seed/unresolved를 구역별로 분류하고 동명·상대경로·닷폴더·URI 포함
+- [ ] 새 대상 확인 후 허용된 active 참조만 갱신, alias·heading·block·임베드 표식 유지
+- [ ] active 대상의 정확성·보호 해시·전체 검사 목록 대조, old-name 잔존 이유와 잔여/복원 기록
 
 ---
 

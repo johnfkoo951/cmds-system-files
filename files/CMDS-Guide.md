@@ -7,7 +7,7 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-08-24T11:28
+date modified: 2026-09-07
 tags:
   - CMDS
   - system
@@ -24,9 +24,10 @@ optional-for:
 token-estimate: 4800
 links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.10"
+version: "2.11"
 status: completed
 changelog:
+  - "2.11 (2026-09-07): E07 교차 볼트 참조 방향 교정 — 마더십 wikiVaultRelated·위키 mainVaultRelated 구분, 실재 대상의 advanced-uri 예시, open 폴백·legacy 읽기 호환·반대 볼트 쓰기 권한 경계 명시."
   - "2.10 (2026-08-22): 데일리·위클리 로그 이관 반영 — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. Folder Structure 트리 갱신 + Graph View 필터 예시 경로 교체."
   - "2.9 (2026-07-13): Inbox 폴더 구조 갱신 — 08. Unlisted(미사용) → 08. Transcripts 재구조화 (raw 전사본 착륙 레인 08-1. Plaud / 08-2. STT / 08-3. Manual). 06. Automation 에서 06-3. STT 를 08-2 로 이관. 인박스(대기열) vs 40. Docs/44. Transcripts(아카이브) 2계층 역할 분리."
   - "2.8 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) tags 노이즈 회귀 재제거 (v2.6 정리분이 재발했던 것 — 태그는자유로워야지·index·maps·example·service) + 리스트 포맷 복원, (b) merge 예시 frontmatter 의 CMDS:/index: 방향 오류 수정 (📖→📚, 📚→🏷 — direction rule 과 일치), (c) Properties Template Examples 5종에 description 필드 추가 + 누락된 date modified 4건 보완, (d) 날짜 형식 명세를 frontmatter-standard 와 통일 (초 단위 제거), (e) 표준 Type 목록 CMDS 중복 등재·프로퍼티 CMDS 이중 정의 제거, (f) index: 프로퍼티에 시스템 파일 예외 명문화, (g) Folder Structure 에 실존 폴더 6개 추가 (01. Articles·53·54·65·66·76), (h) Version History 에 v2.6/v2.7 백필."
@@ -44,9 +45,9 @@ share_expires: 2026-01-29T11:02:12.926Z
 
 # CMDS Guide
 
-> **🔄 Last Updated: 2026-08-22** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-09-07** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 >
-> 📌 **Version 2.10** - Properties 표준화 + 9-file scheme + 15. Periodic 시계열 로그 이관
+> 📌 **Version 2.11** - Properties 표준화 + 9-file scheme + 교차 볼트 참조 방향·URI 계약 교정
 
 ## Properties
 ### 필수 Properties (Required)
@@ -107,14 +108,15 @@ tags: []        # 태그 (배열 형식)
 
 #### CMDS Process Command Fields (v2.2, 2026-04-14+)
 
-CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/query`) 가 자동으로 기록하는 프로퍼티. 모두 **camelCase**, 배열 필드는 quoted wikilink.
+CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/query`) 가 기록하는 프로퍼티. 복합 키는 **camelCase**다. 같은 볼트의 노트 참조 배열은 큰따옴표 wikilink(`"[[노트]]"`), 교차 볼트 참조 배열은 큰따옴표로 감싼 Markdown URI 링크를 사용한다. aliases·tags 등 일반 배열까지 wikilink로 바꾸지 않는다.
 
 | 필드                     | 기록하는 커맨드           | 용도                                                                         |
 | ---------------------- | ------------------ | -------------------------------------------------------------------------- |
 | `sourceInbox: []`      | `/connect`         | Theme stub 이 어느 inbox 파일에서 캡처됐는지 배열로 기록                                    |
 | `mergePurpose: ""`     | `/merge`           | 합성 목적 (7 재활용 축 중 하나 + 한 줄 맥락). 다운스트림 `/share` 의 format 자동 추천에 사용           |
 | `sourceNotes: []`      | `/merge`           | 합성에 쓰인 후보 노트들의 wikilink 배열 (N→1 traceability)                              |
-| `mainVaultRelated: []` | `/merge`, `/query` | LLM Wiki satellite vault 페이지 참조 (text ref 형식: `"→ LLM Wiki: {page name}"`) |
+| `wikiVaultRelated: []` | `/merge`, `/query` | 마더십 노트 → 위키 페이지의 선택적 참조. 실재 대상의 Markdown URI 링크 배열 |
+| `mainVaultRelated: []` | 위키 전용 (역방향) | 위키 페이지 → 마더십 노트의 참조. 마더십 merge 출력 필드가 아님 |
 | `developSources: []`   | `/develop`         | artifact 가 참조한 method/data/specialty 노트들                                   |
 | `shareSourceNotes: []` | `/share`           | 산출물이 어느 합성 노트에서 나왔는지                                                       |
 | `shareFormat: ""`      | `/share`           | newsletter / slides / video / social / article / proposal 등                |
@@ -122,7 +124,13 @@ CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/
 | `queryOrigin: ""`      | `/query`           | 원 질문 verbatim (file-back 된 답변 노트에 기록)                                      |
 | `querySources: []`     | `/query`           | 답변 합성에 쓰인 노트 배열                                                            |
 
-사용 예시 (merge 된 Literature 노트):
+교차 볼트 참조 계약 (형식 정본: [[90. Settings/94. Agent Settings/claude/rules/wikilink-rules|wikilink-rules]] §6):
+- 링크를 쓰기 전에 대상 볼트와 실제 파일 경로를 확인하고, 확인한 볼트 상대경로를 percent-encode한다. 이름·slug를 추측하지 않는다.
+- 새 참조는 `obsidian://advanced-uri`의 `filepath=`에 `.md`를 포함한 전체 상대경로를 넣는다. 대상 Advanced URI 플러그인을 사용할 수 없거나 확인하지 못하면 `obsidian://open`의 `file=`에 `.md` 없는 상대경로를 넣는다.
+- 기존 `obsidian://open` 링크는 대상 경로를 검증해 읽기 호환을 유지한다. 기존 `→ LLM Wiki: ...` 텍스트는 별도 미검증 legacy 참조이며, 키 이름만 바꾸어 유효한 링크로 간주하지 않는다.
+- 위키의 정상 `mainVaultRelated`를 일괄 rename하지 않는다. 한쪽 링크를 작성하는 권한이 반대 볼트 수정까지 허용하지는 않으며, 반대편 쓰기는 해당 볼트의 승인 범위를 따른다.
+
+사용 예시 (마더십에서 merge 된 Literature 노트):
 
 ```yaml
 ---
@@ -148,11 +156,19 @@ sourceNotes:
   - "[[팀 지식 공유 패턴]]"
 related:
   - "[[📚 601 Knowledge Management]]"
-mainVaultRelated:
-  - "→ LLM Wiki: RAG vs Compiled Wiki"
-  - "→ LLM Wiki: Shared State Pattern"
+wikiVaultRelated:
+  - "[LLM Wiki: RAG vs Compiled Wiki](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath=20.%20Wiki%2F21.%20Concepts%2FRAG%20vs%20Compiled%20Wiki.md)"
+  - "[LLM Wiki: Shared State Pattern](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath=20.%20Wiki%2F21.%20Concepts%2FShared%20State%20Pattern.md)"
 ---
 ```
+
+역방향 사용 예시 (위키 페이지의 frontmatter에만 기록):
+
+```yaml
+mainVaultRelated:
+  - "[Mothership: 포맷은 사고를 강제한다](obsidian://advanced-uri?vault=CMDSPACE_Local_MBP&filepath=30.%20Permanent%20Notes%2F%ED%8F%AC%EB%A7%B7%EC%9D%80%20%EC%82%AC%EA%B3%A0%EB%A5%BC%20%EA%B0%95%EC%A0%9C%ED%95%9C%EB%8B%A4.md)"
+```
+이 예시는 참조 방향을 설명한다. 위키 페이지에 역방향 링크를 실제로 추가하는 작업은 별도 쓰기 범위다.
 
 > **구현 위치**: 커맨드 정의는 `90. Settings/94. Agent Settings/claude/commands/` 폴더 참조. 전체 커맨드 사용법은 [[CLAUDE.md]] "CMDS Process Command Suite" 섹션 참조.
 
@@ -580,6 +596,7 @@ date modified: 2026-03-30
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History
+- **v2.11** (2026-09-07): E07 — 마더십 wikiVaultRelated와 위키 mainVaultRelated의 방향·배열 값 형식 교정, 실재 대상 URI 예시 및 open/legacy 읽기 호환·반대 볼트 쓰기 경계 명시
 - **v2.9** (2026-07-13): Inbox 08. Unlisted → 08. Transcripts 재구조화 (Plaud/STT/Manual 착륙 레인), 06-3. STT 이관, 인박스 대기열 vs 44. Transcripts 아카이브 2계층 분리
 - **v2.8** (2026-07-02): 전수 감사 픽스 — tags 노이즈 회귀 재제거, merge 예시 CMDS:/index: 방향 오류 수정, 템플릿 예시 5종 description·date modified 보완, 날짜 형식 통일 (초 단위 제거), CMDS 타입/프로퍼티 중복 제거, index: 시스템 파일 예외 명문화, Folder Structure 실존 폴더 6개 추가
 - **v2.7** (2026-05-30): 🔗 Related System Files 섹션 추가 (DESIGN.md precedence 9 cross-link), 배너·버전 동기화

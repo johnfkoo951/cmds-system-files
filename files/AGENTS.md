@@ -7,7 +7,7 @@ description: "Technical guide for non-Claude AI coding agents (Codex, Cursor, Wi
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-08-29
+date modified: 2026-09-16
 tags:
   - CMDS
   - system
@@ -25,9 +25,13 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.12"
+version: "2.16"
 status: completed
 changelog:
+  - "2.16 (2026-09-16): frontmatter 로컬 탐색에 실제 발급·대상 확인한 Hookmark URI를 적용하고 공통 프로필 묶음을 1.0.1로 갱신. 기존 필드명·legacy 값·Raw 원문과 본문/manifest의 재현 경로를 보존."
+  - "2.15 (2026-09-14): I01 공통 필드·Main/Wiki 프로필 v1.0.0과 읽기 전용 resolver 진입점을 추가. 프로필 선택과 실제 콘텐츠 검증을 구분하며 기존 훅·템플릿 집행과 레거시 노트는 보존."
+  - "2.14 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
+  - "2.13 (2026-09-08): Git 저장소 상태를 현재 MBP에서 확인하고 scoped Git 검사와 filesystem parity를 함께 안내. Claude symlink 정본 경로 검사와 명시 파일 날짜 검사 진입점을 추가. 다른 운영 계약·기존 changelog는 보존."
   - "2.12 (2026-08-29): CMDS Process 커맨드 8 → 10 — `/seeds`·`/harvest` 를 Cross-cutting utilities 표와 결정 트리에 등록. Codex/Fugu 는 `.codex/commands/` · `.agents/skills/` 미러가 아직 없으므로 Claude 커맨드 스펙을 워크플로 문서로 참조할 것 (3-place parity 미완 — 후속 작업)."
   - "2.11 (2026-08-27): Cross-vault 상호참조 표준 반영 (macro v4.10.2) — v2 frontmatter 필드 목록에 wikiVaultRelated 추가 (advanced-uri 형식, 역방향은 mainVaultRelated). 정본은 wikilink-rules.md §6."
   - "2.10 (2026-08-17): Periodic agent notes 섹션 신설 (macro v4.10.0) — /daily·/weekly 는 Claude Code 스케줄 전용임을 명시, 타 에이전트 규칙 3종 (재생성 금지·사람 영역 불변+dailyStatus 확인·model/effort frontmatter 기록) 추가."
@@ -43,7 +47,7 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-08-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
+> **🔄 Last Updated: 2026-09-16** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
@@ -92,7 +96,7 @@ Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All 
 
 ### AI Agent Output Lanes
 
-All code-related outputs start under `00. Inbox/03. AI Agent/` and are separated by agent + machine:
+Vault-originated code outputs initially use `00. Inbox/03. AI Agent/`, separated by agent + machine. Existing DEV projects keep their workspace; completed JSON/PY follow the closeout rule below:
 
 | Subfolder | Agent | Machine |
 |-----------|-------|---------|
@@ -143,7 +147,7 @@ All code-related outputs start under `00. Inbox/03. AI Agent/` and are separated
 > 컨텍스트 압축 후에도 반드시 기억해야 할 핵심 규칙:
 > 1. **YAML frontmatter: 2 SPACES** / **Markdown body: TAB**
 > 2. **Wikilinks in YAML: 반드시 큰따옴표** `"[[link]]"`
-> 3. **코드 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/` — Codex on MBP uses `03-5. Codex (MBP)/`, Codex on Studio uses `03-6. Codex (Studio)/`
+> 3. **코드 초기 출력 경로**: `00. Inbox/03. AI Agent/{환경 하위폴더}/` — Codex MBP `03-5`, Studio `03-6`. 기존 DEV 프로젝트는 해당 위치 유지. 완료 JSON/PY는 외부 보관하고 기획·경로·재개는 메인 MD에 기록 (file-creation-rules의 Completed Artifact Closeout).
 > 4. **필수 프로퍼티 7개**: type, aliases, **description** (English, 1-2 sentences for LLMs), author, date created, date modified, tags
 > 5. **`description` 은 항상 double-quote `"..."`**: 안에 `: ` 또는 ` #` 들어가면 YAML plain scalar 파서 깨짐 → Obsidian Properties 렌더 실패
 > 6. **날짜 포맷**: ISO 8601 (YYYY-MM-DD)
@@ -167,8 +171,25 @@ Every time the agent creates or edits a `.md` file, verify:
 - [ ] **Dates use ISO 8601**: `YYYY-MM-DD` format
 - [ ] **`description` field present and in English**: 1-2 sentences explaining the note for LLMs
 - [ ] **`description` wrapped in double quotes `"..."`**: unquoted `: ` or ` #` breaks YAML parser
-- [ ] **Code output saved to**: `00. Inbox/03. AI Agent/03-5. Codex (MBP)/` (MBP) or `03-6. Codex (Studio)/` (Studio)
+- [ ] **Code output lifecycle checked**: 초기 볼트 작업은 Codex Inbox 레인, 기존 DEV 작업은 해당 프로젝트, 완료 JSON/PY는 Completed Artifact Closeout에 따라 외부 보관 + 메인 MD 기록
 - [ ] **Filename follows convention**: `YYYY-MM-DD-description.ext`
+
+---
+
+### Shared field and vault profile entrypoint (I01)
+공통 필드와 Main/Wiki별 적용 계약은 [[90. Settings/94. Agent Settings/schema/README|공통 필드와 볼트 프로필]]의 v1.0.1 묶음을 사용한다. 실제 파일 하나를 선택할 때 `ruby "90. Settings/94. Agent Settings/schema/resolve-profile.rb" --vault main --root "$PWD" --path "AGENTS.md"`처럼 볼트 루트와 파일을 명시한다. `--check-bundle`로 파일 해시와 버전을 확인할 수 있다.
+`resolved`는 프로필 선택 성공이며 콘텐츠 validation PASS가 아니다. 템플릿 소스·runtime·일반 콘텐츠·시스템 예외를 구분하고, `needs_review`나 `error`를 검증 분모에서 숨기지 않는다. 기존 guard/description helper의 제한된 검사 계약과 AI 작성 기록을 유지한다. `schemaVersion`은 opt-in 메타데이터로 문서 `version`과 별개이며 기존 노트에 자동 추가하지 않는다. Wiki는 자체 Settings의 같은 버전 사본으로 실행하며 sibling 볼트 경로에 의존하지 않는다.
+
+### System file date checks
+For system files with version history, compare the calendar day of `date modified` and any `Last Updated` banner with the **latest dated changelog entry**. A date earlier than the latest entry needs review; an explanation mentioning another date is not a changelog entry date. Record the current edit separately and preserve earlier changelog entries. A metadata-only correction does not revalidate all facts in the document.
+
+Run the read-only checker from the vault root with explicit file paths:
+
+```bash
+ruby "90. Settings/94. Agent Settings/claude/scripts/check-system-dates.rb" --require-history -- AGENTS.md CMDS.md ANTIGRAVITY.md
+```
+
+The checker prints per-file JSON: exit 0 means no detected date issue (inspect any `not_applicable` result), exit 1 means review is required, and exit 2 means input/read/YAML/date validation failed. `--require-history` requires the selected files to declare their history and banner. Without it, files that do not use these fields are reported as not applicable rather than receiving invented metadata. Use this check manually after relevant system edits; it does not install an automatic hook or verify Git state, external versions, deployment, or synchronization.
 
 ---
 
@@ -208,7 +229,7 @@ For video or Remotion-like work, also read `.claude/rules/video-project-workflow
 
 ### Codex Output Path
 
-When Codex creates code, scripts, generated artifacts, or multi-file project work:
+Initial output lanes for vault-originated Codex code, scripts, generated artifacts, or multi-file work (existing DEV workspaces and video exceptions retain their locations):
 
 | Current vault path | Codex output lane |
 |--------------------|-------------------|
@@ -216,6 +237,8 @@ When Codex creates code, scripts, generated artifacts, or multi-file project wor
 | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` | `00. Inbox/03. AI Agent/03-6. Codex (Studio)/` |
 
 For multi-file projects, create an intermediate folder inside that lane: `YYYY-MM-DD-project-name/`.
+
+**Completed artifacts:** Read [[90. Settings/94. Agent Settings/claude/rules/file-creation-rules|file-creation-rules]] → Completed Artifact Closeout. Maintenance code belongs in DEV; completed JSON/PY evidence goes to `/Users/yohankoo/DEV/_archive/vault-artifacts/` with its original vault/project mapping. Keep planning, results, actual paths, verification, and resume instructions in a main-vault MD. Archive state is separate from note status, knowledge promotion, Git/Sync, and deployment.
 
 ### Claude Command Mapping for Codex
 
@@ -249,7 +272,12 @@ Or run the ready-made script: `.codex/hooks/qmd-reindex.sh`. In **Fugu, only the
 
 ### Cross-Agent Operation Map (8 CMDS Process operations)
 
-When you add or change an operation, edit **all three** rows together (Claude command + Codex command + Fugu skill), then re-check with the parity note below. Because `.codex/` and `.agents/` sit outside Obsidian's graph and this vault is **not a git repo**, parity is verified by filesystem inspection (`find .codex .agents/skills`), not `git diff`.
+When you add or change one of the eight operations below, edit its **three entrypoints** together (Claude command + Codex command + Fugu skill), then check both Git changes and filesystem parity.
+
+- **Git state is independent of Obsidian's graph.** This MBP vault was confirmed as a Git working tree on 2026-09-08. At the start of each task, run `GIT_OPTIONAL_LOCKS=0 git rev-parse --show-toplevel` from the vault and confirm the returned root belongs to the intended repository. Other machines/checkouts must be checked separately.
+- **Inspect only affected paths.** Use `GIT_OPTIONAL_LOCKS=0 git status --short -- <affected-paths>`, `git diff -- <affected-paths>`, `git diff --cached -- <affected-paths>`, and `git ls-files -- <affected-paths>`. Set `GIT_OPTIONAL_LOCKS=0` for these read-only inspections. Include existing staged and unstaged changes in the baseline.
+- **Use physical Claude paths for content diffs.** Git tracks `.claude/commands` as a symlink; its target files are under `90. Settings/94. Agent Settings/claude/commands/`. Inspect the resolved canonical file as well as the link itself when relevant. A diff of `.claude/commands/{op}.md` alone can miss target content changes.
+- **Also inspect the filesystem.** Confirm the canonical command, Codex adapter, and Fugu wrapper exist and agree on operation name, references, and shared behavior. Untracked/ignored files still require inspection. A clean diff or tracked-file list alone does not establish parity, and the three files need not have identical bytes.
 
 | Operation | Fan | Codex command | Fugu skill | Claude mirror |
 |-----------|-----|---------------|------------|---------------|
