@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-09-21
+date modified: 2026-10-10
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,38 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.13.0 — 2026-10-10 (점폴더 동기화 정책 + 컨텍스트 다이어트 + 누적 미배포분)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.12.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.12 | ⬆ 4.11 → 4.12 |
+| AGENTS.md | 2.16 | — |
+| ANTIGRAVITY.md | 2.8 | — |
+| CMDS.md | 2.14 | ⬆ 2.13 → 2.14 |
+| 🏛 CMDS Guide.md | 2.11 | — |
+| 🏛 CMDS Head Quarter.md | 1.8 | — |
+| DESIGN.md | 1.2 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+> 이번 릴리스의 신규 변경은 `directory-structure.md` 의 점폴더 동기화 정책이다. 2026-10-06 ~ 10-08 사이 볼트에 반영됐지만 배포되지 않은 CLAUDE.md 4.12 와 규칙 2건도 함께 싣는다.
+
+### Changes
+
+- **점폴더 동기화 정책 (`directory-structure.md` · 이번 릴리스의 신규 변경)** — Obsidian Sync 는 `.obsidian` 외 점폴더를 동기화하지 않고, 점폴더를 다른 방법으로 실시간 동기화하면 `.git` 손상·비밀값 유출·머신 전용 훅 경로 실행·symlink 의 실제 폴더 복제·캐시 충돌이 생긴다. 그래서 (1) 공유할 에이전트 설정은 일반 폴더 `90. Settings/94. Agent Settings/` 에 두고, (2) 각 머신에서 점폴더 symlink 를 상대경로로 한 번 만들고, (3) 머신 전용 설정은 동기화하지 않고, (4) `.git` 은 git 으로만 옮기고, (5) rsync 류에서는 `.git .claude .codex .agents .smart-env .trash node_modules` 를 제외한다.
+	- 새 머신 절차를 절대경로에서 **상대경로 symlink** 반복문으로 바꾸고 `hooks/` 링크와 훅 `chmod +x` (Obsidian Sync 가 실행 권한을 떨어뜨림), Sync 의 "기타 파일 유형" 설정을 추가.
+	- LLM Wiki 위성도 같은 패턴으로 이관 (Claude·Codex·스킬 3갈래 정본 표). 같은 구조가 공개 스타터킷 `cmds-llm-wiki` v1.12.0 · `cmds-vault` v1.3.0 에도 들어갔다 (링크 복구용 `setup-agent-links` 스크립트 포함).
+- **컨텍스트 다이어트 (CLAUDE 4.12, 2026-10-06)** — Related System Files 인용블록의 `@` import 를 CMDS.md 하나만 남기고 제거 (인용블록 안의 `@` 도 실제 import 됨). 세션 시작 컨텍스트 실측 111K → 89K. AGENTS.md 에만 있던 Claude 필요 규칙 3개를 § On-Demand System Files 로 이전.
+- **advanced-uri 액션 이름 정정 (`wikilink-rules.md` · `frontmatter-standard.md`, 2026-10-08)** — `adv-uri`(현행 기본)와 `advanced-uri`(1.44.0 이전 이름) 둘 다 정상 액션이다. 기존 "adv-uri 는 존재하지 않는 액션" 서술과 해당 anti-pattern 을 삭제. `open` 폴백의 `.md` 확장자는 선택. `wikilink-rules.md` 의 `@` import 예시도 CLAUDE 4.12 패턴에 맞춤.
+- **스타터킷 버전 주장 갱신 (CMDS 2.14)** — `cmds-llm-wiki` v1.11.0 → v1.12.0.
+
+### 보류
+- 볼트의 `🏛 CMDS Guide.md` 에 2026-09-29 frontmatter `tags` 변경이 있으나 버전·changelog 기록이 없어 이번 배포본에는 넣지 않았다 (배포본은 v4.12.0 과 같은 2.11).
 
 ---
 

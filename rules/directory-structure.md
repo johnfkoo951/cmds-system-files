@@ -40,6 +40,7 @@
 │   └── claude/                 # .claude/ 원본 → symlink로 연결
 │       ├── agents/
 │       ├── commands/
+│       ├── hooks/
 │       ├── rules/
 │       └── skills/
 ```
@@ -53,6 +54,21 @@
 `.claude/`는 숨김 폴더라 Obsidian Sync 대상이 아닙니다.
 원본 파일은 `90. Settings/94. Agent Settings/claude/`에 두고, `.claude/`에서 symbolic link로 연결합니다.
 
+### 왜 이렇게 하나 — 점폴더 동기화 정책 (2026-10-10)
+Obsidian Sync 는 `.obsidian` 을 뺀 점폴더(`.claude`, `.codex`, `.agents`, `.git` 등)를 동기화하지 않는다. 그렇다고 점폴더를 다른 도구로 실시간 동기화하면 아래 사고가 난다.
+- `.git` 이 두 머신에서 동시에 바뀌면 저장소가 깨진다.
+- `settings.local.json`·`sessions/` 에 든 토큰·개인 기록이 다른 머신으로 퍼진다.
+- 훅 스크립트의 머신 전용 경로가 다른 머신에서 그대로 실행된다.
+- symlink 가 실제 폴더로 복제되어 두 사본이 따로 놀기 시작한다.
+- `.smart-env` 같은 캐시가 계속 바뀌어 충돌과 쓸데없는 전송이 늘고, JSON 설정이 병합 충돌을 일으킨다.
+
+그래서 규칙은 이렇다.
+1. **공유할 에이전트 설정은 일반 폴더에 둔다** — `90. Settings/94. Agent Settings/` 아래가 정본이고 Obsidian Sync 로 머신 사이를 오간다. 마더십은 현재 `claude/` 만 이 방식이며, `.codex/`·`.agents/` 는 아직 실제 폴더(git 으로만 이동)다.
+2. **각 머신에서 점폴더 symlink 를 한 번만 만든다** — 상대경로(`../90. Settings/...`)로 만들어 볼트 경로가 달라도 그대로 동작하게 한다.
+3. **머신 전용 설정은 동기화하지 않는다** — `settings.json`, `settings.local.json`, `sessions/`, `.codex/config.toml`, `.codex/hooks.json` 은 각 머신의 점폴더 안에 실제 파일로 둔다.
+4. **`.git` 은 git 으로만 옮긴다** — Sync·rsync 로 복사하지 않는다.
+5. osync·rsync 를 쓸 일이 생기면 `.git .claude .codex .agents .smart-env .trash node_modules` 를 제외한다.
+
 **두 scope 를 구분할 것** (2026-09-21 확정):
 
 | Scope | 경로 | 적용 범위 |
@@ -64,10 +80,11 @@
 
 ```
 .claude/
-├── agents   → symlink → 90. Settings/94. Agent Settings/claude/agents
-├── commands → symlink → 90. Settings/94. Agent Settings/claude/commands
-├── rules    → symlink → 90. Settings/94. Agent Settings/claude/rules
-├── skills   → symlink → 90. Settings/94. Agent Settings/claude/skills
+├── agents   → symlink → ../90. Settings/94. Agent Settings/claude/agents
+├── commands → symlink → ../90. Settings/94. Agent Settings/claude/commands
+├── hooks    → symlink → ../90. Settings/94. Agent Settings/claude/hooks
+├── rules    → symlink → ../90. Settings/94. Agent Settings/claude/rules
+├── skills   → symlink → ../90. Settings/94. Agent Settings/claude/skills
 ├── sessions/          (로컬 전용, 링크 안 함)
 ├── settings.json      (로컬 전용, 링크 안 함)
 └── settings.local.json (로컬 전용, 링크 안 함)
@@ -87,18 +104,21 @@ user-scope (홈) — 볼트 밖에서도 쓰는 자산만:
 
 ```bash
 cd <vault-path>/.claude
-mv agents agents_backup && mv rules rules_backup
-mv skills skills_backup && mv commands commands_backup
+for d in agents commands hooks rules skills; do
+  [ -e "$d" ] && ! [ -L "$d" ] && mv "$d" "${d}_backup"
+  ln -s "../90. Settings/94. Agent Settings/claude/$d" "$d"
+done
 
-ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/agents" agents
-ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/rules" rules
-ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/skills" skills
-ln -s "<vault-path>/90. Settings/94. Agent Settings/claude/commands" commands
+# Obsidian Sync 는 실행 권한을 떨어뜨린다 — 훅은 머신마다 다시 켠다
+chmod +x "../90. Settings/94. Agent Settings/claude/hooks/"*.sh
 
 # 확인 후 백업 삭제
 ls -l  # l로 시작하면 symlink
-rm -rf agents_backup rules_backup skills_backup commands_backup
+rm -rf *_backup
 ```
+
+- 상대경로 symlink 라 볼트 경로가 머신마다 달라도 고칠 것이 없다 (2026-10-10 이전 문서의 절대경로 예시는 대체됨).
+- 훅 같은 `.sh` 파일은 Obsidian Sync 설정에서 **"기타 파일 유형(other file types)"** 동기화를 켜야 넘어온다. 꺼져 있으면 정본 폴더에 `.sh` 가 오지 않는다.
 
 **user-scope agents 도 연결** (볼트 밖 `/DEV/` 등에서 9Yohan 을 쓰려면 필수):
 
@@ -110,6 +130,17 @@ ls -l ~/.claude/ | grep agents   # l 로 시작하면 성공
 ```
 
 기존 user-scope 파일이 있었다면 `agents_local_backup` 안의 내용을 볼트 폴더로 합친 뒤 백업을 정리한다.
+
+### LLM Wiki 위성도 같은 패턴 (2026-10-10)
+`CMDS_LLM_Wiki` 도 같은 구조로 옮겼다. Codex 하네스까지 있어 정본이 세 갈래다.
+
+| 점폴더 경로 | 정본 (`90. Settings/94. Agent Settings/` 아래) |
+|---|---|
+| `.claude/{agents,commands,hooks,skills}` | `claude/{agents,commands,hooks,skills}` |
+| `.codex/{commands,hooks}` | `codex/{commands,hooks}` |
+| `.agents/skills` | `agents/skills` |
+
+머신 전용 실제 파일: `.claude/settings.json`, `.claude/settings.local.json`, `.codex/config.toml`, `.codex/hooks.json`, `.codex/README.md`. 위키의 parity 검사(`90. Settings/Scripts/check-harness-parity.sh`)는 symlink 를 따라가도록 `find -H` 를 쓴다. 절차 정본은 위키의 `CLAUDE.md`·`AGENTS.md` § Agent Settings 정본과 점폴더 링크.
 
 ## CMDS Categories (100-900)
 

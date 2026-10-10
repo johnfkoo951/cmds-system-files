@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-09-21
+date modified: 2026-10-06
 tags:
   - CMDS
   - system
@@ -26,9 +26,10 @@ optional-for:
 token-estimate: 14500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.11"
+version: "4.12"
 status: completed
 changelog:
+  - "4.12 (2026-10-06): 컨텍스트 다이어트 수정안 B — Related System Files 인용블록에서 AGENTS·ANTIGRAVITY·BRAIN·BRAIN_PROMPT·DESIGN 의 `@` import 를 제거하고 CMDS.md 만 자동 로드로 남김 (인용블록 안의 `@` 도 실제 import 된다는 09-27 실측 근거). 그 결과 BRAIN·BRAIN_PROMPT 가 코딩 에이전트 컨텍스트에 들어가던 실제 동작이 문서 서술(들어가지 않음)과 일치하게 됨. AGENTS.md 에만 있던 Claude 필요 규칙 3개(CMDS 커맨드 3곳 동시 수정·git 검사, 시스템 파일 날짜 검사기, 시각 산출물 전 DESIGN.md Read)를 신설 § On-Demand System Files 로 이전. 같은 날 `ENABLE_TOOL_SEARCH=true` 적용(수정안 A)과 함께 볼트 세션 시작 컨텍스트 감축."
   - "4.11 (2026-09-21): project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)를 별개 계층으로 명시하고, 볼트 밖에서도 쓰는 자산은 볼트를 정본으로 두고 user-scope 를 symlink 하는 절차를 추가. 배경: 9Yohan 에이전트 9개가 user-scope 일반 폴더에 있어 Obsidian Sync·git 어디에도 들어가지 않은 채 MBP 로컬에만 존재했다. 절차 정본은 directory-structure.md. token-estimate 12500→14500 재실측. 부수 정정: rules 카운트 8 → 9 (file-move-rules.md 누락, 3곳)."
   - "4.10 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
   - "4.9 (2026-08-29): CMDS Process 커맨드 8 → 10 확장 — `/seeds` (제목만 걸어둔 씨앗 노트를 씨앗/잔해/How-to 로 분류·클러스터링 → 글감 제안 + 📚 101 Interests / 📚 102 Topics 허브 생성, 마더십 전용) 와 `/harvest` (7볼트 생태계 교차 수확 — 끊긴 쌍·이미 컴파일된 씨앗·위키 고아·개념 drift, companion 볼트는 읽기 전용) 신설. Command Map 표·결정 트리 갱신. 배경: /lint all 에서 제목만 있는 노트 833건(인바운드 있는 47 / 없는 786)이 확인됐고, 이는 결함이 아니라 의도적 백로그이므로 read-only 진단인 lint 가 아니라 전용 생성 커맨드가 담당하도록 분리."
@@ -54,32 +55,32 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-09-21** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-10-06** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> **📌 Related System Files (9 System Files)** — `precedence` 순서대로 로드, audience 별 그룹
+> **📌 Related System Files (9 System Files)** — audience 별 그룹. **자동 로드는 CLAUDE.md 와 CMDS.md 뿐**이고, 나머지는 작업이 닿을 때 명시 Read 한다 (2026-10-06 컨텍스트 다이어트 — `@` import 를 빼서 세션 시작 컨텍스트 약 22K 절감, 실측 111K → 89K).
 >
-> **🤖 LLM Coding Agents** (always-loaded technical context):
-> - @CLAUDE.md → [[CLAUDE.md]] — Claude Code specific (precedence: 1)
-> - @AGENTS.md → [[AGENTS.md]] — Other AI coding agents: Codex, Cursor, Windsurf (precedence: 2)
+> **🤖 LLM Coding Agents**:
+> - [[CLAUDE.md]] — Claude Code specific (precedence: 1, 이 파일)
+> - [[AGENTS.md]] — Codex, Cursor, Windsurf 용 (precedence: 2 · Claude 에 필요한 규칙은 아래 § On-Demand System Files 로 이전함)
 >
 > **🧪 Vendor-Specific Agent**:
-> - @ANTIGRAVITY.md → [[ANTIGRAVITY.md]] — Google Gemini / Antigravity IDE 전용 (precedence: 3)
+> - [[ANTIGRAVITY.md]] — Google Gemini / Antigravity IDE 전용 (precedence: 3)
 >
 > **📚 Context & Standards** (referenced by all agents):
-> - @CMDS.md → [[CMDS.md]] — System philosophy & user context (precedence: 4)
-> - [[🏛 CMDS Guide]] — Standards & templates (precedence: 5 · 공백 포함 경로라 @import 불가 — 필요 시 명시 Read)
-> - [[🏛 CMDS Head Quarter]] — Navigation hub (precedence: 6 · 공백 포함 경로라 @import 불가 — 필요 시 명시 Read)
+> - @CMDS.md → [[CMDS.md]] — System philosophy & user context (precedence: 4 · 유일하게 자동 로드)
+> - [[🏛 CMDS Guide]] — Standards & templates (precedence: 5 · 필요 시 명시 Read)
+> - [[🏛 CMDS Head Quarter]] — Navigation hub (precedence: 6 · 필요 시 명시 Read)
 >
-> **🧠 Gobi Persona System** (Gobi 앱 entry point — *외부 LLM coding agent 아님*):
-> - @BRAIN.md → [[BRAIN.md]] — 구요한 brain profile (사람을 기술하는 grounding source, 사람도 읽음) (precedence: 7)
-> - @BRAIN_PROMPT.md → [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (BRAIN.md 를 *어떻게* 사용할지) (precedence: 8)
+> **🧠 Gobi Persona System** (Gobi 앱 전용 — 코딩 에이전트는 읽지 않는다):
+> - [[BRAIN.md]] — 구요한 brain profile (precedence: 7)
+> - [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (precedence: 8)
 >
-> **🎨 Visual Language** (always-loaded when producing visual artifacts):
-> - @DESIGN.md → [[DESIGN.md]] — Visual language spec (v4.3 standards · Anti-Slop · Skill↔Surface mapping) (precedence: 9)
+> **🎨 Visual Language**:
+> - [[DESIGN.md]] — Visual language spec (precedence: 9 · 시각 산출물을 만들기 **전에** 반드시 Read)
 
 <!-- STATIC: 아래 내용은 거의 변경되지 않는 규칙입니다. AI는 높은 신뢰도로 캐시할 수 있습니다. -->
 
@@ -560,6 +561,17 @@ This vault has **9 system files** that work together to provide complete guidanc
 | **DESIGN.md** | All LLM agents producing visual artifacts | **HOW (Visual)** - v4.3 standards · Anti-Slop · Skill↔Surface mapping | 9 |
 
 > BRAIN.md / BRAIN_PROMPT.md 는 *Claude Code · Gemini CLI 등 일반 LLM coding agent 의 컨텍스트로 들어가지 않음*. Gobi 앱이 외부에서 구요한 페르소나로 답할 때만 사용. 다른 system files 와 audience 가 다르다는 점이 핵심.
+
+### On-Demand System Files (자동 로드 안 됨 — 트리거가 오면 Read)
+2026-10-06 부터 CLAUDE.md 는 CMDS.md 만 `@` import 한다. 나머지는 아래 트리거에서 직접 읽는다. AGENTS.md 에만 있던 규칙 중 Claude 가 쓰는 3개는 여기로 옮겼다.
+
+| 트리거 | 할 일 |
+|--------|-------|
+| 웹·PDF·슬라이드·이미지·영상·다이어그램 등 **시각 산출물** | 생성 전에 [[DESIGN.md]] 를 Read 하고 CI 토큰(`#134538`/`#E985A2`), SF Pro + Pretendard, Anti-AI-Slop 목록을 따른다 |
+| **CMDS Process 커맨드 8종**(connect·merge·develop·share·inbox·lint·query·status) 추가·수정 | 세 진입점을 함께 고친다 — `90. Settings/94. Agent Settings/claude/commands/{op}.md`(정본, `.claude/commands` 는 symlink) · `.codex/commands/{op}.md` · `.agents/skills/{op}/SKILL.md`. 시작 시 `GIT_OPTIONAL_LOCKS=0 git rev-parse --show-toplevel` 로 저장소를 확인하고, 영향 경로만 `git status --short -- <paths>` / `git diff -- <paths>` 로 본다. symlink 경로 diff 만으로는 정본 변경을 놓치므로 실제 파일을 본다. 미추적 파일도 확인한다. 상세는 [[AGENTS.md]] § Cross-Agent Operation Map |
+| **버전 이력이 있는 시스템 파일** 수정 후 | `date modified`·`Last Updated` 배너 날짜가 최신 changelog 항목 날짜보다 이르면 안 된다. 볼트 루트에서 `ruby "90. Settings/94. Agent Settings/claude/scripts/check-system-dates.rb" --require-history -- <파일들>` (exit 0 = 이상 없음, 1 = 검토 필요, 2 = 입력 오류) |
+| 공통 필드·볼트 프로필 검증 | [[AGENTS.md]] § Shared field and vault profile entrypoint (I01) |
+| Codex·Gemini 와 함께 쓰는 작업, 또는 이 두 파일 자체 수정 | [[AGENTS.md]] · [[ANTIGRAVITY.md]] 를 Read |
 
 **Remember**: This file (CLAUDE.md) is **Claude Code specific**. For other AI agents, use **AGENTS.md** (general) or **ANTIGRAVITY.md** (Gemini). 파일별 용도는 위 표가 정본.
 

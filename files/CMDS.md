@@ -7,7 +7,7 @@ description: "Context and philosophy guide for all LLM assistants working with t
 author:
   - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-09-09
+date modified: 2026-10-10
 tags:
   - CMDS
   - system
@@ -24,9 +24,10 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.13"
+version: "2.14"
 status: completed
 changelog:
+  - "2.14 (2026-10-10): cmds-llm-wiki 스타터킷 버전 주장 v1.11.0 → v1.12.0 갱신 (2026-10-10 릴리스 — 에이전트 설정 정본 폴더 + 점폴더 symlink). v1.11.1 미반영분도 함께 해소."
   - "2.13 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
   - "2.12 (2026-09-08): E09 메타데이터 날짜 정렬: 2026-09-03 변경 이력보다 오래된 date modified·Last Updated를 이번 교정일로 갱신. 기존 본문·이력은 보존하며 본문 전체 사실의 재검증이나 공개 배포를 뜻하지 않음."
   - "2.11 (2026-09-03): cmds-llm-wiki 스타터킷 버전 주장 v1.7.0 → v1.11.0 실측 갱신 (GitHub Release 정본 기준). `system-version-audit.py` 신설로 자동 검출된 첫 드리프트."
@@ -42,7 +43,7 @@ changelog:
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> **🔄 Last Updated: 2026-09-09** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
+> **🔄 Last Updated: 2026-10-10** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CMDS.md
 
@@ -143,7 +144,7 @@ This vault has **9 system files** organized by audience. You are currently readi
 
 1. **Obsidian-Based Personal Knowledge Management** — a 3+ year, 10,000+ note ecosystem (mothership ~8,000 notes) as the substrate of everything else.
 2. **System Files Infrastructure** — total 9 system files in vault: 6 publicly deployed (CLAUDE.md, AGENTS.md, CMDS.md, 🏛 CMDS Guide, 🏛 CMDS Head Quarter, DESIGN.md) + 3 internal-only (ANTIGRAVITY.md for Gemini, BRAIN.md / BRAIN_PROMPT.md for Gobi persona). Shared `.claude/rules/` accompanies the 6 public files at `system.cmdspace.work`.
-3. **LLM Wiki Satellite Vault** — implementing Karpathy's LLM Wiki pattern (Raw Sources · Wiki · Queries) in a separate `CMDS_LLM_Wiki` vault. Public template distribution `cmds-llm-wiki` (current v1.11.0 — 최신 버전은 [github.com/johnfkoo951/cmds-llm-wiki/releases](https://github.com/johnfkoo951/cmds-llm-wiki/releases) 참조) is sanitized from this satellite — canonical source at `/Users/yohankoo/Local Obsidian_MBP/_starter-kit/cmds-llm-wiki/`, 3-place sync (canonical · `/Users/yohankoo/DEV/cmds-llm-wiki/` git mirror · GitHub Release ZIP).
+3. **LLM Wiki Satellite Vault** — implementing Karpathy's LLM Wiki pattern (Raw Sources · Wiki · Queries) in a separate `CMDS_LLM_Wiki` vault. Public template distribution `cmds-llm-wiki` (current v1.12.0 — 최신 버전은 [github.com/johnfkoo951/cmds-llm-wiki/releases](https://github.com/johnfkoo951/cmds-llm-wiki/releases) 참조) is sanitized from this satellite — canonical source at `/Users/yohankoo/Local Obsidian_MBP/_starter-kit/cmds-llm-wiki/`, 3-place sync (canonical · `/Users/yohankoo/DEV/cmds-llm-wiki/` git mirror · GitHub Release ZIP).
 4. **9Yohan Multi-Agent System** — mapping 900 Divisions × historical "Yohan" figures × the 9 fruits of the Spirit into a 9-agent orchestration (kepler.map / goethe.sense / dewey.learn / bach.score / neumann.compute / baptist.prepare / mccarthy.reason / huizinga.play / calvin.advise).
 
 These four axes are simultaneously **productized** (consulting, education), **published** (더배러 newsletter, public web), and **validated on the toughest stage**: top-level corporate education including LG executive and chairman-group training.

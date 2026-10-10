@@ -111,8 +111,8 @@
 CLAUDE.md 가 사용하는 표준 패턴 — *기능* 과 *navigation* 양쪽 충족:
 
 ```markdown
-> @CLAUDE.md → [[CLAUDE.md]] — Claude Code specific (precedence: 1)
-> @AGENTS.md → [[AGENTS.md]] — Other AI coding agents (precedence: 2)
+> @CMDS.md → [[CMDS.md]] — System philosophy & user context (precedence: 4)
+> [[AGENTS.md]] — Codex·Cursor 용 (자동 로드 불필요 → wikilink 만)
 ```
 
 `@` 가 LLM 자동 로드 · `[[]]` 는 사람이 클릭해서 이동.
@@ -222,7 +222,7 @@ mainVaultRelated:
 
 작성 규칙:
 
-1. **액션 이름은 `advanced-uri`** — `adv-uri` 는 존재하지 않는 액션 (링크 죽음). `obsidian://` 콜론 뒤 공백 금지.
+1. **액션 이름은 `adv-uri`(현행 기본)와 `advanced-uri`(1.44.0 이전 이름) 둘 다 정상** — 판정 기준은 대상 볼트·파일이 실제로 있는지. `obsidian://` 콜론 뒤 공백 금지.
 2. **`filepath=` 는 볼트 루트 기준 전체 경로 + `.md` 확장자**, URL 인코딩 (공백 `%20`, `/` 는 `%2F`). 한글은 인코딩 없이도 동작하지만 공백·슬래시는 반드시 인코딩.
 3. **링크 라벨은 `{볼트 별칭}: {페이지명}`** — `LLM Wiki: X` / `Mothership: X`.
 4. **쓰기 전 대상 파일 실존 확인** (Glob/ls). 존재하지 않는 filepath 는 조용히 죽는 링크가 된다.
@@ -237,14 +237,12 @@ wikiVaultRelated:
   - "[LLM Wiki: Epistemic Infrastructure](obsidian://open?vault=CMDS_LLM_Wiki&file=20.%20Wiki%2F21.%20Concepts%2FEpistemic%20Infrastructure)"
 ```
 
-폴백 형식 차이: 액션 `open` · 파라미터 `file=` · **`.md` 확장자 없이**. (2026-08 현재 마더십·CMDS_LLM_Wiki 양쪽 모두 플러그인 설치 상태 → 표준형 사용.)
+폴백 형식 차이: 액션 `open` · 파라미터 `file=` · `.md` 확장자는 선택(있어도 없어도 열림). (2026-08 현재 마더십·CMDS_LLM_Wiki 양쪽 모두 플러그인 설치 상태 → 표준형 사용.)
 
 ### Anti-Pattern
 
 ```yaml
 ❌ "[X](obsidian: //advanced-uri?...)"        # 콜론 뒤 공백 — 프로토콜 인식 실패
-❌ "[X](obsidian://adv-uri?...)"              # 존재하지 않는 액션 이름
 ❌ "[[LLM Wiki 페이지]]"                       # wikilink 는 볼트 경계 못 넘음 → Inbox 빈 파일 생성
 ❌ filepath=20. Wiki/21. Concepts/X.md        # 미인코딩 공백·슬래시 — 파라미터 파싱 깨짐
-❌ open?file=...X.md                          # 폴백형에 .md 붙임 — "X.md.md" 탐색
 ```
