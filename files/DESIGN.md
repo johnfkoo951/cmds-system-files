@@ -4,11 +4,11 @@ aliases:
   - CMDSPACE Design System
   - DESIGN.md
   - Visual Language Spec
-description: "Visual language specification for all CMDSPACE artifacts. Defines v4.3 design constants (SF Pro × CMDS Green/Pink), anti-AI-slop negative list, template catalog, and a Skill ↔ Surface mapping covering 80+ skills (web, PDF, slides, image, video, diagram). Reference whenever any LLM agent (Claude Code, Codex, Antigravity, Gobi) produces a visual artifact for the CMDSPACE brand."
+description: "Visual language specification for all CMDSPACE artifacts. Defines v4.3 design constants (SF Pro × CMDS Green/Pink), anti-AI-slop negative list, template catalog, and a Skill ↔ Surface mapping covering 80+ skills (web, PDF, slides, image, video, diagram), plus the diagram system where one Mermaid source is rendered by Pele through the cmds-pele module with CMDS tokens. Reference whenever any LLM agent (Claude Code, Codex, Antigravity, Gobi) produces a visual artifact for the CMDSPACE brand."
 author:
   - "[[구요한]]"
 date created: 2026-05-22T18:47
-date modified: 2026-07-02
+date modified: 2026-10-23
 tags:
   - CMDS
   - system
@@ -25,20 +25,24 @@ required-for:
   - slide-generation
   - image-generation
   - video-generation
+  - diagram-generation
 optional-for:
   - text-only-output
   - data-analysis
-token-estimate: 4200
+token-estimate: 5200
 CMDS: "[[📚 731 Digital Art and Design]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "1.2"
+version: "1.4"
 status: completed
 changelog:
+  - "1.4 (2026-10-23): 볼트와 발행본이 같은 도식 색 규칙을 쓰게 했다. Obsidian 1.15가 Mermaid 대신 Pele(1.8.0)를 내장해 볼트 미리보기가 33/33이 되었으므로 §4.6의 25/33 서술과 §7.6의 8종 점검을 고치고, §1.6에 볼트 연결(`cmds-pele-vault` 플러그인이 같은 토큰을 Obsidian `--mermaid-*`에 넣고 강조 지시문을 적용)을 더했다. §4.6에 볼트 노트 행과 볼트·발행본 버전 차이(볼트 1.8.0, 발행본 1.9.0)를 적었다. 발행본 Pele 1.8.0 → 1.9.0."
+  - "1.3.1 (2026-10-22): §4.6 도식 행의 Pele 버전 표기를 모듈 `vendor/pele/CURRENT` 참조로 바꿨다(Pele 1.6.0 → 1.8.0 업그레이드, 다음 업그레이드부터 이 파일을 고치지 않아도 된다)."
+  - "1.3 (2026-10-21): 다이어그램 시스템 반영 (macro v4.14.0). §1.6 도식 토큰(cmds-pele `--cp-*`, 시리즈 8색, 배경 대비 4.5:1 규칙, Pretendard 측정 글꼴)을 v4.3 확장으로 추가하고, §2.1 금지 목록에 도식 색 하드코딩과 확산 모델 도식을 넣었다. §4.6을 cmds-diagram 진입점과 지면별 스킬(브리프, 덱, 보고서 PDF·HWPX, 블로그, 뉴스레터, 웹)로 다시 쓰고 Obsidian 미리보기 25/33 사실을 적었다. §5.5 도식 일관성, §7.6 도식 사전 점검, §8 출처를 더했다."
   - "1.2 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) §4.3 미실존 스킬 2종 (presentation-english-coach·presentation-generator-ko) 을 실존 스킬 (tone-writer·cmds-lecture-builder) 로 교체, (b) §4.4 이미지 1차 스킬을 cmds-visual-gen 으로 교체 (image-generation-skill 은 legacy 표기), (c) Lineage 의 cross-vault wikilink 2건 → obsidian URL, (d) §9 '4-way fan-out' → 현행 '8-way (5 mothership + 3 satellite)' 정정 + CMDS.md 📌 블록 주석 보완, (e) 각주·§8.3 의 깨진 링크 구문 (백틱 포함 markdown link) → plain 백틱 경로, (f) Guide/HQ @import 표기 wikilink 로 정정."
   - "1.1 (2026-05-30): Went public as 6th deployed file (v4.8.0); header de-staled; §9 follow-ups resolved; counts hedged."
   - "1.0 (2026-05-22): Initial version. 9th system file added to mothership. Sources — getdesign.md pattern (2026-04-23 capture), v4.3 design standards (cmdspace-web-builder skill), Anti-AI-Slop guidelines (Claude Design system prompt captured 2026-05-04), 87-skill catalog mapped to visual surfaces. Triggered by /query — CMDSPACE 버전의 design.md 만들어줘 (2026-05-22)."
 ---
-> **🔄 Last Updated: 2026-07-02** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/DESIGN_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (6th public file, deployed v4.8.0 2026-05-27)
+> **🔄 Last Updated: 2026-10-23** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/DESIGN_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (6th public file, deployed v4.8.0 2026-05-27)
 
 # DESIGN.md
 
@@ -134,6 +138,23 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 - Light 모드: `bg: var(--cmds-green); color: #FFFFFF;`
 - Dark 모드: `bg: var(--cmds-pink); color: #1B1B1B;` (어두운 글자)
 
+### 1.6 도식 토큰 (Pele · cmds-pele, 2026-10-21)
+
+> v4.3에 도식 토큰을 더한 확장이다. 시리즈 팔레트를 확정하면(Pele 도입 기획서 10절 결정 1) v4.4로 올린다. 값의 정본은 `/Users/yohankoo/DEV/cmds-pele/src/tokens.json`이고 `dist/cmds-pele.css`가 여기서 생성된다.
+
+| 토큰 | Light | Dark | 용도 |
+|------|-------|------|------|
+| `--cp-accent` | `#134538` | `#E985A2` | 핵심 노드(`%% @key`), 해석 노드와 그 선 |
+| `--cp-bg` · `--cp-fg` | `#ffffff` · `#16201c` | `#141917` · `#e8ebe9` | 도식 바탕과 글자 |
+| `--cp-series-1`~`8` | `#134538` `#a8436a` `#5a6660` `#2f7a62` `#7e2c4d` `#38433e` `#8c5a70` `#75604f` | `#E985A2` `#7cc4a8` `#b9c2bd` `#f3b9cc` `#a9dcc8` `#c48aa0` `#8f9a95` `#e7d3c5` | pie, xychart, timeline, gitGraph 같은 계열 색 |
+| `--cp-font` | Pretendard → SF Pro | 같음 | 라벨 폭을 재는 글꼴과 그리는 글꼴을 같게 |
+
+- **대비 규칙**: Pele는 timeline 헤더, gitGraph 브랜치 이름 같은 글자를 바탕색으로 칠한다. 그래서 시리즈 색은 바탕과 4.5:1 이상이어야 한다. 현재 최저값은 라이트 5.15:1, 다크 6.12:1이다(2026-10-20 실측).
+- **라이트는 초록, 다크는 분홍**(§1.1)이 도식에도 그대로 간다. 브랜드 분홍 `#E985A2`는 흰 바탕 대비가 2.52:1이라 라이트 시리즈에 쓰지 않는다.
+- **호스트 연결**: 페이지는 자기 토큰을 `--cp-*` 변수로 넘긴다. 다크는 `data-cp-theme="dark"` 또는 조상 `.cp-dark`, 자동은 `data-cp-theme="auto"`.
+- **볼트 연결** (2026-10-23): Obsidian 1.15+ 볼트는 Obsidian에 든 Pele가 그린다. `cmds-pele-vault` 플러그인이 같은 토큰을 Obsidian의 `--mermaid-accent`, `--mermaid-critical`, `--mermaid-color-1`~`8`에 넣고 강조 채움을 더하며, `%% @key/@interp/@aux`를 발행본과 같은 방식으로 적용한다. 바탕, 글자, 선은 볼트 테마를 따른다. 플러그인의 CSS는 `tokens.json`에서 생성되므로 색을 바꾸면 두 곳이 함께 바뀐다.
+- **글꼴**: 도식은 한글 라벨 폭을 정확히 재려고 Pretendard를 먼저 둔다. 웹과 아티팩트에 싣는 Pretendard 부분집합은 `pele-fontpack.py`로 만든다. 직접 만든 부분집합은 Chrome 글꼴 검사(OTS)에 걸려 대체 글꼴로 보일 수 있다.
+
 ---
 
 ## 2. Anti-AI-Slop Negative List
@@ -149,6 +170,8 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 - ❌ 인라인 `style="color:#..."` (테마 전환 불가)
 - ❌ `<picture media="prefers-color-scheme">` (수동 토글과 충돌)
 - ❌ 히어로 상단 로고 + 아이브로우 "CMDS" 텍스트 동시 노출 (중복)
+- ❌ 도식 소스에 색 하드코딩 (`style`, `classDef ... fill:`, `linkStyle`, `themeVariables`). 테마 전환이 안 되고 다크에서 안 읽힌다. 강조는 `%% @key` · `%% @interp` · `%% @aux` 지시문으로만 한다
+- ❌ 흐름·구조·비율 도식을 확산 모델 이미지로 생성 (라벨과 숫자가 뭉갠다). Mermaid 코드 도식(§4.6)이나 HTML 인포그래픽(§4.4)으로 만든다
 
 ### 2.2 타이포
 
@@ -240,11 +263,22 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 
 ### 4.6 다이어그램·Canvas
 
-| Surface | 1차 스킬 | 보조 스킬 |
-|---------|----------|---------|
-| Mermaid 다이어그램 | `obsidian-mermaid` | (mermaid-rules.md 준수) |
-| Knowledge graph | `graphify` | — |
-| Obsidian Canvas | `obsidian-canvas`, `cmds-canvas` | `json-canvas` |
+| Surface | 1차 스킬 | 보조 스킬 | 참고 |
+|---------|----------|---------|------|
+| Mermaid 도식 (모든 지면의 진입점) | `cmds-diagram` | `obsidian-mermaid` | 정본 모듈 `/Users/yohankoo/DEV/cmds-pele` (Pele 버전은 모듈의 `vendor/pele/CURRENT`, 2026-10-23 기준 1.9.0). 타입 고르기, 작성 규칙, 지면별 넣는 법. mermaid-rules.md 준수 |
+| 브리프 (A4) | `cmds-brief` | `cmds-diagram` | 빌드 HTML에서 브라우저로 그림 (print 프로필) |
+| 슬라이드 덱 | `cmds-lecture-builder` (deck-core) | `cmds-diagram` | spec의 `pele` 슬라이드를 slide 프로필로 미리 그림 |
+| 보고서 PDF · HWPX | `md-to-pdf` · `md-to-hwpx` | `research-harness` | 인라인 SVG · 본문 폭에 맞춘 고해상도 PNG 그림 |
+| 지산 블로그 · 뉴스레터 | `jisan-blog` · `thebetter-writer` | `jisan-scribe` | 커밋하는 사전 렌더 캐시 · 뉴스레터는 PNG만 |
+| 웹 페이지 | `cmdspace-web-builder` | `cmds-diagram` | dist 사본을 사이트에 두고 `--cp-*`로 토큰 연결 |
+| 볼트 노트 | `obsidian-mermaid` | `cmds-diagram` | Obsidian 1.15+ 내장 Pele가 그리고 `cmds-pele-vault` 플러그인이 CMDS 색과 강조 지시문을 적용 |
+| Knowledge graph | `graphify` | — | |
+| Obsidian Canvas | `obsidian-canvas`, `cmds-canvas` | `json-canvas` | |
+
+- 볼트 미리보기는 Obsidian 1.15+에 든 Pele(1.15.0은 1.8.0)가, 발행본은 cmds-pele의 Pele가 그린다. Mermaid 12.1의 33종이 모두 볼트에서 보인다(2026-10-23 실측, MBP·Studio). Obsidian 1.14.4의 Mermaid 11.13.0에서는 25종이라 swimlane, agentflow, eventmodeling, usecase, railroad, treeView, cynefin, wardley는 발행본에서만 보였다.
+- 볼트의 Pele가 발행본보다 늦을 수 있다(2026-10-23 기준 볼트 1.8.0, 발행본 1.9.0). 그 사이에 생긴 기능은 볼트판 기준으로 쓴다: sankey 노드 이름은 ASCII, `List<T>` 같은 꺾쇠 글자는 `#lt;T#gt;`, 라벨의 `<code>`·`<kbd>`·`<sub>` 모양은 발행본에서만 난다(mermaid-rules.md 10번, 정본 목록은 `catalog.json`의 `peleVaultGap`).
+- 두 볼트의 기존 Mermaid 893블록 중 879블록이 Pele로 그려진다(2026-10-23 재측정, 1.8.0과 1.9.0 결과 같음). 거부된 14블록은 Mermaid 11.17.2도 거부한 작성 오류다.
+- 33종 갤러리: https://pele.cmdspace.work
 
 ### 4.7 텍스트 시각 톤 (시각 산출물 아니지만 brand voice)
 
@@ -286,6 +320,12 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 ### 5.4 OG 메타 일관성
 
 웹 → SNS 공유 → 카카오톡 미리보기 까지 1200×630 OG 이미지 동일 사용.
+
+### 5.5 도식 일관성 (2026-10-21)
+
+- 원고의 ```` ```mermaid ```` 펜스 하나가 정본이다. 지면마다 다시 그리지 않고 렌더 방식만 바꾼다. 스크립트를 실을 수 있는 지면은 브라우저에서 그리고, 못 싣는 지면(PDF, HWPX, 블로그, 뉴스레터, 덱)은 미리 그린다.
+- 캡션은 닫는 펜스 바로 다음 줄의 이탤릭 한 줄이다. `%% @caption`은 그 줄이 없을 때만 쓴다. 브리프는 마스터의 `- 캡션:` 줄을 쓴다. 그림 번호는 자동으로 붙이지 않는다.
+- 근거 지위를 선으로 구분한다. 원문이 말한 관계는 실선, CMDSPACE의 해석은 점선과 `%% @interp`.
 
 ---
 
@@ -342,6 +382,14 @@ CMDSPACE 운영에서 반복 발생한 실수 — *DESIGN.md v1.0 시점의 기�
 - [ ] 자막 폰트 = Pretendard (한국어) / SF Pro (영문)
 - [ ] 프로젝트 코드 = `/Users/yohankoo/DEV/video-projects/{name}/`, vault 는 tracking MD 만
 
+### 7.6 도식 추가
+
+- [ ] `node /Users/yohankoo/DEV/cmds-pele/bin/pele-check.mjs --surface {brief|deck|report|blog|vault} FILE.md` 오류 0
+- [ ] 소스에 색 하드코딩 없음 (§2.1), 강조는 지시문
+- [ ] 노드 한도: 브리프 9 · 덱 7 · 블로그 12 · 보고서 15
+- [ ] 라이트·다크 둘 다 확인. 블로그는 폰 폭(390px)도 본다
+- [ ] 볼트 노트에도 두는 도식이면 `--surface vault`도 오류 0 (볼트 버전 Pele로도 그려 본다). 볼트에서 강조가 안 보이면 `cmds-pele-vault` 플러그인이 켜져 있는지 본다
+
 ---
 
 ## 8. Sources & References
@@ -353,6 +401,7 @@ CMDSPACE 운영에서 반복 발생한 실수 — *DESIGN.md v1.0 시점의 기�
 - [[CMDS.md]] · [[🏛 CMDS Guide]] · [[🏛 CMDS Head Quarter]] — context & standards
 - `90. Settings/91. Templates/` — 기존 template 모음
 - `30. Permanent Notes/39. Guideline/Design, Colors and Graphics.md` — *legacy (2022) (archived/deprecated)*, 본 DESIGN.md 가 대체
+- [[2026-10-18-Pele-themeable-SVG-전-시스템-도입-기획서]] · [[2026-10-20-Pele-1.6.0-33종-렌더-실측과-볼트-Mermaid-호환성]] · [[CMDS 다이어그램 원장]] — 도식 시스템의 기획, 실측, 현재 상태
 
 ### 8.2 LLM Wiki (satellite)
 
@@ -365,6 +414,7 @@ CMDSPACE 운영에서 반복 발생한 실수 — *DESIGN.md v1.0 시점의 기�
 
 - [getdesign.md](https://getdesign.md/) — 69개 브랜드 디자인 시스템 큐레이션 (원형 패턴)
 - cmdspace-web-builder skill: `~/.claude/skills/cmdspace-web-builder/SKILL.md` — v4.3 표준
+- cmds-pele 모듈: `/Users/yohankoo/DEV/cmds-pele/README.md` — 도식 토큰·부트스트랩·도구 정본 · Pele: https://github.com/obsidianmd/pele (MIT) · https://pele.run
 - 실전 레퍼런스: [system.cmdspace.work](https://system.cmdspace.work) · [llm-wiki.cmdspace.work](https://llm-wiki.cmdspace.work) · [9yohan.cmdspace.work](https://9yohan.cmdspace.work)
 
 ---

@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-10-06
+date modified: 2026-10-29T10:50
 tags:
   - CMDS
   - system
@@ -26,9 +26,10 @@ optional-for:
 token-estimate: 14500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.12"
+version: "4.13"
 status: completed
 changelog:
+  - "4.13 (2026-10-29): Obsidian-Specific Guidelines 에 Academic Citations (CMDS Zotero) 소절 추가 — 원고 인용은 `[@citekey]`(쪽수 가능), `[[@citekey]]`는 문헌 노트 링크(쪽수 불가), 참고문헌은 플러그인 관리 블록, Word 는 Word kit, 정본 허브 [[Zotero 연동 사용법]]. file-creation-rules 의 내보내기 산출물 볼트 밖 원칙과 한 세트. 동기화 문단의 rules 개수 8 → 9 (file-move-rules 포함, 지시 계층 감사 3회차) (macro v4.15.0)."
   - "4.12 (2026-10-06): 컨텍스트 다이어트 수정안 B — Related System Files 인용블록에서 AGENTS·ANTIGRAVITY·BRAIN·BRAIN_PROMPT·DESIGN 의 `@` import 를 제거하고 CMDS.md 만 자동 로드로 남김 (인용블록 안의 `@` 도 실제 import 된다는 09-27 실측 근거). 그 결과 BRAIN·BRAIN_PROMPT 가 코딩 에이전트 컨텍스트에 들어가던 실제 동작이 문서 서술(들어가지 않음)과 일치하게 됨. AGENTS.md 에만 있던 Claude 필요 규칙 3개(CMDS 커맨드 3곳 동시 수정·git 검사, 시스템 파일 날짜 검사기, 시각 산출물 전 DESIGN.md Read)를 신설 § On-Demand System Files 로 이전. 같은 날 `ENABLE_TOOL_SEARCH=true` 적용(수정안 A)과 함께 볼트 세션 시작 컨텍스트 감축."
   - "4.11 (2026-09-21): project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)를 별개 계층으로 명시하고, 볼트 밖에서도 쓰는 자산은 볼트를 정본으로 두고 user-scope 를 symlink 하는 절차를 추가. 배경: 9Yohan 에이전트 9개가 user-scope 일반 폴더에 있어 Obsidian Sync·git 어디에도 들어가지 않은 채 MBP 로컬에만 존재했다. 절차 정본은 directory-structure.md. token-estimate 12500→14500 재실측. 부수 정정: rules 카운트 8 → 9 (file-move-rules.md 누락, 3곳)."
   - "4.10 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
@@ -55,7 +56,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-10-06** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -224,7 +225,7 @@ CMDS 시스템 파일은 **2-layer 버전 시스템** 사용:
 
 #### 동기화 플로우 (볼트 → 8 destinations → 프로덕션)
 
-볼트 원본 (6개 공개 파일 + `.claude/rules/*.md` 8개) 은 **항상 8 곳에 동기화** — 5 mothership (① 백업 `40. Docs/47. CMDS Docs/cmds-system-files/*_backup.md` ② 공유 `.../cmds-system-files-share/*_share.md` sanitized ③ DEV `files/` + rules + ZIP ④ GitHub push ⑤ Vercel deploy → `system.cmdspace.work`) + 3 satellite (⑥ cmds-vault starter-kit frontmatter ⑦ CMDS_LLM_Wiki dependency check ⑧ LLM Wiki starter-kit 3-place drift check). 누락하면 외부 배포·공유 문서·위성 스타터킷이 stale. `system-docs-updater` 스킬이 8-way (5 mothership + 3 satellite) fan-out 을 담당. 구체 경로·명령은 아래 배포 명령 (정본) 참조.
+볼트 원본 (6개 공개 파일 + `.claude/rules/*.md` 9개) 은 **항상 8 곳에 동기화** — 5 mothership (① 백업 `40. Docs/47. CMDS Docs/cmds-system-files/*_backup.md` ② 공유 `.../cmds-system-files-share/*_share.md` sanitized ③ DEV `files/` + rules + ZIP ④ GitHub push ⑤ Vercel deploy → `system.cmdspace.work`) + 3 satellite (⑥ cmds-vault starter-kit frontmatter ⑦ CMDS_LLM_Wiki dependency check ⑧ LLM Wiki starter-kit 3-place drift check). 누락하면 외부 배포·공유 문서·위성 스타터킷이 stale. `system-docs-updater` 스킬이 8-way (5 mothership + 3 satellite) fan-out 을 담당. 구체 경로·명령은 아래 배포 명령 (정본) 참조.
 
 > **⚠️ 누락 방지 룰 #1 (8 destinations)**: 시스템 파일 수정 후 ① ~ ⑧ 모두 갱신해야 정합성 유지 (최소 ① + ② + ③ 은 항상, ⑥ cmds-vault frontmatter / ⑦ LLM Wiki dep / ⑧ starter-kit drift 는 점검 필수). ② share 폴더를 빼먹으면 외부에 공유한 sanitized 사본이 outdated 됨 (실제로 2026-04-30~05-03 사이 share 폴더 13~16일 stale 상태로 방치됐었음).
 >
@@ -342,7 +343,9 @@ related:
   - "[[🛰 CMDS_LLM_Wiki Satellite Vault]]"  # always link the entry point
 ```
 
-> **폴백**: advanced-uri 는 *대상 볼트에* `obsidian-advanced-uri` 플러그인이 있어야 동작. 플러그인이 없는 볼트를 가리킬 때는 기본형 `obsidian://open?vault=...&file={path without .md}` 사용 (액션 `open` · 파라미터 `file=` · `.md` 없음). filepath 는 URL 인코딩 필수, 액션 이름 `adv-uri` 오타 금지 — 상세는 wikilink-rules.md §6.
+> **폴백**: advanced-uri 는 *대상 볼트에* `obsidian-advanced-uri` 플러그인이 있어야 동작. 플러그인이 없는 볼트를 가리킬 때는 기본형 `obsidian://open?vault=...&file={path}` 사용 (액션 `open` · 파라미터 `file=` · `.md` 는 선택). 액션 이름은 `adv-uri`·`advanced-uri` 둘 다 정상, filepath 는 URL 인코딩 필수 — 상세는 wikilink-rules.md §6.
+>
+> **기기별 볼트 이름**: `vault=` 는 링크를 여는 기기의 볼트 이름 — 맥 `CMDSPACE_Local_MBP`, 폰(iOS) `CMDSPACE_iOS(Sync%20updated)`. 폰에서도 `open`·`adv-uri`·`advanced-uri` 모두 열림 (2026-10-25 확인).
 
 ```markdown
 # Body text (companion vault pages — advanced-uri 권장, 가벼운 언급은 텍스트 참조 허용)
@@ -626,6 +629,12 @@ Most common types in the vault:
 ### Markdown Files
 - Always use wikilinks `[[]]` for internal references, NOT markdown links
 - Include YAML frontmatter for metadata — 필수 7필드 + 선택 필드 (`CMDS:`/`index:`/`status:`) 정의는 @.claude/rules/frontmatter-standard.md 가 정본
+
+### Academic Citations (CMDS Zotero)
+- 원고의 인용은 Better BibTeX 인용 키로 쓴다: `[@citekey]`, 쪽수 `[@citekey, p. 3]`, 여러 문헌 `[@a; @b]`. 키를 추측하거나 APA 문자열을 손으로 쓰지 않는다. 키는 Zotero 색인(CMDS Zotero 설정의 *Index path*)에서 확인한다.
+- `[[@citekey]]`는 문헌 노트(`@citekey.md`)로 가는 위키링크다. 그래프와 백링크에는 남지만 쪽수를 붙일 수 없다. 쪽수가 필요한 인용은 항상 `[@`로 쓴다.
+- 노트 끝의 참고문헌은 CMDS Zotero가 관리하는 블록(`<!-- cmds-zotero-references… -->` 표식 사이)이다. 블록 안은 손대지 않고 *Insert or update references section*으로 갱신한다.
+- Word로 넘길 때는 CMDS Zotero의 Word kit(인용이 Zotero 필드로 남는다)을 쓴다. 내보내기 산출물은 볼트 밖에 둔다(file-creation-rules). 사용법 정본: [[Zotero 연동 사용법]].
 
 ### Note Templates
 Templates are located in `90. Settings/91. Templates/`

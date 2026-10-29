@@ -227,6 +227,7 @@ mainVaultRelated:
 3. **링크 라벨은 `{볼트 별칭}: {페이지명}`** — `LLM Wiki: X` / `Mothership: X`.
 4. **쓰기 전 대상 파일 실존 확인** (Glob/ls). 존재하지 않는 filepath 는 조용히 죽는 링크가 된다.
 5. **본문 산문에서는** 텍스트 참조 `→ LLM Wiki: {page}` 도 계속 허용 (가벼운 언급용). 클릭 가능해야 하는 참조는 마크다운 링크 형식.
+6. **`vault=` 는 링크를 여는 기기의 볼트 이름** — 같은 노트라도 맥은 `CMDSPACE_Local_MBP`, 폰(iOS)은 `CMDSPACE_iOS(Sync%20updated)`. 폰 볼트에도 Advanced URI 가 켜져 있어 `open`(`.md` 유무 무관)·`adv-uri`·`advanced-uri` 모두 열림 (2026-10-25 확인). 폰용 링크는 앱이 만드는 `open?vault=…&file=…` 형식(괄호 미인코딩, `.md` 없음)을 기본으로.
 
 ### 폴백 — Advanced URI 플러그인이 대상 볼트에 없을 때
 

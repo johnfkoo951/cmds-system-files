@@ -7,7 +7,7 @@ description: "Technical guide for non-Claude AI coding agents (Codex, Cursor, Wi
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-09-16
+date modified: 2026-10-29T10:50
 tags:
   - CMDS
   - system
@@ -25,9 +25,10 @@ optional-for:
 token-estimate: 8500
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.16"
+version: "2.17"
 status: completed
 changelog:
+  - "2.17 (2026-10-29): Academic Citations (CMDS Zotero) 절 추가 — CLAUDE.md 4.13 과 같은 인용 규칙(`[@citekey]` 쪽수 가능, `[[@citekey]]` 문헌 노트 링크·쪽수 불가, 관리 블록, Word kit, 내보내기 산출물 볼트 밖) (macro v4.15.0)."
   - "2.16 (2026-09-16): frontmatter 로컬 탐색에 실제 발급·대상 확인한 Hookmark URI를 적용하고 공통 프로필 묶음을 1.0.1로 갱신. 기존 필드명·legacy 값·Raw 원문과 본문/manifest의 재현 경로를 보존."
   - "2.15 (2026-09-14): I01 공통 필드·Main/Wiki 프로필 v1.0.0과 읽기 전용 resolver 진입점을 추가. 프로필 선택과 실제 콘텐츠 검증을 구분하며 기존 훅·템플릿 집행과 레거시 노트는 보존."
   - "2.14 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
@@ -47,7 +48,7 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-09-16** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
+> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
@@ -346,6 +347,12 @@ When producing any visual artifact — web page, PDF, slide deck, image, video, 
 ---
 
 <!-- DYNAMIC: 아래 내용은 주기적으로 갱신됩니다 -->
+
+## Academic Citations (CMDS Zotero)
+- 원고의 인용은 Better BibTeX 인용 키로 쓴다: `[@citekey]`, 쪽수 `[@citekey, p. 3]`, 여러 문헌 `[@a; @b]`. 키를 추측하거나 APA 문자열을 손으로 쓰지 않는다. 키는 Zotero 색인(CMDS Zotero 설정의 *Index path*)에서 확인한다.
+- `[[@citekey]]`는 문헌 노트(`@citekey.md`)로 가는 위키링크다. 그래프와 백링크에는 남지만 쪽수를 붙일 수 없다. 쪽수가 필요한 인용은 항상 `[@`로 쓴다.
+- 노트 끝의 참고문헌은 CMDS Zotero가 관리하는 블록(`<!-- cmds-zotero-references… -->` 표식 사이)이다. 블록 안은 손대지 않고 *Insert or update references section*으로 갱신한다.
+- Word로 넘길 때는 CMDS Zotero의 Word kit(인용이 Zotero 필드로 남는다)을 쓴다. 내보내기 산출물은 볼트 밖에 둔다(file-creation-rules). 사용법 정본: [[Zotero 연동 사용법]].
 
 ## Common Note Types
 

@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-10-10
+date modified: 2026-10-23
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,70 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.15.0 — 2026-10-29 (학술 원고 인용 규칙 + 내보내기 산출물 볼트 밖, v4.14.0 함께 배포)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.14.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.13 | ⬆ 4.12 → 4.13 |
+| AGENTS.md | 2.17 | ⬆ 2.16 → 2.17 |
+| ANTIGRAVITY.md | 2.8 | — |
+| CMDS.md | 2.15 | ⬆ 2.14 → 2.15 |
+| 🏛 CMDS Guide.md | 2.11 | — |
+| 🏛 CMDS Head Quarter.md | 1.8 | — |
+| DESIGN.md | 1.4 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+> Obsidian에서 Zotero 인용 키로 쓴 원고를 Word로 넘기는 흐름(CMDS Zotero 0.6.6)을 에이전트 규칙에 올린다.
+
+### Changes
+
+- **CLAUDE.md 4.13 / AGENTS.md 2.17** — Academic Citations (CMDS Zotero) 절: 원고 인용은 `[@citekey]`(쪽수 `[@citekey, p. 3]`, 여러 문헌 `[@a; @b]`), `[[@citekey]]`는 문헌 노트로 가는 위키링크라 쪽수를 붙일 수 없다, 노트 끝 참고문헌은 플러그인 관리 블록, Word로는 Word kit(인용이 Zotero 필드로 남음).
+- **CMDS.md 2.15** — LLM Wiki 스타터킷 버전 주장 v1.12.0 → v1.13.0 (GitHub Release 기준, 감사 스크립트의 정본 드리프트 해소).
+- **CLAUDE.md 동기화 문단** — 볼트 원본 rules 개수 8 → 9 (`file-move-rules.md` 포함). 지시 계층 감사 3회차(2026-10-29)에서 찾음.
+- **`file-creation-rules.md`** — Export Outputs Stay Outside the Vault: Word·PDF 같은 md가 아닌 내보내기 산출물과 그 빌드 파일은 볼트 밖(`~/Documents/CMDS Zotero exports`, 이미 생긴 것은 `_archive`)에 두고, 노트가 임베드하는 이미지와 첨부는 예외. 강의·실습 키트는 `DEV/lecture-kits`.
+
+### 보류
+- 🏛 CMDS Guide.md 는 v4.13.0·v4.14.0 과 같은 이유로 배포본·공유본에 넣지 않았다.
+
+---
+
+## v4.14.0 — 2026-10-21 ~ 10-23 (다이어그램 시스템: Pele + cmds-pele, 볼트 도식 색) · v4.15.0과 함께 2026-10-29 배포
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.13.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.12 | — (frontmatter `date modified` 만 바뀜) |
+| AGENTS.md | 2.16 | — |
+| ANTIGRAVITY.md | 2.8 | — |
+| CMDS.md | 2.14 | — (frontmatter `date modified` 만 바뀜) |
+| 🏛 CMDS Guide.md | 2.11 | — |
+| 🏛 CMDS Head Quarter.md | 1.8 | — |
+| DESIGN.md | 1.4 | ⬆ 1.2 → 1.4 (1.3 10-21, 1.3.1 10-22, 1.4 10-23) |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+> 이번 릴리스는 CMDS 콘텐츠의 도식 정본을 시각 규칙에 올린다. 원고의 Mermaid 펜스 하나를 Pele(Obsidian, MIT)가 그리고, 색과 글꼴은 cmds-pele 모듈의 토큰이 정한다. 33종 갤러리는 https://pele.cmdspace.work 에 공개했다.
+
+### Changes
+
+- **DESIGN.md 1.3** — §1.6 도식 토큰을 v4.3 확장으로 추가했다. `--cp-*` 훅, 시리즈 8색(라이트 최저 대비 5.15:1, 다크 6.12:1), 바탕 대비 4.5:1 규칙(Pele가 일부 글자를 바탕색으로 칠함), 측정 글꼴과 표시 글꼴을 같게 하는 Pretendard 규칙이다. 시리즈 팔레트를 확정하면 v4.4로 올린다.
+	- §2.1 금지 목록: 도식 소스의 색 하드코딩, 확산 모델로 만든 흐름·구조 도식.
+	- §4.6: 진입점 스킬 `cmds-diagram`과 지면별 스킬(브리프, 덱, 보고서 PDF·HWPX, 블로그, 뉴스레터, 웹). Obsidian 1.14.4(내장 Mermaid 11.13.0) 미리보기는 33종 중 25종이고, 두 볼트의 기존 Mermaid 789블록 중 775블록이 Pele로 그려진다.
+	- §5.5 도식 일관성(펜스 하나가 정본, 캡션은 펜스 다음 줄의 이탤릭), §7.6 도식 사전 점검, §8 출처.
+- **`mermaid-rules.md` 6~10** — Pele 발행 규칙: 색 하드코딩 금지와 `%% @key` 지시문, 캡션 줄, 타입별 따옴표(quadrantChart title은 감싸지 않음, architecture `["…"]`, sankey ASCII), 블록 첫 줄의 빈 `%%` 금지, 볼트에서 안 보이는 8종.
+- **DESIGN.md 1.3.1 (10-22)** — §4.6 도식 행의 Pele 버전 표기를 모듈 `vendor/pele/CURRENT` 참조로(Pele 1.6.0 → 1.8.0).
+- **DESIGN.md 1.4 (10-23)** — Obsidian 1.15가 Mermaid 대신 Pele 1.8.0을 내장해 볼트 미리보기가 33/33이 되었다. §4.6의 25/33 서술과 §7.6의 8종 점검을 고치고, 볼트 노트 행과 볼트·발행본 버전 차이(볼트 1.8.0, 발행본 1.9.0)를 적었다. §1.6에 볼트 연결: `cmds-pele-vault` 플러그인이 같은 토큰을 Obsidian `--mermaid-*`에 넣고 `%% @key/@interp/@aux`를 적용해 볼트와 발행본이 같은 색과 강조를 쓴다. 발행본 Pele 1.9.0.
+- **`mermaid-rules.md` 갱신 (10-23)** — 머리말을 볼트 Pele·발행본 Pele로, 6번에 볼트 플러그인, 8번 sankey 이유(발행본 1.9.0은 한글을 받지만 볼트 1.8.0은 오류), 10번을 "볼트에서 안 보이는 8종"에서 "볼트 버전 기준으로 쓴다"(꺾쇠 글자 `#lt;T#gt;`, 라벨 HTML 태그는 발행본만)로, 검사 줄에 `--surface vault`.
+
+### 보류
+- 🏛 CMDS Guide.md 는 v4.13.0 과 같은 이유로 이번에도 배포본·공유본에 넣지 않았다(2026-09-29 기록 없는 frontmatter `tags` 변경, 한 줄 배열에 본문에서 수집된 태그가 섞임).
 
 ---
 

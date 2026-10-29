@@ -52,6 +52,12 @@ DEV `_archive`는 로컬 전용이며 이관 자체가 Git push·백업·Obsidia
 6. 재개 시 대표 MD의 외부 위치와 manifest를 먼저 읽는다. 원래 폴더에 JSON이 없다는 이유로 연구를 새로 제출하거나 원문을 다시 생성하지 않는다. 새 writer는 별도 DEV 작업 사본에 기록하고 과거 증거를 보존한다. 복원은 현재 파일과 충돌하지 않는 위치에서 원본 해시·권한·참조를 검증하며, 과거 적용 스크립트를 볼트에 무작정 재실행하지 않는다.
 보관 완료 보고에는 MD 위치·외부 위치·대상 수·검증 결과·잔여·백업 상태를 명시한다. 이 절차는 에이전트가 수행하는 종료 워크플로이며 cron/hook 자동 설치가 아니다.
 
+## Export Outputs Stay Outside the Vault (2026-10-29)
+Word·PDF 같은 md가 아닌 내보내기 산출물과 그 빌드 파일(pandoc kit의 `defaults.yaml`·Lua 필터·목록 파일·정리 사본, `.docx`)은 볼트 밖에 둔다. 볼트에는 원고 md와 그 기록만 남긴다(사용자 원칙).
+- CMDS Zotero 내보내기 폴더는 `~/Documents/CMDS Zotero exports`다(플러그인 설정 *Allow export kits outside the vault*를 켜고 *Export kit folder*에 지정). 볼트 안에 이미 생긴 kit은 위 Completed Artifact Closeout대로 `/Users/yohankoo/DEV/_archive/vault-artifacts/…`에 옮기고 대표 MD에 기록한다.
+- 예외: 노트가 임베드해서 보여 주는 이미지와 첨부(`80. References/81. Attachment/`, 노트 옆 `images/`)는 볼트에 둔다. 노트가 볼트 안에서 렌더되어야 하기 때문이다.
+- 강의·실습용 배포 키트는 `/Users/yohankoo/DEV/lecture-kits/<키트>/`에 둔다.
+
 ## File Naming Convention
 
 - Include date: `YYYY-MM-DD-description.ext`
