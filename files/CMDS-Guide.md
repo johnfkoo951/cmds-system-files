@@ -7,7 +7,7 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-09-07
+date modified: 2026-10-29T11:20
 tags:
   - CMDS
   - system
@@ -24,9 +24,10 @@ optional-for:
 token-estimate: 4800
 links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.11"
+version: "2.12"
 status: completed
 changelog:
+  - "2.12 (2026-10-29): tags 노이즈 세 번째 정리 — 2026-09-29 Linter `move-tags-to-yaml`(저장·파일 전환 때 실행)이 본문 예시 태그 7개(태그는자유로워야지·index·NoteClass·maps·example·operation·service)를 한 줄 배열로 frontmatter 에 올리고 date modified 를 바꾼 기록 없는 변경을 되돌림. 재발 방지로 본문 예시 태그를 백틱으로 감싸 Linter·Obsidian 이 태그로 읽지 않게 함 (Tags·Index·Wis' Rule 절). 배포본·공유본 보류 해제. Last Updated 배너를 다른 시스템 파일처럼 frontmatter 바로 아래(제목 위)로 옮기고 본문 Version 표기를 2.12로 (macro v4.15.1)."
   - "2.11 (2026-09-07): E07 교차 볼트 참조 방향 교정 — 마더십 wikiVaultRelated·위키 mainVaultRelated 구분, 실재 대상의 advanced-uri 예시, open 폴백·legacy 읽기 호환·반대 볼트 쓰기 권한 경계 명시."
   - "2.10 (2026-08-22): 데일리·위클리 로그 이관 반영 — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. Folder Structure 트리 갱신 + Graph View 필터 예시 경로 교체."
   - "2.9 (2026-07-13): Inbox 폴더 구조 갱신 — 08. Unlisted(미사용) → 08. Transcripts 재구조화 (raw 전사본 착륙 레인 08-1. Plaud / 08-2. STT / 08-3. Manual). 06. Automation 에서 06-3. STT 를 08-2 로 이관. 인박스(대기열) vs 40. Docs/44. Transcripts(아카이브) 2계층 역할 분리."
@@ -42,12 +43,11 @@ share: true
 share_link: https://canny-buffalo-436.convex.site/note/bq2eal9k.html
 share_expires: 2026-01-29T11:02:12.926Z
 ---
+> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 
 # CMDS Guide
 
-> **🔄 Last Updated: 2026-09-07** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
->
-> 📌 **Version 2.11** - Properties 표준화 + 9-file scheme + 교차 볼트 참조 방향·URI 계약 교정
+> 📌 **Version 2.12** - Properties 표준화 + 9-file scheme + 교차 볼트 참조 방향·URI 계약 교정 + 본문 예시 태그를 코드로 처리(frontmatter 태그 노이즈 재발 방지)
 
 ## Properties
 ### 필수 Properties (Required)
@@ -204,7 +204,7 @@ mainVaultRelated:
 - `resource` - 리소스
 - `product` - 제품/서비스
 ### Tags
-- 태그는 자유롭게 #태그는자유로워야지
+- 태그는 자유롭게 `#태그는자유로워야지`
 - Nested tags 예시:
 	- `#Author/Koo`
 	- `#가이드/태그작성법`
@@ -214,7 +214,7 @@ mainVaultRelated:
 - [[🏛 CMDS Head Quarter]]
 - [[🏛 CMDS Guide]]
 ### Index
-#index #NoteClass #maps
+`#index` `#NoteClass` `#maps`
 - [[🏷 Guideline]]
 - [[🏷 Daily Notes]]
 - [[🏷 Research Notes]]
@@ -262,9 +262,9 @@ mainVaultRelated:
 ## Filename Conventions
 ### 접두사(Prefix)
 #### Wis' Rule
-- `u.` - usecase #example
-- `f.` - feature #operation
-- `p.` - product #service
+- `u.` - usecase `#example`
+- `f.` - feature `#operation`
+- `p.` - product `#service`
 #### Input
 - 📎 - Web Clips (W@)
 - 🌿 - Readwise (WW@)

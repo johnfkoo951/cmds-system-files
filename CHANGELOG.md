@@ -29,6 +29,32 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.15.1 — 2026-10-29 (🏛 CMDS Guide 보류 해제: 태그 노이즈 정리)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.15.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.13 | — |
+| AGENTS.md | 2.17 | — |
+| ANTIGRAVITY.md | 2.8 | — |
+| CMDS.md | 2.15 | — |
+| 🏛 CMDS Guide.md | 2.12 | ⬆ 2.11 → 2.12 |
+| 🏛 CMDS Head Quarter.md | 1.8 | — |
+| DESIGN.md | 1.4 | — |
+| BRAIN.md *(internal)* | (Gobi-managed) | — |
+| BRAIN_PROMPT.md *(internal)* | (Gobi-managed) | — |
+
+> v4.13.0부터 배포본·공유본에서 빼 두었던 🏛 CMDS Guide를 다시 넣는다.
+
+### Changes
+
+- **🏛 CMDS Guide.md 2.12** — 2026-09-29 기록 없는 변경을 되돌렸다. Obsidian Linter의 `move-tags-to-yaml` 규칙(저장·파일 전환 때 실행)이 본문 예시 태그 7개(태그는자유로워야지·index·NoteClass·maps·example·operation·service)를 한 줄 배열로 frontmatter에 올리고 `date modified`를 바꾼 것이다. `tags`를 목록 형식(`CMDS`, `system`)으로 되돌렸다. 2.6·2.8에 이은 세 번째 같은 회귀라, 본문 예시 태그를 백틱으로 감싸 Linter와 Obsidian이 태그로 읽지 않게 했다(Tags·Index·Wis' Rule 절).
+	- Last Updated 배너를 다른 시스템 파일처럼 frontmatter 바로 아래(제목 위)로 옮겼다(`check-system-dates.rb`가 배너를 찾는 위치). 본문 Version 표기를 2.12로 고쳤다.
+- 배포본 `files/CMDS-Guide.md`와 ZIP, 공유본 `CMDS-Guide_share.md`를 2.12로 갱신했다.
+
+---
+
 ## v4.15.0 — 2026-10-29 (학술 원고 인용 규칙 + 내보내기 산출물 볼트 밖, v4.14.0 함께 배포)
 
 ### File Version Snapshot
