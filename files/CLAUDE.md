@@ -7,7 +7,7 @@ description: "Claude Code specific technical implementation guide. Defines file 
 author:
   - "[[구요한]]"
 date created: 2025-09-27T17:53
-date modified: 2026-10-29T10:50
+date modified: 2026-10-30T16:55
 tags:
   - CMDS
   - system
@@ -23,12 +23,13 @@ optional-for:
   - search
   - analysis
   - reading
-token-estimate: 14500
+token-estimate: 15000
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "4.13"
+version: "4.14"
 status: completed
 changelog:
+  - "4.14 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — (a) § System Files Deployment 본문(2-Layer·배포 스택·배포 명령 bash 블록·위성 ⑥~⑧·새 Mac)을 [[CMDS 시스템 파일 배포 절차]] 로 이관하고 요약·누락 방지 룰 3개·스크립트 포인터만 남김(컨텍스트 다이어트 2차). 실행 정본은 `scripts/sync-system-files.sh`(세 곳에 갈라져 있던 ①~⑤ 블록 통합 — 백업 CHANGELOG 사본, 확장 SANITIZE 15+룰, 누출·웹 버전 게이트, 태그·Release, ⑤ 는 같은 시퀀스). (b) § Obsidian CLI 를 포인터로 축소(Quick Reference 는 전역 CLAUDE.md·사용 가이드) + core Templates 폴더 미설정 주석. (c) 커맨드 13종 = 10 CMDS Process + /daily·/weekly + /insight — /insight 를 Command Map·결정 트리·Periodic 표에 추가, 8종→10종, /lint 범위 files·storage, 정본은 [[CMDS 에이전트 시스템 원장]] § 마더십 슬래시 커맨드 13. (d) § Key Obsidian Plugins 실측화(설치 156 / 런타임 활성 약 70 / 즉시 시작 19, Lazy Plugin Loader; Copilot·Smart Connections·Chronology·Excalibrain 비활성). (e) Note Types 11종 2026-10-30 실측(moc 85+→37), symlink 폴더 4→5(hooks), 레인 03-1~03-9(Grok Bot), Note-taking (Live) 는 데일리 노트 인라인 base, 본문 stray @import 백틱화, 템플릿 목록 wikilink. On-Demand 표에 배포 절차·Obsidian CLI·정례 점검 행 추가."
   - "4.13 (2026-10-29): Obsidian-Specific Guidelines 에 Academic Citations (CMDS Zotero) 소절 추가 — 원고 인용은 `[@citekey]`(쪽수 가능), `[[@citekey]]`는 문헌 노트 링크(쪽수 불가), 참고문헌은 플러그인 관리 블록, Word 는 Word kit, 정본 허브 [[Zotero 연동 사용법]]. file-creation-rules 의 내보내기 산출물 볼트 밖 원칙과 한 세트. 동기화 문단의 rules 개수 8 → 9 (file-move-rules 포함, 지시 계층 감사 3회차) (macro v4.15.0)."
   - "4.12 (2026-10-06): 컨텍스트 다이어트 수정안 B — Related System Files 인용블록에서 AGENTS·ANTIGRAVITY·BRAIN·BRAIN_PROMPT·DESIGN 의 `@` import 를 제거하고 CMDS.md 만 자동 로드로 남김 (인용블록 안의 `@` 도 실제 import 된다는 09-27 실측 근거). 그 결과 BRAIN·BRAIN_PROMPT 가 코딩 에이전트 컨텍스트에 들어가던 실제 동작이 문서 서술(들어가지 않음)과 일치하게 됨. AGENTS.md 에만 있던 Claude 필요 규칙 3개(CMDS 커맨드 3곳 동시 수정·git 검사, 시스템 파일 날짜 검사기, 시각 산출물 전 DESIGN.md Read)를 신설 § On-Demand System Files 로 이전. 같은 날 `ENABLE_TOOL_SEARCH=true` 적용(수정안 A)과 함께 볼트 세션 시작 컨텍스트 감축."
   - "4.11 (2026-09-21): project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)를 별개 계층으로 명시하고, 볼트 밖에서도 쓰는 자산은 볼트를 정본으로 두고 user-scope 를 symlink 하는 절차를 추가. 배경: 9Yohan 에이전트 9개가 user-scope 일반 폴더에 있어 Obsidian Sync·git 어디에도 들어가지 않은 채 MBP 로컬에만 존재했다. 절차 정본은 directory-structure.md. token-estimate 12500→14500 재실측. 부수 정정: rules 카운트 8 → 9 (file-move-rules.md 누락, 3곳)."
@@ -56,7 +57,7 @@ changelog:
   - "2.1 (2026-03-30): frontmatter 표준 추가, 백업 경로 이동"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, GitHub/Web 링크"
 ---
-> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
+> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CLAUDE_backup.md` | GitHub: [cmds-system-files](https://github.com/johnfkoo951/cmds-system-files) (코드 히스토리, 자동 배포 아님) | Web: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`)
 
 # CLAUDE.md
 
@@ -168,7 +169,7 @@ This vault is accessed from two different Mac environments:
 
 ### Claude Settings Sync (Symlink Strategy) — 결정 로그 (2026-04-14)
 
-Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않는다. **결정**: `90. Settings/94. Agent Settings/claude/` 를 **원본** 으로 두고, 각 Mac 의 `.claude/` 하위 4개 폴더 (`agents`/`commands`/`rules`/`skills`) 를 상대 경로 symlink 로 연결한다. `settings.json`·`settings.local.json`·`sessions/` 는 머신 로컬 전용 (symlink 안 함). 트리 구조·이유·새 Mac 수동 설정법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션이 정본.
+Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않는다. **결정**: `90. Settings/94. Agent Settings/claude/` 를 **원본** 으로 두고, 각 Mac 의 `.claude/` 하위 5개 폴더 (`agents`/`commands`/`hooks`/`rules`/`skills`) 를 상대 경로 symlink 로 연결한다. `settings.json`·`settings.local.json`·`sessions/` 는 머신 로컬 전용 (symlink 안 함). 트리 구조·이유·새 Mac 수동 설정법은 `.claude/rules/directory-structure.md` 의 "Symbolic Link" 섹션이 정본.
 
 **user-scope 추가 (2026-09-21)**: `~/.claude/agents` 도 같은 볼트 폴더로 symlink 한다. project-scope(`<vault>/.claude/`)와 user-scope(`~/.claude/`)는 **별개 계층**이고 Claude Code 가 양쪽을 모두 읽는다 — 볼트 밖(`/DEV/` 등)에서도 써야 하는 9Yohan 에이전트가 user-scope 일반 폴더에 있어 Sync·git 어디에도 안 들어가던 문제를 이렇게 닫았다. 절차는 정본 참조.
 
@@ -176,130 +177,26 @@ Obsidian Sync 는 dotfile (`.claude/`) 을 동기화하지 않는다. **결정**
 
 ### 📦 System Files Deployment (system.cmdspace.work)
 
-**9 system files 중 공개 가능한 6개(CLAUDE, AGENTS, CMDS, HQ, Guide, DESIGN)** 만 `system.cmdspace.work` 에 배포. 나머지 3개(ANTIGRAVITY = Gemini 전용, BRAIN/BRAIN_PROMPT = Gobi 페르소나 전용)는 vendor·product 특화라 외부 배포 대상에서 제외. 배포 스택/경로/명령은 아래와 같습니다.
+**9 system files 중 공개 가능한 6개(CLAUDE, AGENTS, CMDS, HQ, Guide, DESIGN)** 만 `system.cmdspace.work` 에 배포한다. 나머지 3개(ANTIGRAVITY = Gemini 전용, BRAIN/BRAIN_PROMPT = Gobi 페르소나 전용)는 vendor·product 특화라 외부 배포 대상에서 제외한다. 배포 소스는 `/Users/yohankoo/DEV/cmds-system-files/`(Vercel `cmds-system-files-v2`, GitHub `johnfkoo951/cmds-system-files`, 단독 관리)이고 매크로 버전은 그 `CHANGELOG.md` 최상단, 파일별 마이크로 버전은 각 frontmatter `version:` 이다(2-layer).
 
-#### 📐 2-Layer Version System
+> **⚠️ 누락 방지 룰 #1 (8 destinations)**: 시스템 파일 수정 후 ① 백업 ② 공유(sanitized) ③ DEV + ZIP ④ GitHub push(+ 매크로 버전업이면 태그·Release) ⑤ Vercel deploy 와 위성 ⑥ cmds-vault frontmatter ⑦ CMDS_LLM_Wiki 의존성 ⑧ 스타터킷 3-place 를 모두 갱신하거나 no-op 를 확인한다. ② 를 빼먹으면 외부 공유본이 stale 해진다(2026-04-30 ~ 05-03 사고).
+> **⚠️ 누락 방지 룰 #2 (Sequencing)**: ⑤ `vercel deploy` 는 그 순간의 DEV 스냅샷을 배포한다. CHANGELOG·HTML·README 변경은 ⑤ 전에 끝내고, 뒤에 바꿨으면 재배포한다(2026-05-04 사고). GitHub 자동 배포는 없다.
+> **⚠️ 누락 방지 룰 #3 (웹·README 수치)**: `index.html`·`docs/index.html`·`README.md` 의 버전 라벨과 수치(rules·subcategories·commands)는 하드코딩이라 매크로 버전업마다 sweep 한다(2026-10-30 감사: README 가 v4.9.0·8 rules·91 subcategories 로 다섯 달 정체). <!-- version-audit: ignore -->
 
-CMDS 시스템 파일은 **2-layer 버전 시스템** 사용:
-
-| Layer | 단위 | 위치 | 예시 |
-|-------|------|------|------|
-| 🌐 **매크로 (시스템 전체)** | Vercel 배포 스냅샷 | `/Users/yohankoo/DEV/cmds-system-files/CHANGELOG.md` | v4.5, v4.5.1 |
-| 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
-
-**둘 다 의미 있고 독립적** — 매크로는 외부 배포 단위 (사용자가 다운받는 ZIP 의 스냅샷), 마이크로는 각 파일의 schema/content evolution. 매크로 entry 안에 *그 시점의 9 files version snapshot matrix* 가 포함되어 매핑 추적 가능.
-
-→ "현재 시스템 전체 버전?" 질문 → `DEV/CHANGELOG.md` 의 최상단 매크로 version 확인.
-→ "특정 파일 진화?" 질문 → 그 파일 frontmatter `version:` + `changelog:` 배열 확인.
-
-#### 배포 스택
-
-| 레이어 | 서비스 | 설정 |
-|--------|--------|------|
-| **DNS** | Cloudflare | `cmdspace.work` (Free tier) · Account: `Cmdspace.contact@gmail.com` |
-| **DNS Record** | Cloudflare | `system` → A `76.76.21.21` · Proxy **OFF** (DNS only) |
-| **Hosting** | Vercel | Team: `johnfkoo951's projects` (Hobby) · Project: **`cmds-system-files-v2`** |
-| **Project ID** | Vercel | `prj_CDfy1Qhc2WmxI2nj76w0EJv3zq8h` |
-| **Domain binding** | Vercel | `system.cmdspace.work` + `files.cmdspace.work` (같은 프로젝트) |
-| **Git Integration** | — | ❌ 없음 (CLI 수동 배포만) |
-
-> **왜 `-v2`?**: Vercel 프로젝트 이름의 일련번호. 1차 시도 프로젝트 `cmds-system-files` 는 도메인 미연결 상태로 orphaned. 2차로 생성한 `cmds-system-files-v2` 가 현행. **시스템 파일 콘텐츠 버전(매크로/마이크로 — 현행 매크로는 `DEV/CHANGELOG.md` 최상단 참조)과는 무관**.
-
-#### 배포 소스 폴더 (DEV)
-
-**`/Users/yohankoo/DEV/cmds-system-files/`** 가 배포 소스입니다. 구조:
-
-```
-/Users/yohankoo/DEV/cmds-system-files/
-├── index.html                    ← 메인 웹페이지 (v4.3 Landing)
-├── docs/index.html               ← 기술 문서 (v4.3 Editorial Docs)
-├── README.md                     ← GitHub 리드미
-├── CHANGELOG.md                  ← 버전 이력
-├── .vercel/project.json          ← Vercel 링크 (gitignored)
-├── files/                        ← 다운로드 배포본
-│   ├── CLAUDE.md, AGENTS.md, CMDS.md, CMDS-Guide.md, CMDS-Head-Quarter.md, DESIGN.md
-│   ├── CMDS-System-Files.zip     ← 위 6개 + rules/ 번들
-│   └── rules/ (9개 .md)          ← .claude/rules/ 미러
-└── rules/ (9개 .md)              ← 레포 루트에도 복사본
-```
-
-#### 동기화 플로우 (볼트 → 8 destinations → 프로덕션)
-
-볼트 원본 (6개 공개 파일 + `.claude/rules/*.md` 9개) 은 **항상 8 곳에 동기화** — 5 mothership (① 백업 `40. Docs/47. CMDS Docs/cmds-system-files/*_backup.md` ② 공유 `.../cmds-system-files-share/*_share.md` sanitized ③ DEV `files/` + rules + ZIP ④ GitHub push ⑤ Vercel deploy → `system.cmdspace.work`) + 3 satellite (⑥ cmds-vault starter-kit frontmatter ⑦ CMDS_LLM_Wiki dependency check ⑧ LLM Wiki starter-kit 3-place drift check). 누락하면 외부 배포·공유 문서·위성 스타터킷이 stale. `system-docs-updater` 스킬이 8-way (5 mothership + 3 satellite) fan-out 을 담당. 구체 경로·명령은 아래 배포 명령 (정본) 참조.
-
-> **⚠️ 누락 방지 룰 #1 (8 destinations)**: 시스템 파일 수정 후 ① ~ ⑧ 모두 갱신해야 정합성 유지 (최소 ① + ② + ③ 은 항상, ⑥ cmds-vault frontmatter / ⑦ LLM Wiki dep / ⑧ starter-kit drift 는 점검 필수). ② share 폴더를 빼먹으면 외부에 공유한 sanitized 사본이 outdated 됨 (실제로 2026-04-30~05-03 사이 share 폴더 13~16일 stale 상태로 방치됐었음).
->
-> **⚠️ 누락 방지 룰 #2 (Sequencing)**: ④ `vercel deploy` 는 그 순간의 DEV 폴더 *스냅샷* 을 배포. 따라서 **CHANGELOG.md / HTML / 기타 DEV 콘텐츠 변경은 ④ 전에 끝내야 함**. 만약 deploy 후에 추가 변경했다면 반드시 재배포 (`cd $DEV && vercel deploy --prod --yes`). GitHub 자동 배포 연결 안 돼있어 git push 만으론 라이브 갱신 안 됨 (2026-05-04 CHANGELOG v4.5 entry deploy 후 추가해서 라이브 미반영 사고 발생).
-
-#### 배포 명령 (8-way 통합 — 5 mothership + 3 satellite)
+**실행 정본은 스크립트 하나다** (2026-10-30, 세 곳에 갈라져 있던 bash 블록 통합):
 
 ```bash
-VAULT="/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP"
-DEV="/Users/yohankoo/DEV/cmds-system-files"
-BACKUP="$VAULT/40. Docs/47. CMDS Docs/cmds-system-files"
-SHARE="$VAULT/40. Docs/47. CMDS Docs/cmds-system-files-share"
-
-# Sanitization (개인정보 → 플레이스홀더)
-SANITIZE='s|/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP|{vault-path}|g; s|/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org|{vault-path-secondary}|g; s|/Users/yohankoo/Local Obsidian_MBP/CMDS_LLM_Wiki|{satellite-vault-path}|g; s|/Users/yohankoo/DEV/cmds-system-files|{dev-path}|g; s|/Users/yohankoo|{home}|g; s|구요한|{your-name}|g; s|Yohan Koo|{your-name-en}|g; s|johnfkoo951|{your-handle}|g; s|Cmdspace.contact@gmail.com|{contact-email}|g; s|바람빛교회|{church-name}|g'
-
-# ① 백업 (6개 공개 + 비공개 ANTIGRAVITY 1개)
-for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md" DESIGN.md ANTIGRAVITY.md; do
-  dst=$(echo "$src" | sed 's|🏛 CMDS Guide|CMDS-Guide|;s|🏛 CMDS Head Quarter|CMDS-Head-Quarter|;s|\.md|_backup.md|')
-  cp "$VAULT/$src" "$BACKUP/$dst"
-done
-
-# ② 공유 (6개만 — sanitized)
-for src in CLAUDE.md AGENTS.md CMDS.md "🏛 CMDS Guide.md" "🏛 CMDS Head Quarter.md" DESIGN.md; do
-  dst=$(echo "$src" | sed 's|🏛 CMDS Guide|CMDS-Guide|;s|🏛 CMDS Head Quarter|CMDS-Head-Quarter|;s|\.md|_share.md|')
-  sed -e "$SANITIZE" "$VAULT/$src" > "$SHARE/$dst"
-done
-
-# ③ DEV 배포 소스 (6개 공개 + 9 rules + ZIP)
-cp "$VAULT/CLAUDE.md"               "$DEV/files/CLAUDE.md"
-cp "$VAULT/AGENTS.md"               "$DEV/files/AGENTS.md"
-cp "$VAULT/CMDS.md"                 "$DEV/files/CMDS.md"
-cp "$VAULT/🏛 CMDS Guide.md"        "$DEV/files/CMDS-Guide.md"
-cp "$VAULT/🏛 CMDS Head Quarter.md" "$DEV/files/CMDS-Head-Quarter.md"
-cp "$VAULT/DESIGN.md"               "$DEV/files/DESIGN.md"
-cp "$VAULT/.claude/rules/"*.md      "$DEV/rules/"
-cp "$VAULT/.claude/rules/"*.md      "$DEV/files/rules/"
-cd "$DEV/files" && rm -f CMDS-System-Files.zip && \
-  zip -rq CMDS-System-Files.zip CLAUDE.md AGENTS.md CMDS.md CMDS-Guide.md CMDS-Head-Quarter.md DESIGN.md rules/
-
-# ④ GitHub push (코드 백업 — 자동 배포 X)
-cd "$DEV" && git add -A && git commit -m "sync system files" && git push
-
-# ⑤ Vercel 배포 (실제 프로덕션 반영)
-cd "$DEV" && vercel deploy --prod --yes
+bash "90. Settings/94. Agent Settings/claude/scripts/sync-system-files.sh" --check                 # 게이트 + 8-way 드리프트 보고만
+bash "90. Settings/94. Agent Settings/claude/scripts/sync-system-files.sh"                         # ① ② ③
+bash "90. Settings/94. Agent Settings/claude/scripts/sync-system-files.sh" --push --deploy --notes FILE   # + ④ ⑤ (Release notes 파일 필수)
 ```
 
-→ ① ~ ⑤ (mothership 5) 통합 후 `system.cmdspace.work` 에 즉시 반영 (캐시 갱신 포함). ⑤ 만 실행하면 ① ② ③ 누락이라 외부 공유본/백업/배포본 불일치 발생.
-
-##### ⑥ ~ ⑧ Satellite 동기화 (cmds-vault + CMDS_LLM_Wiki)
-
-mothership system file 변경은 위성 스타터킷·의존 문서에도 파급된다. ⑤ Vercel 배포 후 다음 3개를 점검:
-
-- **⑥ cmds-vault starter-kit frontmatter sync** — CMDS 스타터킷 배포본 (`github.com/johnfkoo951/cmds-vault`) 의 frontmatter·system file 참조가 mothership 과 일치하는지 확인. 불일치 시 갱신.
-- **⑦ CMDS_LLM_Wiki dependency check** — satellite 의 Core Context / 가이드가 mothership 의 system file 개수·division 명·focus axis 변경을 반영하는지 점검 (예: "9 system files", "6 public") .
-- **⑧ LLM Wiki starter-kit 3-place drift check** — `_starter-kit/cmds-llm-wiki/` (canonical) · `/DEV/cmds-llm-wiki/` (git mirror) · GitHub Release ZIP 3곳의 drift 점검. **default no-op** — drift 발견 시 보고만 하고, release 는 사용자가 직접 수행 (자동 sync 금지).
-
-#### 새 Mac 에서 배포 권한 확보
-
-DEV 폴더가 Vercel 프로젝트에 링크돼 있지 않다면 (`.vercel/` 없음) 한 번만 실행:
-
-```bash
-cd /Users/yohankoo/DEV/cmds-system-files
-vercel link --project cmds-system-files-v2 --yes
-```
-
-#### 전체 흐름 자동화 (system-docs-updater 스킬)
-
-"sync system files 배포" 요청 시 `system-docs-updater` 스킬이 위 ① ~ ⑧ fan-out 을 자동화한다. ⑤ Vercel deploy 는 사용자가 ① ② ③ 검증 후 실행, ⑧ 은 default no-op (보고만). **② 공유 폴더 누락 주의** — 과거 share stale 사고 (2026-04-18 ~ 05-03) 는 누락 방지 룰 #1 참조. 자세한 스킬 동작은 `system-docs-updater` 참조.
+절차·배포 스택·위성 ⑥~⑧·새 Mac 권한은 [[CMDS 시스템 파일 배포 절차]] (2026-10-30 에 이 절에서 이관), 8-way fan-out 자동화는 `system-docs-updater` 스킬, 정례 점검은 `bash "90. Settings/94. Agent Settings/claude/scripts/instruction-layer-check.sh"`.
 
 ### Important Notes:
 - All relative paths in this document (e.g., `00. Inbox/03. AI Agent/`) are relative to the base path above
 - When switching between environments, Claude Code will automatically use the appropriate base path
-- AI coding outputs are separated by environment subfolder (`03-1` ~ `03-8`) to track which machine/agent created each file. Lanes: 03-1/03-2 = Claude Code, 03-3/03-4 = OpenClaw, 03-5/03-6 = Codex, 03-7/03-8 = Antigravity (Google) — odd = MBP, even = Studio.
+- AI coding outputs are separated by environment subfolder (`03-1` ~ `03-9`) to track which machine/agent created each file. Lanes: 03-1/03-2 = Claude Code, 03-3/03-4 = OpenClaw, 03-5/03-6 = Codex, 03-7/03-8 = Antigravity (Google), 03-9 = Grok Bot (MBP only) — odd = MBP, even = Studio.
 
 ## 🛰 Companion Vaults — 6 Other Vaults Beyond Mothership
 
@@ -477,7 +374,7 @@ Companion 노트는 `source-vault: CMDSPACE_Local_MBP` + `mainVaultRelated:` (ad
 
 ## CMDS Process Command Suite (2026-04-14+)
 
-The mothership has 10 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). They live in `90. Settings/94. Agent Settings/claude/commands/` (symlinked from `.claude/commands/`).
+The mothership has 13 slash commands: 10 aligned with the **CMDS Process** (Connect → Merge → Develop → Share; table below) plus the periodic agent-note commands `/daily`·`/weekly` and the daily analysis command `/insight` (§ Periodic Agent Notes below). 개수와 층 구분의 정본은 [[CMDS 에이전트 시스템 원장]] § 마더십 슬래시 커맨드 13 (실측 표 — 숫자를 여기 하드코딩하지 않는다). They live in `90. Settings/94. Agent Settings/claude/commands/` (symlinked from `.claude/commands/`).
 
 ### Command Map
 
@@ -488,11 +385,12 @@ The mothership has 10 slash commands aligned with the **CMDS Process** (Connect 
 | `/merge` | Stage | N inbox/Theme notes → 1 synthesized 200 Literature note. **Heaviest command, most dialogs.** | purpose, candidates, angle, draft review |
 | `/develop` | Stage | Apply method/build artifact → 300-600 (code, prompts, specialty, curriculum). | artifact type, review |
 | `/share` | Stage / Orchestrator | Auto-delegate to existing skills (`thebetter-writer`, `markdown-slides`, `tone-writer`, etc.) → 700-800 | format, tone (when needed) |
-| `/lint` | Cross-cutting | Health check by stage scope (inbox/connect/merge/develop/share/all). **Read-only**, surfaces issues. | only if user asks for fix |
+| `/lint` | Cross-cutting | Health check by stage scope (inbox/connect/merge/develop/share/files/storage/all — `files`=`storage` 파일 위생 인벤토리). **Read-only**, surfaces issues. | only if user asks for fix |
 | `/query` | Cross-cutting | Search vault + LLM Wiki, synthesize answer, optionally file back into appropriate CMDS category (NOT a separate /queries folder). | wiki-worthy + classify |
 | `/status` | Cross-cutting | One-screen vault stage snapshot + recommended next action. **Zero dialogs**, fast. | none |
 | `/seeds` | Cross-cutting | 제목만 걸어둔 씨앗 노트를 씨앗/잔해/How-to 로 가르고 클러스터링 → 글감 제안 + 📚 101/102 허브 생성. **마더십 전용**. | 3분류 확인, 클러스터 승인 |
 | `/harvest` | Cross-cutting | 7볼트 생태계를 가로질러 끊긴 쌍·이미 컴파일된 씨앗·위키 고아·개념 drift 수확. companion 볼트는 **읽기만**. | 적용 승인 |
+| `/insight` | Cross-cutting | 최근 24h 생성·수정 노트를 해석 → 주제·패턴·공백·다음 글감 제안. 리포트 1개를 `03-1 … /insight/` 레인에 저장 (매일, `obs-ck` 스케줄). /daily 는 기록, /insight 는 해석. | none (quiet/7d 인자) |
 
 ### Decision Tree (When to Use Which)
 
@@ -506,6 +404,7 @@ inbox 항목 빠르게 분류·등록          → /connect
 볼트에 질문 (자신의 글 + LLM Wiki)   → /query
 제목만 걸어둔 씨앗 → 글감·허브        → /seeds   (월 1회)
 볼트 생태계 전체 교차 수확           → /harvest (분기 1회)
+어제 기록을 해석해 오늘 쓸 글감        → /insight  (매일)
 위생 점검 (모순/orphan/stale)        → /lint {scope}
 ```
 
@@ -529,18 +428,19 @@ inbox 항목 빠르게 분류·등록          → /connect
 
 ### Periodic Agent Notes — /daily · /weekly (2026-08-17+)
 
-CMDS Process 8종과 별개로, 시간 축 기록(데일리·위클리)은 에이전트가 작성한다. 사람 입력 영역은 데일리의 "사람 한 줄"·To Do·Log, 위클리의 "사람 결정 1줄" 뿐.
+CMDS Process 10종과 별개로, 시간 축 기록(데일리·위클리)은 에이전트가 작성한다. 사람 입력 영역은 데일리의 "사람 한 줄"·To Do·Log, 위클리의 "사람 결정 1줄" 뿐.
 
 | Command | 주기 (OmniControl 잡) | 산출 |
 |---------|----------------------|------|
 | `/daily` | 매일 draft 21:23 (`daily-note`) + 어제 확정 04:53 (`daily-note-final`) | `10. CMDS Process/15. Periodic/Daily/YYYY-MM-DD.md` |
 | `/weekly` | 매주 일 21:41 (`weekly-review`) | `10. CMDS Process/15. Periodic/Weekly/YYYY-Www.md` |
+| `/insight` | 매일 1회 — Claude Code scheduled task `obs-ck` 가 호출 (OmniControl 잡 아님 · 수동 `/insight` 가능 · 정본 `.claude/commands/insight.md` § 자동화) | `00. Inbox/03. AI Agent/03-1. Claude Code (MBP)/insight/YYYY-MM-DD-insight.md` (Studio 는 `03-2.` 레인 · 소비형 triage 리포트 — 데일리 노트는 건드리지 않음) |
 
 핵심 규칙:
 - **하루의 경계는 04:00 (KST)** — 데일리 노트 D 는 D 04:00 → D+1 04:00 창을 다룬다. 자정 이후 새벽 작업은 전날 노트에 편입(finalize 모드가 처리). 파일명은 달력 날짜 유지.
-- **하루 3단계**: skeleton(04:53, finalize 잡이 어제 확정 직후 오늘 뼈대 생성) → draft(21:23, 에이전트 섹션 채움) → final(다음날 04:53). 노트가 하루 시작부터 존재해야 사용자가 `Note-taking (Live)` Bases 를 실시간으로 보고 사람 영역을 낮 동안 쓸 수 있다.
+- **하루 3단계**: skeleton(04:53, finalize 잡이 어제 확정 직후 오늘 뼈대 생성) → draft(21:23, 에이전트 섹션 채움) → final(다음날 04:53). 노트가 하루 시작부터 존재해야 사용자가 데일리 노트 본문의 `## Note-taking (Live)` 절(인라인 `base` 코드블록 2개 — 정본 `Template_01. Daily Note`; 67. Bases 에 별도 파일 없음)을 실시간으로 보고 사람 영역을 낮 동안 쓸 수 있다.
 - **멱등성**: frontmatter `dailyStatus: pending → filled → final` 로 상태 관리. 노트가 이미 있으면 섹션 단위 패치만 — **템플릿 재삽입 절대 금지** (과거 이중 삽입 사고 7회). 사람 영역은 불변.
-- **Bases 작성자 구분**: `Note-taking (Live)` 의 `authorKind` formula 가 `model:` frontmatter 로 노트를 👤 사람 / 🤖 Claude / 🤖 Codex / 🤖 Antigravity 로 나눠 보여준다. 에이전트가 노트를 만들 때 `model:` 을 빠뜨리면 사람 작성으로 오분류된다.
+- **Bases 작성자 구분**: 데일리 노트의 `## Note-taking (Live)` 인라인 base(및 `60. Collections/67. Bases/데일리 보드(Daily Board) Base.base`)의 `authorKind` formula 가 `model:` frontmatter 로 노트를 👤 사람 / 🤖 Claude / 🤖 Codex / 🤖 Antigravity 로 나눠 보여준다. 에이전트가 노트를 만들 때 `model:` 을 빠뜨리면 사람 작성으로 오분류된다.
 - **데일리 "스냅샷" 표** (md 카운트 4종, 오늘 생성 사람/기계 분리, 백업 상태, 타임존) 는 /weekly 가 diff 하는 원천 데이터.
 - **에이전트 작성 노트는 `model:` + `effort:` frontmatter** 로 작성 모델을 기록 (`.claude/rules/frontmatter-standard.md` Optional Properties 참조).
 - 정본: 수집 파이프라인·합성 규칙은 `.claude/commands/daily.md`, 노트 구조는 `90. Settings/91. Templates/Template_01. Daily Note.md` (본문의 `%%agent: ...%%` 지시 주석이 계약 — wikilink-rules §5).
@@ -573,6 +473,9 @@ This vault has **9 system files** that work together to provide complete guidanc
 | 웹·PDF·슬라이드·이미지·영상·다이어그램 등 **시각 산출물** | 생성 전에 [[DESIGN.md]] 를 Read 하고 CI 토큰(`#134538`/`#E985A2`), SF Pro + Pretendard, Anti-AI-Slop 목록을 따른다 |
 | **CMDS Process 커맨드 8종**(connect·merge·develop·share·inbox·lint·query·status) 추가·수정 | 세 진입점을 함께 고친다 — `90. Settings/94. Agent Settings/claude/commands/{op}.md`(정본, `.claude/commands` 는 symlink) · `.codex/commands/{op}.md` · `.agents/skills/{op}/SKILL.md`. 시작 시 `GIT_OPTIONAL_LOCKS=0 git rev-parse --show-toplevel` 로 저장소를 확인하고, 영향 경로만 `git status --short -- <paths>` / `git diff -- <paths>` 로 본다. symlink 경로 diff 만으로는 정본 변경을 놓치므로 실제 파일을 본다. 미추적 파일도 확인한다. 상세는 [[AGENTS.md]] § Cross-Agent Operation Map |
 | **버전 이력이 있는 시스템 파일** 수정 후 | `date modified`·`Last Updated` 배너 날짜가 최신 changelog 항목 날짜보다 이르면 안 된다. 볼트 루트에서 `ruby "90. Settings/94. Agent Settings/claude/scripts/check-system-dates.rb" --require-history -- <파일들>` (exit 0 = 이상 없음, 1 = 검토 필요, 2 = 입력 오류) |
+| **시스템 파일 수정·배포** (매크로 릴리스, 8-way 동기화) | [[CMDS 시스템 파일 배포 절차]] 를 Read 하고 `bash "90. Settings/94. Agent Settings/claude/scripts/sync-system-files.sh" --check` 로 게이트·드리프트를 먼저 본다 |
+| **Obsidian CLI 명령 상세**(검색·eval·plugin:reload 등) | 전역 `~/.claude/CLAUDE.md` § Obsidian CLI · [[Obsidian CLI 사용 가이드 (CMDS)]] |
+| **지시 계층 정례 점검**(릴리스 때 또는 90일) | `bash "90. Settings/94. Agent Settings/claude/scripts/instruction-layer-check.sh"` → 결과 표를 `40. Docs/47. CMDS Docs/system-file-reviews/` 노트에 남긴다 |
 | 공통 필드·볼트 프로필 검증 | [[AGENTS.md]] § Shared field and vault profile entrypoint (I01) |
 | Codex·Gemini 와 함께 쓰는 작업, 또는 이 두 파일 자체 수정 | [[AGENTS.md]] · [[ANTIGRAVITY.md]] 를 Read |
 
@@ -611,24 +514,24 @@ This vault has **9 system files** that work together to provide complete guidanc
 - 📘 - Books/Reference
 
 ### Note Types (type property)
-Most common types in the vault:
-- `note` - General notes (459+)
-- `terminology` - Term definitions (130+)
-- `research-pipeline` - Research pipeline documents (124+)
-- `meeting` - Meeting notes (160+)
-- `people` - People profiles (93+)
-- `curriculum` - Course curriculum (82+)
-- `channel` - YouTube/Blog/Newsletter 채널 프로필 (101+)
-- `CMDS` - CMDS index pages (replaces traditional MOC concept)
-- `api` - API documentation (97+)
-- `moc` - Map of Content (85+)
-- `manuscript` - Manuscripts and drafts (66+)
+Most common types in the vault (2026-10-30 실측, 파일 수 기준 — 재측정: `for t in note people research-pipeline meeting api curriculum terminology manuscript CMDS channel moc; do printf '%s ' "$t"; grep -rlE "^type: *\"?$t\"? *$" --include='*.md' --exclude-dir=.trash --exclude-dir=_starter-kit --exclude-dir=.obsidian . | wc -l; done`):
+- `note` - General notes (2,106)
+- `people` - People profiles (334)
+- `research-pipeline` - Research pipeline documents (248)
+- `meeting` - Meeting notes (240)
+- `api` - API documentation (236)
+- `curriculum` - Course curriculum (216)
+- `terminology` - Term definitions (181)
+- `manuscript` - Manuscripts and drafts (177)
+- `CMDS` - CMDS index pages (replaces traditional MOC concept) (105)
+- `channel` - YouTube/Blog/Newsletter 채널 프로필 (102)
+- `moc` - Map of Content (37)
 
 ## Obsidian-Specific Guidelines
 
 ### Markdown Files
 - Always use wikilinks `[[]]` for internal references, NOT markdown links
-- Include YAML frontmatter for metadata — 필수 7필드 + 선택 필드 (`CMDS:`/`index:`/`status:`) 정의는 @.claude/rules/frontmatter-standard.md 가 정본
+- Include YAML frontmatter for metadata — 필수 7필드 + 선택 필드 (`CMDS:`/`index:`/`status:`) 정의는 `.claude/rules/frontmatter-standard.md` (@import 됨) 가 정본
 
 ### Academic Citations (CMDS Zotero)
 - 원고의 인용은 Better BibTeX 인용 키로 쓴다: `[@citekey]`, 쪽수 `[@citekey, p. 3]`, 여러 문헌 `[@a; @b]`. 키를 추측하거나 APA 문자열을 손으로 쓰지 않는다. 키는 Zotero 색인(CMDS Zotero 설정의 *Index path*)에서 확인한다.
@@ -639,13 +542,13 @@ Most common types in the vault:
 ### Note Templates
 Templates are located in `90. Settings/91. Templates/`
 Key templates include:
-- `Template_00. Basic Note.md` - Basic note structure
-- `Template_01. Daily Note.md` - Daily journal
-- `Template_05. Meeting Minutes.md` - Meeting notes
-- `Template_20. Research Note.md` - Research documentation
-- `Template_51. People.md` - People profiles
-- `Template_80. AI Summary.md` - AI-generated summaries
-- `Template_90. CMDS MOC.md` - Map of Content
+- [[Template_00. Basic Note]] - Basic note structure
+- [[Template_01. Daily Note]] - Daily journal
+- [[Template_05. Meeting Minutes]] - Meeting notes
+- [[Template_20. Research Note]] - Research documentation
+- [[Template_51. People]] - People profiles
+- [[Template_80. AI Summary]] - AI-generated summaries
+- [[Template_90. CMDS MOC]] - Map of Content
 
 ### Mermaid Diagrams
 `.claude/rules/mermaid-rules.md` (@import 됨) 가 정본 — 라벨 큰따옴표, `[/` 시작 금지, 엣지 라벨 따옴표.
@@ -659,7 +562,7 @@ Key templates include:
 ### AI Integration
 - ChatGPT custom GPTs linked in CMDS Head Quarter
 - Claude integration via Claude Code directory
-- Agent settings: `90. Settings/94. Agent Settings/claude/` 원본 → `.claude/{agents,commands,rules,skills}` symlink (§ Claude Settings Sync 참조)
+- Agent settings: `90. Settings/94. Agent Settings/claude/` 원본 → `.claude/{agents,commands,hooks,rules,skills}` symlink (§ Claude Settings Sync 참조)
 
 ### Automation
 - n8n workflows for automation
@@ -670,8 +573,7 @@ Key templates include:
 
 > **📖 Full Reference**: [[Obsidian CLI]] | **📘 실전 가이드**: [[Obsidian CLI 사용 가이드 (CMDS)]]
 
-Obsidian CLI는 터미널에서 Obsidian을 직접 제어하는 명령줄 인터페이스입니다.
-**Claude Code에서 `obsidian` 명령을 Bash 도구로 호출하여 Obsidian 네이티브 기능을 활용할 수 있습니다.**
+Obsidian CLI는 터미널에서 Obsidian을 직접 제어하는 명령줄 인터페이스다. **Claude Code에서 `obsidian` 명령을 Bash 도구로 호출**해 Obsidian 네이티브 기능(검색·백링크·eval·플러그인 리로드)을 쓴다. Quick Reference 표와 CLI vs 직접 조작 가이드는 전역 `~/.claude/CLAUDE.md` § Obsidian CLI 와 [[Obsidian CLI 사용 가이드 (CMDS)]] 에 있다(2026-10-30 컨텍스트 다이어트 2차로 여기서 이관).
 
 ### 요구사항
 - Obsidian 1.12+ (Early Access, Catalyst 필요)
@@ -683,55 +585,7 @@ Obsidian CLI는 터미널에서 Obsidian을 직접 제어하는 명령줄 인터
 - 볼트 타겟팅: `obsidian vault=CMDSPACE_Local_MBP <command>`
 - 파일 타겟팅: `file=<name>` (wikilink 방식) 또는 `path=<경로>` (볼트 루트 기준)
 - 출력 복사: `--copy` 플래그
-
-### 자주 쓰는 CLI 명령 (Quick Reference)
-
-```bash
-# --- 읽기/검색 ---
-obsidian read file=<name>                          # 파일 내용 읽기
-obsidian search query="<text>" format=json          # 볼트 검색
-obsidian tags all counts sort=count                 # 태그 통계
-obsidian properties all counts sort=count           # 프로퍼티 통계
-obsidian backlinks file=<name> counts               # 백링크 조회
-obsidian outline file=<name> format=tree            # 목차 조회
-obsidian tasks daily todo                           # 오늘 미완료 태스크
-
-# --- 생성/편집 ---
-obsidian create name=<name> template=<template> silent  # 템플릿으로 노트 생성
-obsidian append file=<name> content="<text>"            # 내용 추가
-obsidian prepend file=<name> content="<text>"           # frontmatter 뒤에 삽입
-obsidian daily:append content="- [ ] <task>" silent     # 데일리 노트에 태스크 추가
-obsidian property:set name=<key> value=<val> file=<name> # 프로퍼티 설정
-obsidian property:remove name=<key> file=<name>          # 프로퍼티 제거
-
-# --- 분석 ---
-obsidian vault info=files                           # 볼트 파일 수
-obsidian orphans total                              # 고아 노트 수
-obsidian unresolved verbose                         # 미해결 링크
-obsidian deadends total                             # 아웃링크 없는 노트 수
-
-# --- 플러그인 ---
-obsidian plugins filter=community versions          # 커뮤니티 플러그인 목록
-obsidian plugin:reload id=<plugin-id>               # 플러그인 리로드
-
-# --- 개발자 ---
-obsidian eval code="<javascript>"                   # JS 실행 (app.vault 등 접근)
-obsidian dev:screenshot path=<filename>             # 스크린샷
-obsidian dev:console level=error                    # 콘솔 에러 확인
-```
-
-### CLI vs 파일 직접 조작 가이드
-
-| 작업 | CLI 사용 | 파일 직접 조작 |
-|------|---------|-------------|
-| 프로퍼티 수정 | `property:set` ✅ (안전) | Edit 도구 (YAML 직접 편집) |
-| 내용 추가 | `append`/`prepend` ✅ | Edit/Write 도구 |
-| 노트 생성 (템플릿) | `create template=` ✅✅ | Write 도구 (수동 복제) |
-| 검색 | `search` ✅ (Obsidian 인덱스) | Grep 도구 (파일 시스템) |
-| 백링크/링크 분석 | `backlinks`/`orphans` ✅✅ | 불가능 |
-| Obsidian API 접근 | `eval` ✅✅ | 불가능 |
-
----
+- `create template=` 은 core Templates 플러그인의 템플릿 폴더가 설정돼 있어야 동작한다 — 2026-10-30 기준 `.obsidian/templates.json` 이 없어(폴더 미지정) 사용자가 Settings → Templates 에서 `90. Settings/91. Templates` 를 지정하기 전까지 실패한다. Templater 기반 생성은 영향 없음.
 
 ## Vault Commands
 
@@ -785,10 +639,10 @@ find . -name "*.md" -mtime -7 -type f | head -20
 
 ## Key Obsidian Plugins
 
-The vault uses 120+ plugins. Most important ones:
-- **Dataview**: Dynamic queries and data aggregation
-- **Copilot**: AI-powered writing assistance
-- **Smart Connections**: AI-based note linking
-- **Excalidraw/Excalibrain**: Visual thinking and diagramming
-- **Chronology**: Timeline visualization
-- **Calendar**: Date-based note organization
+설치 156 / 런타임 활성 약 70 (2026-10-30 실측). Lazy Plugin Loader(`lazy-plugins`)가 단계 로드하므로 `.obsidian/community-plugins.json`(19개)은 즉시 시작분만이다. 활성 수 재측정: `obsidian vault=CMDSPACE_Local_MBP eval code="Object.keys(app.plugins.plugins).length"`. 에이전트가 기대어도 되는 플러그인:
+- **Dataview** · **Templater** · **Periodic Notes** · **Calendar**: 쿼리·템플릿·데일리 노트 (`90. Settings/91. Templates/`, `10. CMDS Process/15. Periodic/`)
+- **Advanced URI** · **Notebook Navigator**: 볼트 간 `obsidian://advanced-uri` 링크(wikilink-rules §6)·탐색
+- **Bases 계열** (`lovely-bases`·`achmage-bases-look`): 데일리 보드·Note-taking (Live) 뷰 보조
+- **cmds-pele-vault**: 볼트 안 Mermaid 를 Pele 로 렌더 (mermaid-rules Pele 규칙)
+- **Excalidraw**: 시각 사고·다이어그램 (lazy short 로드)
+- 설치돼 있지만 비활성(lazy disabled): Copilot, Smart Connections, Excalibrain, Chronology — 문서에서 "주요 플러그인"으로 부르지 않는다

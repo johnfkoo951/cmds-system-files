@@ -3,7 +3,6 @@
 ```
 00. Inbox/                      # Temporary storage and processing
 ├── _Gobi_Captures/             # Gobi capture inbox
-├── 01. Articles/               # Article collection
 ├── 02. Clippings/              # Web clippings (02-1. Literature Notes)
 ├── 03. AI Agent/               # Code outputs (PRIMARY)
 │   ├── 03-1. Claude Code (MBP)/
@@ -13,13 +12,15 @@
 │   ├── 03-5. Codex (MBP)/
 │   ├── 03-6. Codex (Studio)/
 │   ├── 03-7. Antigravity (MBP)/
-│   └── 03-8. Antigravity (Studio)/
+│   ├── 03-8. Antigravity (Studio)/
+│   └── 03-9. Grok Bot (MBP)/
 ├── 04. Excalidraw/             # Visual diagrams
 ├── 05. Canvas/                 # Canvas notes
 ├── 06. Automation/             # Automation (Make.com, n8n)
 ├── 06. GenAI Chats/            # GenAI conversation logs
 ├── 07. App Sync/               # External apps (Claude, Antigravity, Bear Notes)
 ├── 08. Transcripts/            # Raw transcript landing lanes (08-1. Plaud, 08-2. STT, 08-3. Manual) — processed originals archive to 40. Docs/44. Transcripts
+├── 08. Unlisted/               # 미분류 (08. Transcripts 와 번호 중복 — 정리 대상)
 └── 09. Legacy/                 # Legacy content
 
 10. CMDS Process/               # Connect→Merge→Develop→Share
@@ -32,20 +33,24 @@
 ├── 42. AI Generated/           # 에이전트 산출 1차 축적층 (Agent Worklog — file-creation-rules.md 참조)
 │   └── {Modules,Research,Troubleshooting,Specs,Reviews}/  # cmux-voice worklog가 생성·worklog-daily 잡이 보충
 50. Assets/                     # Reusable resources (재사용 자원)
-60. Collections/                # Entity management (People, Meetings, Spirituality, Preferences)
+60. Collections/                # Entity management (People, Meetings, Spirituality, Bases, Preferences)
 70. Outputs/                    # Final deliverables (최종 산출물)
 80. References/                 # Reference materials (참조 자료)
 90. Settings/                   # System settings and templates
 ├── 94. Agent Settings/         # AI agent configs (원본, Obsidian Sync 동기화)
-│   └── claude/                 # .claude/ 원본 → symlink로 연결
-│       ├── agents/
-│       ├── commands/
-│       ├── hooks/
-│       ├── rules/
-│       └── skills/
+│   ├── claude/                 # .claude/ 원본 → symlink로 연결
+│   │   ├── agents/
+│   │   ├── commands/
+│   │   ├── hooks/
+│   │   ├── rules/
+│   │   ├── skills/
+│   │   └── scripts/            # check-system-dates.rb · lint-description.rb · vault-hygiene.rb (symlink 대상 아님)
+│   ├── cmux/
+│   └── schema/                 # 공통 필드·볼트 프로필 번들 (frontmatter-standard 참조)
+└── 96. Index/                  # 🏷 Index notes — frontmatter index: 의 대상
 ```
 
-> **문서화 대상 외 루트 폴더**: `_Settings_/`, `프로젝트/`, `context/`, `copilot-custom-prompts/` (Obsidian Copilot 플러그인 자동 생성), `_starter-kit/` 계열은 canonical CMDS 구조 밖의 시스템·legacy 폴더 — 위 트리에 넣지 않고 여기서만 명시한다.
+> **문서화 대상 외 루트 폴더**: `_Settings_/`, `프로젝트/`, `context/`, `copilot-custom-prompts/` (Obsidian Copilot 플러그인 자동 생성), `Smart Composer/` (Smart Composer 플러그인 생성 이미지), `shots/` (빈 폴더 — 삭제 후보), `_starter-kit/` 계열은 canonical CMDS 구조 밖의 시스템·legacy 폴더 — 위 트리에 넣지 않고 여기서만 명시한다.
 
 > **설교 노트 단일 홈 (2026-08-02 확정)**: 모든 `type: sermon` 노트의 물리적 홈은 `60. Collections/64. Spirituality/` **하나**다. 과거 실험 폴더 `20. Literature Notes/23. Sermon/` 은 stale 중복 2건만 남긴 채 방치되어 있어 2026-08-02 폐기(중복 삭제 + 폴더 제거)했다 — **재생성 금지**. "설교문을 문헌으로 분석"하는 경우도 물리 폴더는 64, 분류는 frontmatter `CMDS:` 메타데이터로 한다 (CMDS categorization is metadata, not folders). 녹음 전사 원문은 `00. Inbox/08. Transcripts/` 레인 담당.
 
@@ -73,7 +78,7 @@ Obsidian Sync 는 `.obsidian` 을 뺀 점폴더(`.claude`, `.codex`, `.agents`, 
 
 | Scope | 경로 | 적용 범위 |
 |-------|------|----------|
-| **project-scope** | `<vault>/.claude/{agents,commands,rules,skills}` | 이 볼트에서 작업할 때만 로드 |
+| **project-scope** | `<vault>/.claude/{agents,commands,hooks,rules,skills}` | 이 볼트에서 작업할 때만 로드 |
 | **user-scope** | `~/.claude/{agents,commands,skills}` | 모든 프로젝트(`/DEV/` 포함)에서 로드 |
 
 둘은 별개 계층이며 Claude Code 가 **양쪽을 모두 읽는다**. user-scope 는 홈 디렉토리라 Obsidian Sync·git 어디에도 들어가지 않으므로, 볼트 밖에서도 써야 하는 자산은 **볼트를 정본으로 두고 user-scope 를 symlink** 한다. 2026-09-21 에 9Yohan 에이전트 9개가 이 방식으로 이관됐다 — 그 전까지는 MBP 로컬에만 존재해 Studio 전파·백업 대상이 아니었다.

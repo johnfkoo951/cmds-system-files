@@ -7,7 +7,7 @@ description: "Context and philosophy guide for all LLM assistants working with t
 author:
   - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-10-29T10:55
+date modified: 2026-10-30T17:10
 tags:
   - CMDS
   - system
@@ -21,12 +21,13 @@ required-for:
 optional-for:
   - code-generation
   - file-editing
-token-estimate: 8500
+token-estimate: 10800
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.15"
+version: "2.16"
 status: completed
 changelog:
+  - "2.16 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Essential 의 400 Methods→400 Methodologies, DESIGN.md 표·주석을 on-demand Read 로 정정, 마더십 노트 수 ~8,000→~14,000(14,134 md 실측) 3곳, LLM Wiki 3-layer 를 Raw Sources·Wiki·Schema 로, 903↔909 경계 규칙 중복 통합, Key Hub Notes 의 HQ 중복 제거, Obsidian 플러그인 서술 실측화(Copilot·Smart Connections 비활성), symlink 폴더 5개(hooks), 커맨드 8→10(시간축 3 은 CLAUDE.md), Vault Statistics 2026-10-30 재측정(Note Types 11종), token-estimate 재산정."
   - "2.15 (2026-10-29): cmds-llm-wiki 스타터킷 버전 주장 v1.12.0 → v1.13.0 갱신 (GitHub Release 기준, system-version-audit 정본 드리프트 해소) (macro v4.15.0)."
   - "2.14 (2026-10-10): cmds-llm-wiki 스타터킷 버전 주장 v1.11.0 → v1.12.0 갱신 (2026-10-10 릴리스 — 에이전트 설정 정본 폴더 + 점폴더 symlink). v1.11.1 미반영분도 함께 해소."
   - "2.13 (2026-09-09): 완료된 개발·검토 JSON/PY의 볼트 외부 보관과 메인 MD의 기획·경로·재개 기록을 연결. 초기 Inbox와 완료 보관을 구분하며 file-creation-rules의 종료 절차를 정본으로 사용. 과거 자료 일괄 이관·공개 배포는 별도."
@@ -44,7 +45,7 @@ changelog:
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
+> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CMDS.md
 
@@ -56,7 +57,7 @@ This file provides LLM assistants with essential context about the CMDS (커맨�
 > 1. **CMDS**: Connect → Merge → Develop → Share (지식 생애주기)
 > 2. **구요한**: 박사 수료(ABD 상태, 논문 집필은 현재 멈춤) · CMDSPACE 개인사업자(법인 설립 준비중) · 주업은 사업+교육. 연구하면서 가르치는 **실천가**.
 > 3. **현재 4대 초점**: (a) 옵시디언 기반 PKM (b) System Files 체계 (c) LLM Wiki 위성 볼트 (d) 9Yohan 멀티 에이전트. 대표 교육 현장: **LG 임원 교육 · LG 회장단 교육**.
-> 4. **9개 카테고리**: 100 Themes → 200 Literature → 300 Data → 400 Methods → 500 Products → 600 Specialties → 700 Creatives → 800 Outputs → 900 Divisions
+> 4. **9개 카테고리**: 100 Themes → 200 Literature → 300 Data → 400 Methodologies → 500 Products → 600 Specialties → 700 Creatives → 800 Outputs → 900 Divisions
 > 5. **볼트 규모**: 10,000+ 노트, 120+ 플러그인
 > 6. **기술 규칙**: CLAUDE.md (precedence 1) / AGENTS.md (precedence 2) / ANTIGRAVITY.md (precedence 3, Gemini 전용) 참조. 이외 6개 system file 까지 합쳐 **총 9개** (DESIGN.md = 시각 산출물 spec, precedence 9 / BRAIN.md, BRAIN_PROMPT.md 는 Gobi 페르소나 시스템 전용 — 일반 LLM coding agent 의 컨텍스트로 들어가지 않음).
 
@@ -100,13 +101,13 @@ This vault has **9 system files** organized by audience. You are currently readi
 
 > **중요**: BRAIN.md / BRAIN_PROMPT.md 는 *Claude Code · Gemini CLI · Codex 등 일반 LLM coding agent 의 context window 로 들어가지 않음*. Gobi 앱이 외부 인터페이스(예: web)에서 구요한 페르소나로 답할 때만 사용. 다른 7개 파일과 *audience 가 본질적으로 다름*.
 
-#### 🎨 Visual Language (always-loaded when producing visual artifacts)
+#### 🎨 Visual Language (read on demand before producing visual artifacts)
 
 | File          | Audience                                       | Purpose                                                            | Precedence |
 | ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | :--------: |
 | **DESIGN.md** | All LLM agents producing visual artifacts      | Visual language spec — v4.3 standards · Anti-Slop · Skill↔Surface mapping | 9          |
 
-> DESIGN.md 는 *시각 산출물을 만들 때* (웹·PDF·슬라이드·이미지·영상·다이어그램) 자동 로드된다. CLAUDE.md/AGENTS.md/ANTIGRAVITY.md 가 *기술* 규약을 다룬다면 DESIGN.md 는 *시각* 규약을 다룬다.
+> DESIGN.md 는 *시각 산출물을 만들기 전에* (웹·PDF·슬라이드·이미지·영상·다이어그램) 에이전트가 명시적으로 Read 한다 (자동 로드 아님 — [[CLAUDE.md]] § On-Demand System Files). CLAUDE.md/AGENTS.md/ANTIGRAVITY.md 가 *기술* 규약을 다룬다면 DESIGN.md 는 *시각* 규약을 다룬다.
 
 > **Quick routing**: 시스템 이해 → CMDS.md (you are here) · 코드 작성 → CLAUDE.md (Claude) / AGENTS.md (Codex 등) / ANTIGRAVITY.md (Gemini) · 카테고리 네비게이션 → [[🏛 CMDS Head Quarter]] · 표준·템플릿 → [[🏛 CMDS Guide]] · 시각 산출물 → [[DESIGN.md]] · Gobi 페르소나 → BRAIN.md / BRAIN_PROMPT.md. **Working environments / Deploy 절차는 [[CLAUDE.md]] 가 정본.**
 
@@ -135,7 +136,7 @@ This vault has **9 system files** organized by audience. You are currently readi
 - **Business Operator**: Sole proprietor of **CMDSPACE (커맨드스페이스)**, currently transitioning to a corporation. Builds products, education, and consulting services around personal knowledge management × generative AI.
 - **Educator (primary role)**: Delivers corporate executive education — notably **LG 임원 교육 · LG 회장단 교육** — along with university lectures and public workshops. Teaches what he is actively researching in his own vault.
 - **PhD ABD (paused)**: Completed coursework for the PhD in Educational Technology / Knowledge Management (ABD status). **Dissertation writing is currently paused.** Academic identity remains in the background; active identity is business + education.
-- **Knowledge Management Practitioner-Researcher**: Researches PKM · Second Brain · Zettelkasten through a 10,000+ note Obsidian ecosystem (mothership ~8,000 notes) that functions as both lab and teaching material.
+- **Knowledge Management Practitioner-Researcher**: Researches PKM · Second Brain · Zettelkasten through a 10,000+ note Obsidian ecosystem (mothership ~14,000 notes) that functions as both lab and teaching material.
 - **Generative AI Practitioner**: Works daily with Claude (Claude Code, Claude Agent SDK), ChatGPT custom GPTs, Obsidian × LLM integration, and multi-agent orchestration.
 - **Creative Professional**: Newsletter (더배러), YouTube, music, digital art — all produced from the same vault.
 
@@ -143,9 +144,9 @@ This vault has **9 system files** organized by audience. You are currently readi
 
 구요한 is currently concentrating research and teaching on four tightly interconnected axes. These are **not separate projects but one integrated experiment** on *"how the individual knowledge worker redesigns knowledge labor in the LLM era."*
 
-1. **Obsidian-Based Personal Knowledge Management** — a 3+ year, 10,000+ note ecosystem (mothership ~8,000 notes) as the substrate of everything else.
+1. **Obsidian-Based Personal Knowledge Management** — a 3+ year, 10,000+ note ecosystem (mothership ~14,000 notes) as the substrate of everything else.
 2. **System Files Infrastructure** — total 9 system files in vault: 6 publicly deployed (CLAUDE.md, AGENTS.md, CMDS.md, 🏛 CMDS Guide, 🏛 CMDS Head Quarter, DESIGN.md) + 3 internal-only (ANTIGRAVITY.md for Gemini, BRAIN.md / BRAIN_PROMPT.md for Gobi persona). Shared `.claude/rules/` accompanies the 6 public files at `system.cmdspace.work`.
-3. **LLM Wiki Satellite Vault** — implementing Karpathy's LLM Wiki pattern (Raw Sources · Wiki · Queries) in a separate `CMDS_LLM_Wiki` vault. Public template distribution `cmds-llm-wiki` (current v1.13.0 — 최신 버전은 [github.com/johnfkoo951/cmds-llm-wiki/releases](https://github.com/johnfkoo951/cmds-llm-wiki/releases) 참조) is sanitized from this satellite — canonical source at `/Users/yohankoo/Local Obsidian_MBP/_starter-kit/cmds-llm-wiki/`, 3-place sync (canonical · `/Users/yohankoo/DEV/cmds-llm-wiki/` git mirror · GitHub Release ZIP).
+3. **LLM Wiki Satellite Vault** — implementing Karpathy's LLM Wiki pattern (Raw Sources · Wiki · Schema) in a separate `CMDS_LLM_Wiki` vault. Public template distribution `cmds-llm-wiki` (current v1.13.0 — 최신 버전은 [github.com/johnfkoo951/cmds-llm-wiki/releases](https://github.com/johnfkoo951/cmds-llm-wiki/releases) 참조) is sanitized from this satellite — canonical source at `/Users/yohankoo/Local Obsidian_MBP/_starter-kit/cmds-llm-wiki/`, 3-place sync (canonical · `/Users/yohankoo/DEV/cmds-llm-wiki/` git mirror · GitHub Release ZIP).
 4. **9Yohan Multi-Agent System** — mapping 900 Divisions × historical "Yohan" figures × the 9 fruits of the Spirit into a 9-agent orchestration (kepler.map / goethe.sense / dewey.learn / bach.score / neumann.compute / baptist.prepare / mccarthy.reason / huizinga.play / calvin.advise).
 
 These four axes are simultaneously **productized** (consulting, education), **published** (더배러 newsletter, public web), and **validated on the toughest stage**: top-level corporate education including LG executive and chairman-group training.
@@ -190,7 +191,7 @@ The mothership operates within a **7-vault ecosystem**, each governed by differe
 - **Vault Engineering**: Continuously refining the Obsidian vault, System Files infrastructure, LLM Wiki satellite, and 9Yohan agent system — researching *by building*.
 - **Content Production**: Running the **더배러 (The Better)** newsletter, YouTube appearances, article/book writing — all produced from and refined through the vault.
 - **Business Operations**: Growing CMDSPACE from sole proprietor toward a formal corporation, partnering with collaborators, shipping consulting deliverables.
-- **Knowledge Base Maintenance**: Building and maintaining the 10,000+ note ecosystem (mothership ~8,000 notes) as both working system and teaching artifact.
+- **Knowledge Base Maintenance**: Building and maintaining the 10,000+ note ecosystem (mothership ~14,000 notes) as both working system and teaching artifact.
 - **PhD (paused)**: Coursework complete (ABD); dissertation writing is currently on hold — the active work above takes precedence.
 
 ---
@@ -354,9 +355,7 @@ The CMDS system organizes all knowledge into 9 major categories, each representi
 
 **Role in Workflow**: Meta-organizational layer that manages how all other categories are operationalized in 구요한's professional life.
 
-**903 ↔ 909 경계 규칙**:
-- **903 Teaching & Curriculum**: 공개 플랫폼 · 대학 · 오픈 수강생 대상 · 고객이 "개인/불특정"
-- **909 Consulting & Advisory**: 기업/공공기관 맞춤 · 경영진 1on1 · 조직 진단 · 고객이 "기관"
+**903 ↔ 909 경계 규칙**: § Work Context 의 2026-04-19 확정 블록이 정본 — 고객이 "기관"이면 909, "개인·불특정 수강생"이면 903.
 
 ---
 
@@ -419,7 +418,6 @@ The CMDS framework is not just a filing system—it's a **process** that guides 
 ### Key Hub Notes
 - **[[🏛 CMDS Head Quarter]]** — Central navigation hub, links to all 9 categories
 - **[[🏛 CMDS Guide]]** — Properties standards, naming conventions, operational guidelines
-- **[[🏛 CMDS Head Quarter]]** — Personal home page
 
 ### Index Notes (🏷)
 Index notes aggregate related content across categories:
@@ -501,7 +499,7 @@ Index notes aggregate related content across categories:
 - **HeyGen**: AI avatar video creation
 - **ElevenLabs**: Text-to-speech, audio generation
 - **n8n**: Workflow automation
-- **Obsidian AI Plugins**: Copilot, Smart Connections
+- **Obsidian AI Plugins**: Copilot, Smart Connections — 설치만 되어 있고 Lazy Plugin Loader 에서 비활성 (2026-10-30 확인), 일상 사용 도구 아님
 
 ### Custom AI Assistants
 구요한 maintains custom GPT assistants in ChatGPT (named after model versions, not the models themselves):
@@ -513,7 +511,7 @@ Index notes aggregate related content across categories:
 ### AI-Generated Content
 - **Prompts Library**: [[📚 492 Prompts]] — Reusable prompt templates
 - **Code Snippets**: [[📚 491 Codes]] — AI-generated and human-curated code
-- **Agent Settings**: `90. Settings/94. Agent Settings/claude/` — Claude Code 원본 (Obsidian Sync 대상). 각 Mac 의 `.claude/{agents,commands,rules,skills}` 는 이 원본으로 향하는 symlink 로 연결되어 동기화됨. Codex-native skills live in `.agents/skills/`.
+- **Agent Settings**: `90. Settings/94. Agent Settings/claude/` — Claude Code 원본 (Obsidian Sync 대상). 각 Mac 의 `.claude/{agents,commands,hooks,rules,skills}` 는 이 원본으로 향하는 symlink 로 연결되어 동기화됨. Codex-native skills live in `.agents/skills/`.
 
 ---
 
@@ -529,7 +527,7 @@ Index notes aggregate related content across categories:
 - `60. Collections/` — People·Organization·Meetings·Bases
 - `70. Outputs/` — 최종 산출물 (강의·컨설팅·프로젝트)
 - `80. References/` — 외부 참조 (Zotero·Omnivore·도서)
-- `90. Settings/` — 템플릿·인덱스·에이전트 설정 (`94. Agent Settings/claude/` 가 `.claude/{agents,commands,rules,skills}` symlink 의 원본)
+- `90. Settings/` — 템플릿·인덱스·에이전트 설정 (`94. Agent Settings/claude/` 가 `.claude/{agents,commands,hooks,rules,skills}` symlink 의 원본)
 
 ---
 
@@ -621,7 +619,7 @@ If discussing PKM system itself:
 
 ### CMDS Process as Operational Verbs
 
-The CMDS Process is also encoded as **8 slash commands** (`/connect`, `/merge`, `/develop`, `/share` + `/inbox`, `/lint`, `/query`, `/status`). This makes "이걸 connect할까, merge할까?" the first metacognitive step of every session. **Command implementation details (parameters, dialog flows, output paths) are in [[CLAUDE.md]] § "CMDS Process Command Suite".** Source files live in `90. Settings/94. Agent Settings/claude/commands/`.
+The CMDS Process is also encoded as **10 slash commands** (`/connect`, `/merge`, `/develop`, `/share` + `/inbox`, `/lint`, `/query`, `/status`, `/seeds`, `/harvest`; the time-axis `/daily`·`/weekly` are separate — see [[CLAUDE.md]] § Periodic Agent Notes). This makes "이걸 connect할까, merge할까?" the first metacognitive step of every session. **Command implementation details (parameters, dialog flows, output paths) are in [[CLAUDE.md]] § "CMDS Process Command Suite".** Source files live in `90. Settings/94. Agent Settings/claude/commands/`.
 
 ### When Searching for Context
 Look for relevant notes in:
@@ -636,13 +634,13 @@ Look for relevant notes in:
 
 <!-- DYNAMIC: 아래 통계와 도구 목록은 주기적으로 갱신됩니다 -->
 
-## Vault Statistics (as of 2026-05-30)
+## Vault Statistics (as of 2026-10-30)
 
-- **Total Notes**: ~8,000 (mothership) · 10,000+ (7-vault ecosystem)
+- **Total Notes**: ~14,000 (mothership — 14,134 md as of 2026-10-30, excl. .trash/_starter-kit) · 7-vault ecosystem 합계는 별도 미측정 (공개 표기는 "10,000+")
 - **CMDS Categories**: 9 main (100-900) + 87 sub-categories
 - **Templates**: 100+ note templates
-- **Obsidian Plugins**: 120+
-- **Note Types**: 459+ `note`, 160+ `meeting`, 130+ `terminology`, 124+ `research-pipeline`, 97+ `api`, 93+ `people`, 85+ `moc`, 82+ `curriculum`, 66+ `manuscript`
+- **Obsidian Plugins**: 156 installed · 70 loaded at runtime (Lazy Plugin Loader; 2026-10-30)
+- **Note Types** (2026-10-30 실측, 파일 수): 2,106 `note`, 334 `people`, 248 `research-pipeline`, 240 `meeting`, 236 `api`, 216 `curriculum`, 181 `terminology`, 177 `manuscript`, 105 `CMDS`, 102 `channel`, 37 `moc` — 재측정 명령은 [[CLAUDE.md]] § Note Types
 - **Years Active**: 3+ years of continuous knowledge accumulation
 
 This is a **mature, established system** with well-defined patterns. Respect existing conventions and structures.

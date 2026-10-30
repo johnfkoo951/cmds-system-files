@@ -36,6 +36,7 @@ tags: []        # Relevant tags (array format)
 
 1. **Wikilinks in YAML must be quoted**: `"[[link]]"` not `[[link]]`
 2. **Date format**: Always ISO 8601 — `YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`
+	- **Linter 가 `date modified` 를 덮어쓴다 (2026-10-30 확인)**: `.obsidian/plugins/obsidian-linter/data.json` 의 `yaml-timestamp` 가 `date-modified-source-of-truth: "file system"` + `lintOnSave`/`lintOnFileChange` 로 켜져 있어, 저장·파일 전환 때 파일 mtime 을 `YYYY-MM-DDTHH:mm` 로 그대로 써 넣는다. changelog 없이 `date modified` 만 THH:mm 값으로 앞서 있으면 콘텐츠 변경이 아니라 Linter 범프다 — 배너·changelog 를 따라 올리지 말고 `date modified` 를 최신 changelog 날짜로 되돌린다. 시스템 파일 9개를 Linter `filesToIgnore` 에 넣으면 이 경로가 막힌다 (플러그인 설정 변경 — 사용자 결정).
 3. **Array format**: Use hyphen + space for arrays (author, tags, aliases)
 4. **CamelCase for compound words**: `myRate`, `totalPage`, `startReadDate` (⚠️ `rating` 사용 금지 → 반드시 `myRate`)
 5. **Status values** (5 options): `unread` / `reading` / `inProgress` / `completed` / `archived`
@@ -48,7 +49,7 @@ tags: []        # Relevant tags (array format)
 	- ❌ Breaks Obsidian Properties panel: `description: Draft curriculum ... Operations: 3 main ...` (plain scalar with embedded `: `)
 	- **Rule of thumb**: if the value contains any `:`, `#`, `[`, `]`, `{`, `}`, `,`, `&`, `*`, `?`, `|`, `>`, `!`, `%`, `@`, or spans beyond a short phrase, quote it. For multi-line text use `>-` (folded) or `|-` (literal) block scalars instead.
 8. **No numeric tags**: Obsidian tags must contain at least one non-numeric character. Numeric-only values in `tags:` (e.g. `2`, `15`, `22`) break the Properties panel rendering (yellow warning). Never harvest body references like `#2` / `#22` (pipeline numbers, issue numbers) into `tags:` — they are not tags. In the **body**, when writing a `#숫자` reference (e.g. pipeline item number), wrap it in backticks — `` `#22` `` — so Obsidian does not parse it as a tag attempt.
-	- ✅ `tags: [us-trip, starlink]` + body: ``파이프라인 `#22` 와 연결``
+	- ✅ `tags:` 하이픈 배열 (`- us-trip` / `- starlink`) + body: ``파이프라인 `#22` 와 연결``
 	- ❌ `tags: [us-trip, 2, 22, 15]` / body: `파이프라인 #22와 연결` (tag 오인 수집 → Properties 깨짐)
 
 ### Frontmatter 로컬 파일·폴더 링크 (2026-09-16)
@@ -65,7 +66,7 @@ tags: []        # Relevant tags (array format)
 - `index:` — Index reference (quoted wikilink)
 - `status:` — One of 5 standard values above
 - `artifactStatus:` / `artifactArchivePath:` — 완료 JSON/PY의 외부 보관을 기록하는 대표 MD에서만 사용 (2026-09-09). `artifactStatus`는 `planned` / `partial` / `archived`; `artifactArchivePath`는 필드명을 유지하되, 신규·명시 수정 시 위 규칙으로 확인한 외부 묶음의 Hookmark URI를 큰따옴표로 기록한다. 실제 경로는 본문·manifest에 보존하고 기존 절대경로 값은 legacy로 읽는다. 대상·Hookmark 미확보 시 선택 필드를 생략하고 사유·실제 경로를 본문에 남긴다. planned/partial은 이관 완료를 뜻하지 않는다. 기존 노트 `status` 및 지식 승격과 별개다. 주요 기획·경로 매핑·재개·백업/복원 기록은 [[90. Settings/94. Agent Settings/claude/rules/file-creation-rules|file-creation-rules]]의 Completed Artifact Closeout을 따른다.
-- `wikiVaultRelated:` / `mainVaultRelated:` — **볼트 간 상호참조 (2026-08-27 표준)**: mothership 노트 → 위키 페이지는 `wikiVaultRelated:`, 위키 페이지 → mothership 노트는 `mainVaultRelated:`. 값은 advanced-uri 마크다운 링크 배열 — `"[LLM Wiki: {page}](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath={URL-encoded path}.md)"`. 대상 볼트에 Advanced URI 플러그인이 없으면 기본형 `obsidian://open?vault=...&file={path}` 폴백 (`.md` 는 생략 가능). 액션명은 `adv-uri`·`advanced-uri` 둘 다 유효하며, `obsidian://` 콜론 뒤 공백 금지. 형식 정본: `.claude/rules/wikilink-rules.md` §6.
+- `wikiVaultRelated:` / `mainVaultRelated:` — **볼트 간 상호참조 (2026-08-27 표준)**: mothership 노트 → 위키 페이지는 `wikiVaultRelated:`, 위키 페이지 → mothership 노트는 `mainVaultRelated:`. 값은 advanced-uri 마크다운 링크 배열 — `"[LLM Wiki: {page}](obsidian://advanced-uri?vault=CMDS_LLM_Wiki&filepath={URL-encoded path}.md)"`. 대상 볼트에 Advanced URI 플러그인이 없으면 기본형 `obsidian://open?vault=...&file={path}` 폴백 (`.md` 는 생략 가능). 액션명은 `adv-uri`·`advanced-uri` 둘 다 유효하며, `obsidian://` 콜론 뒤 공백 금지. 형식 정본: [[90. Settings/94. Agent Settings/claude/rules/wikilink-rules|wikilink-rules]] §6.
 - `published:` / `publishedUrl:` / `publishedChannels:` — **발행 추적 (2026-08-26 채택)**: 외부 채널에 발행된 콘텐츠의 마스터 노트에는 발행 시점에 `published: true` (boolean 체크박스) + `publishedUrl:` (정본 URL, 예: `https://jisan.cmdspace.work/posts/{slug}/`) + `publishedChannels:` (배열 — `blog`/`threads`/`x`/`linkedin`/`kakao`/`newsletter`)를 기입한다. 발행 전 초안·SNS 캠페인 노트는 `published: false`로 시작 (cmds-sns-promo 스킬 컨벤션과 동일). URL이 여러 채널이면 정본(블로그) URL을 `publishedUrl:`에, 나머지는 `publishedChannels:`로. OSMU 매핑 정본: 지산 프로젝트 `08-발행-매트릭스.md` §6.
 - `model:` / `effort:` — **AI 작성 노트 표기** (2026-08-17 채택, LLM Wiki 페르소나 컨벤션 이식): 에이전트가 작성·대필한 노트는 정확한 모델 ID 와 reasoning effort 를 기록한다 — `model: "claude-fable-5[1m]"` · `effort: "xhigh"`. `author:` 는 `"[[구요한]]"` 유지 (볼트 소유자), 모델 필드가 AI 작성자 기록. 데일리 노트는 추가로 `timezone:` (KST) 과 `dailyStatus:` (pending → filled → final) 를 사용 (`.claude/commands/daily.md` 정본). **기입 의무 범위 (2026-08-25 확장, 레인 감사 후속)**: 데일리 노트만이 아니라 에이전트가 생성하는 모든 산출물 — `70. Outputs/74. Projects/**` · `00. Inbox/03. AI Agent/agents/**` · `40. Docs/42. AI Generated/**` — 에 `model:` 을 기입한다. 이 필드가 채워지면 폴더 휴리스틱 없이 사람/기계 레인을 판별할 수 있다 ([[2026-08-23-lane-classification-audit]]).
 

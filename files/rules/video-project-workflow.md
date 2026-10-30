@@ -23,7 +23,7 @@
 
 ### 볼트 내 추적 MD 필수 섹션
 
-```markdown
+````markdown
 ## 📍 Project Location
 - **DEV path**: `/Users/yohankoo/DEV/video-projects/<name>/`
 - **Stack**: Remotion X.Y.Z, React N

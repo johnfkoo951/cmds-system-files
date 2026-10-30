@@ -29,6 +29,41 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.16.0 — 2026-10-30 (전수 감사 4회차: 시스템·스키마 파일 총점검과 업그레이드)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.15.1 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.14 | ⬆ 4.13 → 4.14 |
+| AGENTS.md | 2.18 | ⬆ 2.17 → 2.18 |
+| ANTIGRAVITY.md | 2.9 | ⬆ 2.8 → 2.9 |
+| CMDS.md | 2.16 | ⬆ 2.15 → 2.16 |
+| 🏛 CMDS Guide.md | 2.13 | ⬆ 2.12 → 2.13 |
+| 🏛 CMDS Head Quarter.md | 1.9 | ⬆ 1.8 → 1.9 |
+| DESIGN.md | 1.5 | ⬆ 1.4 → 1.5 |
+| BRAIN.md *(internal)* | 1.0.1 | ⬆ 1.0 → 1.0.1 (changelog 배열 신설, 본문 무변경) |
+| BRAIN_PROMPT.md *(internal)* | 1.0.1 | ⬆ 1.0 → 1.0.1 (들여쓰기 TAB 정정 + changelog) |
+
+> 2026-07-02(v4.9.3) 이후 첫 전수 감사. finder 22 → 중복 제거 236건 → 파일 그룹별 적대 검증(사실·의도 두 렌즈) → 확인 176·반박 8·개선 채택 45·개선 기각 7. 감사 노트: 마더십 `40. Docs/47. CMDS Docs/system-file-reviews/2026-10-30-system-schema-full-audit.md`.
+
+### Changes
+
+- **CLAUDE.md 4.14** — § System Files Deployment 본문을 볼트 노트 `CMDS 시스템 파일 배포 절차` 로 이관하고 요약·누락 방지 룰 3개·스크립트 포인터만 남겼다(컨텍스트 다이어트 2차). § Obsidian CLI 는 포인터로 축소. 커맨드 13종(10 CMDS Process + /daily·/weekly + /insight)로 정리하고 `/insight` 를 Command Map·결정 트리·Periodic 표에 추가, /lint 범위에 files·storage. § Key Obsidian Plugins 를 런타임 실측(설치 156 / 활성 약 70 / 즉시 시작 19, Lazy Plugin Loader)으로 고쳐 비활성 플러그인(Copilot·Smart Connections·Chronology·Excalibrain)을 "주요"에서 뺐다. Note Types 11종 재측정(moc 85+→37), symlink 폴더 4→5(hooks), 레인 03-9, Note-taking (Live) 는 데일리 노트 인라인 base, 본문 stray `@import` 백틱화, 템플릿 목록 wikilink, On-Demand 표에 배포 절차·Obsidian CLI·정례 점검 행.
+- **AGENTS.md 2.18** — BRAIN·BRAIN_PROMPT·DESIGN 의 "always-loaded/@" 표기를 on-demand 로, 두 Mac 동일 서술을 점폴더 정책대로, Codex Rule Loading 에 file-move-rules(9 rules), 커맨드 10 + Claude 전용 3, /lint 범위, /seeds·/harvest 미러 없음 명시, Companion Vaults 교차 참조 advanced-uri 표준, Cross-Vault Query(qmd 기본 트리거)·Obsidian CLI 절 신설.
+- **ANTIGRAVITY.md 2.9** — 7주 만의 catch-up: token-estimate 실측화, 레인 주석 오류 수정, Rule Loading 9 rules, 커맨드·훅·check-system-dates·I01·qmd·Obsidian CLI·advanced-uri·Academic Citations(CMDS Zotero) 포인터, 2026-08-24 치환으로 깨진 changelog 2.0 표기 복원.
+- **CMDS.md 2.16** — 마더십 노트 수 ~8,000→~14,000(14,134 md 실측), Vault Statistics 2026-10-30 재측정(Note Types 11종), DESIGN on-demand, LLM Wiki 3-layer(Raw Sources·Wiki·Schema), 903↔909 중복 통합, HQ 중복 제거, 플러그인 서술 실측화, 커맨드 8→10.
+- **🏛 CMDS Guide.md 2.13** — Optional Properties 절, 예시 frontmatter 인용·배열 형식, Folder Structure 실측 정합(없는 01. Articles·23. Sermon 제거, 48. Finance·56/57 Assets·94 schema/cmux/hooks/scripts, rules 9), Index 19종, 14인치, Version History 보강.
+- **🏛 CMDS Head Quarter.md 1.9** — audience User + AI, Public 링크 배너, 커맨드 10종, Vault Folders(15. Periodic·설교 단일 홈·94. Agent Settings), 레인 03-9, advanced-uri 표준.
+- **DESIGN.md 1.5** — Pele 버전 하드코딩(1.9.0)을 `vendor/pele/CURRENT` 참조로, v4.9.x 네임스페이스 주석 제거, 영상 라우팅에 cmds-motion-video·cmds-shorts-builder, §9 를 이력으로.
+- **Shared rules (9)** — directory-structure(실제 트리 정합: 03-9·08. Unlisted·67. Bases·94 schema/cmux/scripts·96. Index·Smart Composer·shots, 01. Articles 삭제, symlink 5), file-creation-rules(03-9 레인), frontmatter-standard(Linter `yaml-timestamp` 가 date modified 를 덮어쓰는 메커니즘 기록, 예시 배열 형식), mermaid-rules(Pele 버전 참조화·style 금지 일관), video-project-workflow(중첩 코드 펜스 수정).
+- **Commands (13)** — allowed-tools 누락(daily·weekly·connect·share) 보완, daily.md 의 백업 시각 19:3x→03:33 정정, 하드코딩 레포 수 제거, inbox 스캔 표에 03. Transcripts·08. Unlisted, lint 설명과 Edit 권한 정합, query 저장 템플릿의 고정 날짜 제거, seeds Step 1 실행 가능 명령, share 라우팅 맵에 새 스킬. `.codex/commands` 6종에 Claude 스펙의 Promotions Ledger·Folder Numbering Collision Check·share Step 7-8.5 를 이식.
+- **New** — `90. Settings/94. Agent Settings/claude/scripts/sync-system-files.sh`(8-way 동기화 정본 스크립트: 게이트·①~⑤·위성 보고), `instruction-layer-check.sh`(정례 점검 9종 표), 볼트 노트 `CMDS 시스템 파일 배포 절차`, 에이전트 시스템 원장 § 마더십 슬래시 커맨드 13 인벤토리 표.
+- **Public surfaces** — README.md(v4.9.0·8 rules·91 subcategories·8 slash commands 로 다섯 달 정체)와 `docs/index.html`(8 rules·8 commands·precedence 3/4/5·rule 8종)·`index.html`(91 categories) 수치를 실측으로 교정.
+- **Satellites (보고·제안)** — cmds-vault PR #18(v4.12.0 sync) 열린 채 CLEAN: 같은 브랜치에 v4.13.0~v4.16.0 frontmatter 갱신을 얹을 것을 제안. LLM Wiki `Core Context` snapshot 51일 경과(/refresh-context 후보), Multi-Vault Architecture 가이드 stale 3건. 스타터킷 3-place 드리프트 0.
+
+---
+
 ## v4.15.1 — 2026-10-29 (🏛 CMDS Guide 보류 해제: 태그 노이즈 정리)
 
 ### File Version Snapshot

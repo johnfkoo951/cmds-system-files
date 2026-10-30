@@ -7,7 +7,7 @@ description: "Technical guide for non-Claude AI coding agents (Codex, Cursor, Wi
 author:
   - "[[구요한]]"
 date created: 2026-01-02T16:30
-date modified: 2026-10-29T10:50
+date modified: 2026-10-30T17:10
 tags:
   - CMDS
   - system
@@ -22,12 +22,13 @@ required-for:
 optional-for:
   - search
   - analysis
-token-estimate: 8500
+token-estimate: 11300
 CMDS: "[[📚 501 Obsidian]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.17"
+version: "2.18"
 status: completed
 changelog:
+  - "2.18 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Related System Files 블록의 BRAIN·BRAIN_PROMPT·DESIGN always-loaded/@ 표기를 on-demand 로 정정, 두 Mac 동일 서술을 점폴더 정책(2026-10-10)에 맞게 수정, Codex Rule Loading 에 file-move-rules(9 rules), 커맨드 10 + /daily·/weekly·/insight(Claude 전용) 와 /lint files·storage 범위, /seeds·/harvest 미러 없음 명시, 결정 트리 /insight, Companion Vaults 교차 참조를 advanced-uri 표준으로, Cross-Vault Query(qmd 기본 트리거)·Obsidian CLI 절 신설, token-estimate 재산정."
   - "2.17 (2026-10-29): Academic Citations (CMDS Zotero) 절 추가 — CLAUDE.md 4.13 과 같은 인용 규칙(`[@citekey]` 쪽수 가능, `[[@citekey]]` 문헌 노트 링크·쪽수 불가, 관리 블록, Word kit, 내보내기 산출물 볼트 밖) (macro v4.15.0)."
   - "2.16 (2026-09-16): frontmatter 로컬 탐색에 실제 발급·대상 확인한 Hookmark URI를 적용하고 공통 프로필 묶음을 1.0.1로 갱신. 기존 필드명·legacy 값·Raw 원문과 본문/manifest의 재현 경로를 보존."
   - "2.15 (2026-09-14): I01 공통 필드·Main/Wiki 프로필 v1.0.0과 읽기 전용 resolver 진입점을 추가. 프로필 선택과 실제 콘텐츠 검증을 구분하며 기존 훅·템플릿 집행과 레거시 노트는 보존."
@@ -48,7 +49,7 @@ changelog:
   - "2.0 (2026-04-01): @include 기반 공통 규칙 분리, 중복 60% 제거"
   - "1.0 (2026-03-30): 초기 버전, frontmatter 표준 추가"
 ---
-> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
+> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/AGENTS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (Vercel `cmds-system-files-v2`, deployed from `/Users/yohankoo/DEV/cmds-system-files/`)
 
 # AGENTS.md
 
@@ -71,10 +72,10 @@ This file provides guidance to AI coding agents (Codex, Cursor, Windsurf, etc.) 
 > - [[🏛 CMDS Head Quarter]] — Navigation hub (precedence: 6 · 공백 포함 경로라 @import 불가 — 필요 시 명시 Read)
 >
 > **🧠 Gobi Persona System** (Gobi 앱 entry point — *외부 LLM coding agent 아님*):
-> - @BRAIN.md → [[BRAIN.md]] — 구요한 brain profile (사람을 기술하는 grounding source) (precedence: 7)
-> - @BRAIN_PROMPT.md → [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (BRAIN.md 사용 메타 지침) (precedence: 8)
+> - [[BRAIN.md]] — 구요한 brain profile (사람을 기술하는 grounding source) (precedence: 7 · 코딩 에이전트는 로드하지 않음)
+> - [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (BRAIN.md 사용 메타 지침) (precedence: 8 · 코딩 에이전트는 로드하지 않음)
 >
-> **🎨 Visual Language** (always-loaded when producing visual artifacts):
+> **🎨 Visual Language** (read on demand — 시각 산출물 생성 전에 명시 Read):
 > - @DESIGN.md → [[DESIGN.md]] — Visual language spec (v4.3 standards · Anti-Slop · Skill↔Surface mapping) (precedence: 9)
 
 ---
@@ -88,7 +89,7 @@ The vault implements the CMDS framework — a comprehensive Personal Knowledge M
 **Vault Scale**: 10,000+ notes, 120+ plugins, 100+ templates
 
 ### Working Environments & Sync
-Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All subfolders and files are kept identical.
+Two Macs are synced via **Obsidian Sync** (official Obsidian cloud server). All regular folders and files are kept identical. **Dotfolders are not synced** (`.claude`, `.codex`, `.agents`, `.git`): `.claude/{agents,commands,hooks,rules,skills}` are per-machine symlinks to the synced source `90. Settings/94. Agent Settings/claude/`, while `.codex/` and `.agents/` are real folders that move only through git (policy: `.claude/rules/directory-structure.md` § 점폴더 동기화 정책).
 
 | Environment | Machine | Base Path |
 |-------------|---------|-----------|
@@ -225,6 +226,7 @@ The 8 CMDS Process operations (`connect, merge, develop, share, inbox, lint, que
 - `.claude/rules/file-creation-rules.md`
 - `.claude/rules/directory-structure.md`
 - `.claude/rules/mermaid-rules.md`
+- `.claude/rules/file-move-rules.md` (파일·폴더 이동·개명·삭제 시 정본 — wikilink-rules.md §4 의 `@import` 를 Codex 는 따라가지 않으므로 직접 읽을 것)
 
 For video or Remotion-like work, also read `.claude/rules/video-project-workflow.md`.
 
@@ -263,6 +265,18 @@ qmd update && qmd embed
 ```
 
 Or run the ready-made script: `.codex/hooks/qmd-reindex.sh`. In **Fugu, only the orchestrator** runs the reindex once per batch — parallel workers must not each reindex (duplicate/competing embeds). If this is too slow for the current task, at minimum report that qmd refresh was skipped. Mothership qmd collections: `mothership_inbox`, `mothership_cmds_process`, `mothership_literature`, `mothership_permanent`, `mothership_docs`, `mothership_assets`, `mothership_collections`, `mothership_outputs`, `mothership_references`, `mothership_settings`; the LLM Wiki satellite is collection `wiki`.
+
+### qmd Default Trigger (search before answering)
+
+The LLM Wiki satellite is indexed by `qmd` (collection `wiki`) regardless of cwd. When the user's question or writing topic touches any of the categories below, run `qmd query` (or `qmd vsearch`) **once before answering**, even if the user did not ask to search the wiki — `rg` alone misses the compiled cross-references:
+
+- LLM/AI architecture concepts (RAG, Compiled Wiki, Context Engineering, Persistent Knowledge Base, …)
+- Multi-agent patterns (Orchestrator-Subagent, Agent Teams, Shared State, Message Bus, Generator-Verifier)
+- Topics naming entities registered in the wiki (Karpathy, kepano, Anthropic, …)
+- Knowledge-management theory (Memex, Zettelkasten in the LLM era, Ingest-Query-Lint cycle, …)
+- The user's self-reference ("내가 LLM Wiki 에 정리해뒀던 X")
+
+Tool choice: exact title known → `rg` with an explicit path; abstract/semantic question → `qmd vsearch`; keyword known but location unknown → `qmd search` first, `rg` as fallback. Knowing the exact page is not a reason to skip qmd — the 1-hop expansion is cheap. Clickable cross-vault citations use the advanced-uri form (frontmatter `wikiVaultRelated:`); light prose mentions may use `→ LLM Wiki: {page}`.
 
 ### Skill Registry
 
@@ -330,6 +344,28 @@ Invariants for running multiple Fugu workers in parallel. Apply only to operatio
 ## Visual Artifacts (DESIGN.md)
 
 When producing any visual artifact — web page, PDF, slide deck, image, video, diagram — read [[DESIGN.md]] (precedence 9) BEFORE generating and obey its CI color tokens (`#134538` green / `#E985A2` pink), SF Pro + Pretendard fonts, and the Anti-AI-Slop negative list.
+
+---
+
+## Obsidian CLI (v1.12+)
+
+Obsidian ships a terminal CLI (`obsidian`, Obsidian 1.12+ with Settings → General → CLI enabled; the app must be running). It is an ordinary shell command, so Codex can use it exactly as Claude Code does. Full reference: [[Obsidian CLI]] · practical guide: [[Obsidian CLI 사용 가이드 (CMDS)]].
+
+- Target the vault explicitly: `obsidian vault=CMDSPACE_Local_MBP <command>`
+- Target files with `file=<name>` (wikilink-style name) or `path=<vault-relative path>`; add `--copy` to copy output.
+
+```bash
+obsidian read file=<name>                              # read a note
+obsidian search query="<text>" format=json              # vault search (Obsidian index)
+obsidian backlinks file=<name> counts                   # backlinks (not possible from the filesystem)
+obsidian unresolved verbose                             # broken links
+obsidian create name=<name> template=<tmpl> silent      # create from template
+obsidian append file=<name> content="<text>"            # append body
+obsidian property:set name=<key> value=<val> file=<name> # safe frontmatter edit
+obsidian eval code="<javascript>"                       # Obsidian API (app.vault, app.metadataCache)
+```
+
+Prefer the CLI over `apply_patch` for property edits (`property:set`), template-based note creation (`create template=`), and anything that needs the link graph (`backlinks`, `orphans`, `eval`). Use `rg`/`sed`/`apply_patch` for body edits and when Obsidian is not running.
 
 ---
 
@@ -403,7 +439,7 @@ Templates are in `90. Settings/91. Templates/`. Key templates:
 
 ## CMDS Process Command Suite (2026-04-14+)
 
-The mothership has 10 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share). Canonical implementation lives in `.claude/commands/` (symlinked to `90. Settings/94. Agent Settings/claude/commands/`). Codex-native runtime translations live in `.codex/commands/{op}.md`, and Fugu-discoverable wrappers live in `.agents/skills/{op}/SKILL.md` (see **Cross-Agent Operation Map** above). If your agent runtime supports Claude Code-compatible slash commands, you can invoke these directly; Codex should use its `.codex/` / `.agents/` entrypoints; otherwise, treat them as workflow documentation for how the user thinks about vault operations.
+The mothership has 10 slash commands aligned with the **CMDS Process** (Connect → Merge → Develop → Share), plus 3 Claude Code-only time-axis/analysis commands (`/daily`·`/weekly` — see *Periodic agent notes* below — and `/insight`, 일일 인사이트 엔진: 최근 24시간 노트를 읽기 전용으로 수집해 리포트 1개 작성; spec `90. Settings/94. Agent Settings/claude/commands/insight.md`). Canonical implementation lives in `.claude/commands/` (symlinked to `90. Settings/94. Agent Settings/claude/commands/`). Codex-native runtime translations live in `.codex/commands/{op}.md`, and Fugu-discoverable wrappers live in `.agents/skills/{op}/SKILL.md` (see **Cross-Agent Operation Map** above). If your agent runtime supports Claude Code-compatible slash commands, you can invoke these directly; Codex should use its `.codex/` / `.agents/` entrypoints; otherwise, treat them as workflow documentation for how the user thinks about vault operations.
 
 ### Stage commands (the 4-stage knowledge lifecycle)
 
@@ -419,11 +455,13 @@ The mothership has 10 slash commands aligned with the **CMDS Process** (Connect 
 | Command | Role |
 |---------|------|
 | `/inbox` | Scan 00. Inbox/ subfolders, route to stage command. **Read-only, router only.** |
-| `/lint {scope}` | Health check by stage scope (inbox/connect/merge/develop/share/all). Read-only. |
+| `/lint {scope}` | Health check by stage scope (inbox/connect/merge/develop/share/files/storage/all — `files`/`storage` 는 같은 파일 위생 검사). Read-only. |
 | `/query` | Search vault + LLM Wiki, synthesize answer, file back to appropriate CMDS category (NOT a separate folder). |
 | `/status` | One-screen stage snapshot + recommended next action. Zero dialogs. |
 | `/seeds` | Harvest title-only seed notes → separate seed/residue/how-to, cluster, propose angles, build 📚 101/102 hubs. Mothership-only. |
 | `/harvest` | Cross-vault harvest over all 7 vaults — unlinked pairs, seeds already compiled in the wiki, wiki orphans, concept drift. Read-only on companion vaults. |
+
+> **Parity note**: `/seeds`·`/harvest` 는 Claude 커맨드 스펙만 있다 (`.codex/commands/`·`.agents/skills/` 미러 없음 — `.codex/README.md`). Codex/Fugu 는 `90. Settings/94. Agent Settings/claude/commands/seeds.md`·`harvest.md` 를 워크플로 문서로 읽고 수동 실행한다.
 
 ### When to use which
 
@@ -437,6 +475,7 @@ inbox 항목 빠르게 등록               → /connect
 볼트에 질문 (자신의 글 + LLM Wiki)   → /query
 제목만 걸어둔 씨앗 → 글감·허브        → /seeds
 볼트 생태계 전체 교차 수확           → /harvest
+어제 기록을 해석해 오늘 쓸 글감        → /insight
 위생 점검 (모순/orphan/stale)        → /lint
 ```
 
@@ -486,7 +525,7 @@ The commands are self-contained markdown — each `.md` file is both the spec an
 | Team (5인) | `GOBI` | 구요한·이태극·김진영·강민석·Greg Moon | 커맨드스페이스 × 고비 팀 |
 | Distribution | `cmds-vault` | 구요한 → 외부 | CMDS 스타터킷 |
 
-**Cross-vault wikilink 불가** — 다른 vault 참조 시 `obsidian://open?vault=...&file=...` URL 사용.
+**Cross-vault wikilink 불가** — 다른 vault 참조는 advanced-uri 마크다운 링크가 표준 (`obsidian://advanced-uri?vault=...&filepath=<URL-encoded>.md`, frontmatter 는 `wikiVaultRelated:`/`mainVaultRelated:`). Advanced URI 플러그인이 없는 볼트만 `obsidian://open?vault=...&file=...` 폴백. 정본: `.claude/rules/wikilink-rules.md` §6.
 
 **Governance 결정 트리**: 새 자료가 들어오면 *누가 합의 권한 가짐?* 을 먼저 묻고 → 적절한 vault 선택. 자세한 내용은 satellite 가이드.
 

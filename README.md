@@ -1,6 +1,6 @@
 # CMDS System Files
 
-> 6 Core System Files + 8 Shared Rules + 9 Architecture Patterns that power the CMDSPACE Personal Knowledge Management ecosystem.
+> 6 Core System Files + 9 Shared Rules + 9 Architecture Patterns that power the CMDSPACE Personal Knowledge Management ecosystem.
 
 ## Live Demo
 
@@ -8,22 +8,31 @@
 
 ## Overview
 
-CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian with 10,000+ notes. This repository contains the core system files that provide complete guidance for AI agents and human users working with the vault.
+CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian with 14,000+ notes (measured 2026-10-30). This repository contains the core system files that provide complete guidance for AI agents and human users working with the vault.
 
-## What's New in v4.9.0 (2026-05-30)
+## What's New in v4.16.0 (2026-10-30)
 
-- **8→9 propagation complete** — DESIGN.md (precedence 9) is now fully surfaced across every public layer (index, docs, OG meta, README). The system files scheme is **9 total**: 6 publicly deployed + 3 private.
-- **DESIGN.md is the 6th public download** — added to the `files/` bundle and download list (Visual Language spec — CMDS Green/Pink, SF Pro + Pretendard, Anti-AI-Slop rules).
-- **8 shared rules** — `blank-line-rules.md` (Obsidian-tight markdown) included alongside the original 7.
-- **Engine hardening** — `system-docs-updater` upgraded to a 6-file sweep with a built-in count-canon (9 total / 6 public / 3 private / 8 rules) and a pre-deploy grep gate that blocks stale `5-file` / `5-way` labels before publishing.
-- **git tags backfilled** — v4.7.0 and v4.8.0 tags restored; cmds-vault starter kit gains DESIGN.md (v1.2.0).
+- **Full audit of the instruction layer** — 9 system files, 9 shared rules, 13 slash commands, the schema bundle, the sync surfaces and the satellite vaults were audited by a multi-agent workflow (finders → adversarial verification) and the confirmed defects were fixed in one release. Details in the audit note linked from the CHANGELOG.
+- **One canonical sync script** — the three diverging copies of the ①~⑤ sync procedure were replaced by `scripts/sync-system-files.sh` in the vault (gates: tags regression, date consistency, version/count drift, web version labels; steps: backup incl. CHANGELOG copy, sanitized share with leak gate, DEV files + rules + ZIP, GitHub push + tag + Release, Vercel deploy + live check; satellite report).
+- **Context diet round 2** — the deployment procedure moved out of CLAUDE.md (loaded into every session) into a vault note; CLAUDE.md keeps a summary and pointers.
+- **Command inventory** — 13 commands (10 CMDS Process + `/daily`, `/weekly`, `/insight`) are now listed once in the agent-system ledger; the system files point there instead of hardcoding counts.
+- **ANTIGRAVITY.md 2.9** — catch-up release for the Gemini-only file (9 rules incl. file-move-rules, command inventory pointer, contracts added since September).
+- **Counts corrected everywhere** — 87 subcategories (was "91" on the landing page and here), 9 shared rules (was "8" in docs and here), 14,000+ notes, plugin facts measured at runtime.
 
 ## Previous Highlights
 
-- **v4.8.0** (2026-05-27) — 8→9 transition declared (DESIGN.md as precedence 9); 7-way satellite sync routine (mothership + cmds-vault + LLM Wiki)
+- **v4.15.1** (2026-10-29) — 🏛 CMDS Guide 2.12: body example tags backticked so Obsidian Linter stops lifting them into frontmatter
+- **v4.15.0** (2026-10-29) — Academic citation rule (`[@citekey]` via CMDS Zotero) + export outputs kept outside the vault
+- **v4.14.0** (2026-10-21 ~ 23) — Diagram system: Pele renderer + `@key/@interp/@aux` color directives shared by vault and publications
+- **v4.13.0** (2026-10-10) — Dot-folder sync policy (agent settings canonical folder + symlinks) + context diet round 1
+- **v4.12.0** (2026-09-21) — Agent scope separation (project-scope vs user-scope)
+- **v4.11.0** (2026-08-29) — CMDS Process commands 8 → 10 (`/seeds`, `/harvest`)
+- **v4.10.0** (2026-08-17) — Periodic agent notes (`/daily`, `/weekly`)
+- **v4.9.0 ~ v4.9.3** (2026-05-30 ~ 07-03) — DESIGN.md as the 6th public file; 9-file scheme; first full multi-agent audit
+- **v4.8.0** (2026-05-27) — 8→9 transition declared (DESIGN.md as precedence 9); satellite sync routine
 - **v4.6.0** (2026-05-13) — `DESIGN.md` + `design-tokens.json` design-system surface added
 - **v4.4** (2026-05-03) — 8-file scheme + Codex/Antigravity output lanes
-- **v4.2** (2026-04-15) — CMDS Process Command Suite (8 slash commands: `/connect`, `/merge`, `/develop`, `/share` + `/inbox`, `/lint`, `/query`, `/status`)
+- **v4.2** (2026-04-15) — CMDS Process Command Suite (8 slash commands at the time)
 - **v4.1** (2026-04-07) — `description` field (English, LLM relevance hint) added as required property; 7 required properties total
 - **v4.0** (2026-04-01) — Shared rules (`.claude/rules/`) via `@include`; 9 architecture patterns; enhanced frontmatter (`precedence`, `memory-type`, `token-estimate`, etc.)
 - **v3.0** (2026-03-15) — Structured YAML frontmatter; share system with placeholder rules
@@ -44,13 +53,14 @@ files/
 ├── DESIGN.md              # Visual language spec (precedence: 9)
 └── CMDS-System-Files.zip  # All files bundled
 
-rules/
+rules/                     # 9 shared rules (mirror of .claude/rules/)
 ├── indentation-rules.md        # YAML 2-spaces / Markdown TAB
 ├── frontmatter-standard.md     # 7 required properties + format
-├── file-creation-rules.md      # Output path, naming, project folders
-├── wikilink-rules.md           # Obsidian wikilink syntax + YAML quoting
+├── file-creation-rules.md      # Output path, naming, project folders, artifact closeout
+├── file-move-rules.md          # Move/rename contract: update active references, preserve history
+├── wikilink-rules.md           # Obsidian wikilink syntax + YAML quoting + cross-vault URIs
 ├── directory-structure.md      # Vault folder structure + CMDS categories
-├── mermaid-rules.md            # Mermaid diagram quoting rules (Obsidian)
+├── mermaid-rules.md            # Mermaid/Pele diagram rules (Obsidian + publications)
 ├── blank-line-rules.md         # Obsidian-tight blank line rules
 └── video-project-workflow.md   # Remotion / video project placement rules
 
@@ -66,7 +76,7 @@ These are the 6 publicly deployed files. The full scheme is **9 total** — the 
 | File | Audience | Focus | Precedence |
 |------|----------|-------|:----------:|
 | **CLAUDE.md** | Claude Code | Technical implementation (HOW) | 1 |
-| **AGENTS.md** | Gemini, Codex, Cursor | Portable technical rules (HOW) | 2 |
+| **AGENTS.md** | Codex, Cursor, Windsurf | Portable technical rules (HOW) | 2 |
 | **CMDS.md** | All LLM assistants | Context & philosophy (WHY/WHAT) | 4 |
 
 ### For Humans (referenced in Obsidian)
@@ -86,7 +96,7 @@ These are the 6 publicly deployed files. The full scheme is **9 total** — the 
 
 | # | Pattern | Purpose |
 |---|---------|---------|
-| 1 | **precedence** | File priority ordering (1-5) for conflict resolution |
+| 1 | **precedence** | File priority ordering (1-9) for conflict resolution |
 | 2 | **STATIC/DYNAMIC** | Cache-aware sections for AI processing |
 | 3 | **@include** | Shared rules via file inclusion (AI reads inline) |
 | 4 | **Essential** | Post-compact recovery — core rules that survive context compression |
@@ -129,14 +139,14 @@ Connect → Merge → Develop → Share
 
 | Metric | Value |
 |--------|-------|
-| Core System Files | 6 |
-| Shared Rules | 8 |
-| Slash Commands (CMDS Process) | 8 |
+| Core System Files | 6 (of 9 total) |
+| Shared Rules | 9 |
+| Slash Commands | 13 (10 CMDS Process + `/daily`, `/weekly`, `/insight`) |
 | Architecture Patterns | 9 |
 | Required Frontmatter Properties | 7 |
 | CMDS Categories | 9 (100-900) |
-| Subcategories | 91 |
-| Vault Notes | 10,000+ |
+| Subcategories | 87 |
+| Vault Notes | 14,000+ (2026-10-30) |
 
 ## Download
 
@@ -158,4 +168,4 @@ All intellectual property rights belong to CMDSPACE.
 
 ---
 
-Last Updated: 2026-05-30 · v4.9.0
+Last Updated: 2026-10-30 · v4.16.0

@@ -7,11 +7,11 @@ description: "Central navigation hub for the CMDS vault. Provides links to 87 su
 author:
   - "[[구요한]]"
 date created: 2025-10-23T01:59
-date modified: 2026-09-01T23:50
+date modified: 2026-10-30T17:10
 tags:
   - CMDS
   - system
-audience: User (구요한)
+audience: User + AI
 scope: navigation
 precedence: 6
 memory-type: reference
@@ -20,11 +20,12 @@ required-for:
 optional-for:
   - context-understanding
   - code-generation
-token-estimate: 1800
+token-estimate: 3500
 index: "[[🏛 CMDS Guide]]"
-version: "1.8"
+version: "1.9"
 status: completed
 changelog:
+  - "1.9 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — audience User + AI, 배너에 Public 링크, CMDS Process Commands 10종(+시간축 3 포인터), Vault Folders 의 00. Inbox 데일리 서술→10. CMDS Process/15. Periodic, 20. Literature 의 설교 제거(단일 홈 64. Spirituality), 90. Settings 의 System Prompts→94. Agent Settings, 레인 03-9, 교차 참조 advanced-uri 표준. 2026-09-01 date modified 는 콘텐츠 변경 없는 Linter 범프였음."
   - "1.8 (2026-08-29): 깨진 wikilink 수정 — L133 `[[📚 903 clTeaching & Curriculum Division]]` → `[[📚 903 Teaching & Curriculum Division]]` (실파일명에 없는 `cl` 삽입 오염, 2026-08-19 편집분에서 유입. 클릭 시 Inbox 에 빈 placeholder 생성되는 상태였음). 배너·date modified 동기화. /lint all 에서 발견."
   - "1.7 (2026-07-02): 전수 감사 픽스 세트 (macro v4.9.3) — (a) description 의 '91 sub-categories' → 실측 87 정정, (b) 300 Data 하위 3항목 4-space → TAB 인덴트 정규화 + trailing space 제거, (c) Links:: 자기참조 제거, (d) Satellite Vaults 섹션을 Companion Vaults (6) 표로 확장 (7-vault ecosystem 반영), (e) 배너·date modified 동기화."
   - "1.6 (2026-05-30): v4.9.0 pass — added 🗂 System Files (9) section (public/private split + DESIGN.md precedence 9); restored full 100-900 category nav after an edit-pass truncation. Banner/date synced to 2026-05-30."
@@ -37,7 +38,7 @@ changelog:
 share_link: https://share.note.sx/fhfd1sg3#k4DqRdPCseLgf3fC7XlKzkIs/Hr5ZLdr/R6f5vlVJN0
 share_updated: 2025-08-25T11:43:35+09:00
 ---
-> **🔄 Last Updated: 2026-08-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md`
+> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Head-Quarter_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 Links:: [[🏛 CMDS Guide]]
 ## CMDS
@@ -172,6 +173,11 @@ Links:: [[🏛 CMDS Guide]]
 - `/lint {scope}` — 단계별 위생 점검 (orphan/contradiction/stale/frontmatter coverage)
 - `/query` — 볼트 + LLM Wiki 검색, 답변은 해당 CMDS 카테고리에 file-back (별도 폴더 없음)
 - `/status` — 단계별 노트 수 + 추천 액션 한 화면 요약
+- `/seeds` — 제목만 걸어둔 씨앗 노트를 씨앗/잔해/How-to 로 가르고 클러스터링 → 글감·📚 101/102 허브 제안 (월 1회)
+- `/harvest` — 7볼트 생태계 교차 수확 (끊긴 쌍·컴파일된 씨앗·위키 고아·개념 drift), companion 볼트는 읽기만 (분기 1회)
+
+#### Periodic (에이전트 작성)
+- `/daily` · `/weekly` — `10. CMDS Process/15. Periodic/` 데일리·위클리 노트 (OmniControl 잡 자동 실행, 04:00 KST 경계)
 
 > 세부 문서: [[CLAUDE.md]] "CMDS Process Command Suite" 섹션 / [[🏛 CMDS Guide]] "CMDS Process Command Fields (v2.2)" 섹션
 
@@ -179,23 +185,23 @@ Links:: [[🏛 CMDS Guide]]
 > [!tip] 폴더 구조 (00-90)
 > CMDS 카테고리(100-900)와 별도로, 볼트의 물리적 폴더 구조입니다.
 
-- `00. Inbox/` — 임시 저장 (Daily Notes, Clippings, AI Agent, Canvas, Automation)
-- `10. CMDS Process/` — Connect→Merge→Develop→Share 워크플로우
-- `20. Literature Notes/` — 문헌 노트, 리뷰, 설교, 용어
+- `00. Inbox/` — 임시 저장 (Clippings, AI Agent, Transcripts, Excalidraw, Canvas, Automation, GenAI Chats, App Sync)
+- `10. CMDS Process/` — Connect→Merge→Develop→Share 워크플로우 + `15. Periodic/` 시계열 로그 (Daily/·Weekly/)
+- `20. Literature Notes/` — 문헌 노트 (Zotero), 웹 아티클, 리뷰, 플래시카드, 용어
 - `30. Permanent Notes/` — 에세이, 가이드라인 (Evergreen)
 - `40. Docs/` — 기술 문서, 오디오, 트랜스크립트, API 정보
 - `50. Assets/` — 브랜드, 프롬프트, 워크플로우, 웹 클리퍼
 - `60. Collections/` — People, Organization, Meetings, Spirituality, Preferences
 - `70. Outputs/` — Published, Presentations, Courses, Projects, Consulting
 - `80. References/` — Attachment, 웹 아티클, Zotero, 도서
-- `90. Settings/` — Templates, System Prompts, Fonts, Index
+- `90. Settings/` — Templates, Agent Settings (`.claude/` 정본), Fonts, Index, File Class, Format
 ## Working Environments
 > [!info] Obsidian Sync (공식 클라우드)
 > 두 대의 Mac이 **Obsidian Sync**로 동기화됩니다. 모든 하위 경로와 파일이 동일하게 유지됩니다.
 
 | 환경 | 기기 | AI 코드 출력 폴더 |
 |------|------|--------------------|
-| Primary | MacBook Pro | `03-1. Claude Code (MBP)` / `03-3. OpenClaw (MBP)` / `03-5. Codex (MBP)` / `03-7. Antigravity (MBP)` |
+| Primary | MacBook Pro | `03-1. Claude Code (MBP)` / `03-3. OpenClaw (MBP)` / `03-5. Codex (MBP)` / `03-7. Antigravity (MBP)` / `03-9. Grok Bot (MBP)` |
 | Secondary | Mac Studio | `03-2. Claude Code (Studio)` / `03-4. OpenClaw (Studio)` / `03-6. Codex (Studio)` / `03-8. Antigravity (Studio)` |
 
 ## Companion Vaults (6)
@@ -212,7 +218,7 @@ Links:: [[🏛 CMDS Guide]]
 | 📤 Distribution | `cmds-vault` | 구요한 → 외부 | CMDS 스타터킷 (외부 사용자 배포) | — |
 
 - 사용 기준: 외부 자료(기사·논문·전사)를 LLM이 통합 관리하는 주제별 deep-dive는 satellite에, 그 외 PKM은 메인 볼트에. 새 자료의 볼트 선택은 *합의 권한 (governance)* 우선.
-- Cross-reference 규약: [[🛰 CMDS_LLM_Wiki Satellite Vault#5. Cross-Reference Convention]] 참조. 크로스-볼트는 wikilink 불가 — `obsidian://open?vault=...` URL 사용.
+- Cross-reference 규약: [[🛰 CMDS_LLM_Wiki Satellite Vault#5. Cross-Reference Convention]] 참조. 크로스-볼트는 wikilink 불가 — `obsidian://advanced-uri?vault=...&filepath=...` 마크다운 링크가 표준 (frontmatter `wikiVaultRelated:` / `mainVaultRelated:`), 플러그인 없는 볼트만 `obsidian://open?vault=...` 폴백 (정본: `.claude/rules/wikilink-rules.md` §6).
 
 ## 🗂 System Files (9)
 > [!info] 9개 시스템 파일 — 공개 6 + 비공개 3

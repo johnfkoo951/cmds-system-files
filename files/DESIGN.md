@@ -8,7 +8,7 @@ description: "Visual language specification for all CMDSPACE artifacts. Defines 
 author:
   - "[[구요한]]"
 date created: 2026-05-22T18:47
-date modified: 2026-10-23
+date modified: 2026-10-30T17:10
 tags:
   - CMDS
   - system
@@ -29,12 +29,13 @@ required-for:
 optional-for:
   - text-only-output
   - data-analysis
-token-estimate: 5200
+token-estimate: 7600
 CMDS: "[[📚 731 Digital Art and Design]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "1.4"
+version: "1.5"
 status: completed
 changelog:
+  - "1.5 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Related System Files 의 @BRAIN_PROMPT 표기 제거, 버전 네임스페이스 주석의 v4.9.x 하드코딩을 CHANGELOG 참조로, §4.5 영상 라우팅에 cmds-motion-video·cmds-shorts-builder, §4.6·버전 주석의 Pele 1.9.0 하드코딩을 vendor/pele/CURRENT(1.12.0) 참조로, §9 제목을 이력으로."
   - "1.4 (2026-10-23): 볼트와 발행본이 같은 도식 색 규칙을 쓰게 했다. Obsidian 1.15가 Mermaid 대신 Pele(1.8.0)를 내장해 볼트 미리보기가 33/33이 되었으므로 §4.6의 25/33 서술과 §7.6의 8종 점검을 고치고, §1.6에 볼트 연결(`cmds-pele-vault` 플러그인이 같은 토큰을 Obsidian `--mermaid-*`에 넣고 강조 지시문을 적용)을 더했다. §4.6에 볼트 노트 행과 볼트·발행본 버전 차이(볼트 1.8.0, 발행본 1.9.0)를 적었다. 발행본 Pele 1.8.0 → 1.9.0."
   - "1.3.1 (2026-10-22): §4.6 도식 행의 Pele 버전 표기를 모듈 `vendor/pele/CURRENT` 참조로 바꿨다(Pele 1.6.0 → 1.8.0 업그레이드, 다음 업그레이드부터 이 파일을 고치지 않아도 된다)."
   - "1.3 (2026-10-21): 다이어그램 시스템 반영 (macro v4.14.0). §1.6 도식 토큰(cmds-pele `--cp-*`, 시리즈 8색, 배경 대비 4.5:1 규칙, Pretendard 측정 글꼴)을 v4.3 확장으로 추가하고, §2.1 금지 목록에 도식 색 하드코딩과 확산 모델 도식을 넣었다. §4.6을 cmds-diagram 진입점과 지면별 스킬(브리프, 덱, 보고서 PDF·HWPX, 블로그, 뉴스레터, 웹)로 다시 쓰고 Obsidian 미리보기 25/33 사실을 적었다. §5.5 도식 일관성, §7.6 도식 사전 점검, §8 출처를 더했다."
@@ -42,7 +43,7 @@ changelog:
   - "1.1 (2026-05-30): Went public as 6th deployed file (v4.8.0); header de-staled; §9 follow-ups resolved; counts hedged."
   - "1.0 (2026-05-22): Initial version. 9th system file added to mothership. Sources — getdesign.md pattern (2026-04-23 capture), v4.3 design standards (cmdspace-web-builder skill), Anti-AI-Slop guidelines (Claude Design system prompt captured 2026-05-04), 87-skill catalog mapped to visual surfaces. Triggered by /query — CMDSPACE 버전의 design.md 만들어줘 (2026-05-22)."
 ---
-> **🔄 Last Updated: 2026-10-23** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/DESIGN_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (6th public file, deployed v4.8.0 2026-05-27)
+> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/DESIGN_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (6th public file, deployed v4.8.0 2026-05-27)
 
 # DESIGN.md
 
@@ -63,8 +64,8 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 > - [[🏛 CMDS Head Quarter]] — Navigation hub (precedence: 6 · 공백 포함 경로라 @import 불가 — 필요 시 명시 Read)
 >
 > **🧠 Gobi Persona System** (Gobi 앱 entry point):
-> - @BRAIN.md → [[BRAIN.md]] — 구요한 brain profile (precedence: 7)
-> - @BRAIN_PROMPT.md → [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (precedence: 8)
+> - [[BRAIN.md]] — 구요한 brain profile (precedence: 7)
+> - [[BRAIN_PROMPT.md]] — Agent Rules of Engagement (precedence: 8)
 >
 > **🎨 Visual Language** (always-loaded when producing visual artifacts):
 > - @DESIGN.md → [[DESIGN.md]] — This file — visual spec (precedence: 9)
@@ -98,7 +99,7 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 ## 1. CI Constants (절대 불변 — v4.3)
 
 > 다음 5개 항목은 **모든 시각 산출물에서 동일** 해야 한다. 변경 시 v4.4 로 버전업.
-> **버전 namespace 주의**: DESIGN 의 v4.3 은 시각 언어 표준 generation 이며 Vercel 배포 macro-version(v4.9.x)과 무관.
+> **버전 namespace 주의**: DESIGN 의 v4.3 은 시각 언어 표준 generation 이며 Vercel 배포 macro-version(현행 값은 `/Users/yohankoo/DEV/cmds-system-files/CHANGELOG.md` 최상단 참조)과 무관.
 
 ### 1.1 컬러 토큰
 
@@ -258,6 +259,8 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 | Surface | 1차 스킬 | 보조 스킬 | 참고 |
 |---------|----------|---------|------|
 | Remotion (React 비디오) | `markdown-video` | `remotion-best-practices` | DEV 폴더 사용 [^video] |
+| 손그림 톤 모션 영상 (커맨디·9요한 캐릭터, 16:9 + 9:16 동시) | `cmds-motion-video` | `cmds-visual-gen` · `eagle-library` | Python(PIL) 엔진 cmds-motion-lab · voice-led(대본 → ElevenLabs 음성 → 컷 산출) · 업로드 키트 노트 |
+| 설명형 모션 인포그래픽 영상 (Remotion, 세로·정사각·가로) | `cmds-shorts-builder` | `remotion-best-practices` | 본인 보이스 나레이션 · 5 플랫폼 출력 · DEV 폴더 사용 [^video] |
 | HeyGen 아바타 | `heygen` | `audio-generator` | 1-shot prompt-to-video |
 | YouTube 한글 자막 | `youtube-kr-subtitle` | `video-cleaning` | Claude 직접 번역 |
 
@@ -265,7 +268,7 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 
 | Surface | 1차 스킬 | 보조 스킬 | 참고 |
 |---------|----------|---------|------|
-| Mermaid 도식 (모든 지면의 진입점) | `cmds-diagram` | `obsidian-mermaid` | 정본 모듈 `/Users/yohankoo/DEV/cmds-pele` (Pele 버전은 모듈의 `vendor/pele/CURRENT`, 2026-10-23 기준 1.9.0). 타입 고르기, 작성 규칙, 지면별 넣는 법. mermaid-rules.md 준수 |
+| Mermaid 도식 (모든 지면의 진입점) | `cmds-diagram` | `obsidian-mermaid` | 정본 모듈 `/Users/yohankoo/DEV/cmds-pele` (Pele 버전은 모듈의 `vendor/pele/CURRENT`가 정본 — 이 파일에는 숫자를 적지 않는다). 타입 고르기, 작성 규칙, 지면별 넣는 법. mermaid-rules.md 준수 |
 | 브리프 (A4) | `cmds-brief` | `cmds-diagram` | 빌드 HTML에서 브라우저로 그림 (print 프로필) |
 | 슬라이드 덱 | `cmds-lecture-builder` (deck-core) | `cmds-diagram` | spec의 `pele` 슬라이드를 slide 프로필로 미리 그림 |
 | 보고서 PDF · HWPX | `md-to-pdf` · `md-to-hwpx` | `research-harness` | 인라인 SVG · 본문 폭에 맞춘 고해상도 PNG 그림 |
@@ -276,7 +279,7 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 | Obsidian Canvas | `obsidian-canvas`, `cmds-canvas` | `json-canvas` | |
 
 - 볼트 미리보기는 Obsidian 1.15+에 든 Pele(1.15.0은 1.8.0)가, 발행본은 cmds-pele의 Pele가 그린다. Mermaid 12.1의 33종이 모두 볼트에서 보인다(2026-10-23 실측, MBP·Studio). Obsidian 1.14.4의 Mermaid 11.13.0에서는 25종이라 swimlane, agentflow, eventmodeling, usecase, railroad, treeView, cynefin, wardley는 발행본에서만 보였다.
-- 볼트의 Pele가 발행본보다 늦을 수 있다(2026-10-23 기준 볼트 1.8.0, 발행본 1.9.0). 그 사이에 생긴 기능은 볼트판 기준으로 쓴다: sankey 노드 이름은 ASCII, `List<T>` 같은 꺾쇠 글자는 `#lt;T#gt;`, 라벨의 `<code>`·`<kbd>`·`<sub>` 모양은 발행본에서만 난다(mermaid-rules.md 10번, 정본 목록은 `catalog.json`의 `peleVaultGap`).
+- 볼트의 Pele가 발행본보다 늦을 수 있다(볼트 버전은 Obsidian 릴리스를 따르고 — 1.15.0은 1.8.0 — 발행본 버전은 모듈 `vendor/pele/CURRENT`가 정본이다. Pele는 2026-10-27부터 npm 최신판을 자동으로 따르므로 이 파일에 발행본 숫자를 적지 않는다). 그 사이에 생긴 기능은 볼트판 기준으로 쓴다: sankey 노드 이름은 ASCII, `List<T>` 같은 꺾쇠 글자는 `#lt;T#gt;`, 라벨의 `<code>`·`<kbd>`·`<sub>` 모양은 발행본에서만 난다(mermaid-rules.md 10번, 정본 목록은 `catalog.json`의 `peleVaultGap`).
 - 두 볼트의 기존 Mermaid 893블록 중 879블록이 Pele로 그려진다(2026-10-23 재측정, 1.8.0과 1.9.0 결과 같음). 거부된 14블록은 Mermaid 11.17.2도 거부한 작성 오류다.
 - 33종 갤러리: https://pele.cmdspace.work
 
@@ -419,7 +422,7 @@ CMDSPACE 운영에서 반복 발생한 실수 — *DESIGN.md v1.0 시점의 기�
 
 ---
 
-## 9. Post-Restructure Status (v4.8.0 / v4.9.0)
+## 9. Post-Restructure Status (v4.8.0 / v4.9.0 당시 기록 — 현행 macro 는 `DEV/cmds-system-files/CHANGELOG.md` 최상단)
 
 v4.8.0 (2026-05-27)으로 mothership 이 *8 → 9 system files* 가 되었고, 아래 정합성 작업이 완료됨:
 

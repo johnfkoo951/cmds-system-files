@@ -7,7 +7,7 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-10-29T11:20
+date modified: 2026-10-30T17:10
 tags:
   - CMDS
   - system
@@ -21,12 +21,13 @@ required-for:
 optional-for:
   - search
   - analysis
-token-estimate: 4800
+token-estimate: 8700
 links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.12"
+version: "2.13"
 status: completed
 changelog:
+  - "2.13 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — token-estimate 실측화, author·organization 예시 큰따옴표 wikilink, Optional Properties(published*·model/effort·wikiVaultRelated·artifactStatus·session-link) 절 추가, 헤딩 뒤 빈 줄 정리, Collections Index 목록 19종, Folder Structure 실측 정합(_Gobi_Captures 추가·01. Articles 삭제(생성된 적 없음)·23. Sermon 삭제(2026-08-02 폐기)·48. Finance·56. Design References·57. Visual Assets·94 schema/cmux/hooks/scripts·rules 9), 템플릿 예시 4종 tags 하이픈 배열, Sync Settings MBP 14인치, Version History 에 2.12·2.13 반영."
   - "2.12 (2026-10-29): tags 노이즈 세 번째 정리 — 2026-09-29 Linter `move-tags-to-yaml`(저장·파일 전환 때 실행)이 본문 예시 태그 7개(태그는자유로워야지·index·NoteClass·maps·example·operation·service)를 한 줄 배열로 frontmatter 에 올리고 date modified 를 바꾼 기록 없는 변경을 되돌림. 재발 방지로 본문 예시 태그를 백틱으로 감싸 Linter·Obsidian 이 태그로 읽지 않게 함 (Tags·Index·Wis' Rule 절). 배포본·공유본 보류 해제. Last Updated 배너를 다른 시스템 파일처럼 frontmatter 바로 아래(제목 위)로 옮기고 본문 Version 표기를 2.12로 (macro v4.15.1)."
   - "2.11 (2026-09-07): E07 교차 볼트 참조 방향 교정 — 마더십 wikiVaultRelated·위키 mainVaultRelated 구분, 실재 대상의 advanced-uri 예시, open 폴백·legacy 읽기 호환·반대 볼트 쓰기 권한 경계 명시."
   - "2.10 (2026-08-22): 데일리·위클리 로그 이관 반영 — 00. Inbox/01. Daily Notes (01-1. Planners·01-2. Weekly Notes 포함) 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설. Folder Structure 트리 갱신 + Graph View 필터 예시 경로 교체."
@@ -43,7 +44,7 @@ share: true
 share_link: https://canny-buffalo-436.convex.site/note/bq2eal9k.html
 share_expires: 2026-01-29T11:02:12.926Z
 ---
-> **🔄 Last Updated: 2026-10-29** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 
 # CMDS Guide
 
@@ -81,7 +82,7 @@ tags: []        # 태그 (배열 형식)
 > ⚠️ **통일 규칙**: 모든 날짜는 ISO 8601 형식 (YYYY-MM-DD) 사용
 
 #### 작성자 및 관계
-- `author: [[구요한]]` - 항상 wikilink 형식 사용
+- `author: ["[[구요한]]"]` - 항상 큰따옴표 wikilink 배열 형식 사용 (필수 템플릿과 동일)
 - `attendees: []` - 참석자 목록 (wikilink 배열)
 - `organization: [[조직명]]` - 조직 (wikilink)
 
@@ -105,9 +106,14 @@ tags: []        # 태그 (배열 형식)
 - `source` - 출처
 - `source_url` - 출처 URL
 - `bookends` - 북엔드 (기존 유지)
+#### 선택 Properties (정본: `.claude/rules/frontmatter-standard.md` Optional Properties)
+- `published` / `publishedUrl` / `publishedChannels` - 외부 발행 추적 (2026-08-26). 발행 시 `published: true` + 정본 URL + 채널 배열 (blog/threads/x/linkedin/kakao/newsletter)
+- `model` / `effort` - 에이전트 작성 노트 표기 (2026-08-17). 예: `model: "claude-fable-5[1m]"` · `effort: "xhigh"`. 데일리 노트는 `timezone:`·`dailyStatus:` 추가
+- `artifactStatus` / `artifactArchivePath` - 완료 JSON/PY 외부 보관 기록 (`planned` / `partial` / `archived`; 경로 값은 Hookmark `hook://file/…` URI)
+- `schemaVersion` - I01 프로필 묶음에 맞춰 작성·검토한 노트만 opt-in (현재 `1.0.1`)
+- `tags` 값은 숫자만으로 쓰지 않는다 (예: `2`, `22` — Properties 패널 깨짐). 본문의 `#22` 류 번호 참조는 백틱으로 감싼다
 
 #### CMDS Process Command Fields (v2.2, 2026-04-14+)
-
 CMDS Process 슬래시 커맨드 (`/connect`, `/merge`, `/develop`, `/share`, `/query`) 가 기록하는 프로퍼티. 복합 키는 **camelCase**다. 같은 볼트의 노트 참조 배열은 큰따옴표 wikilink(`"[[노트]]"`), 교차 볼트 참조 배열은 큰따옴표로 감싼 Markdown URI 링크를 사용한다. aliases·tags 등 일반 배열까지 wikilink로 바꾸지 않는다.
 
 | 필드                     | 기록하는 커맨드           | 용도                                                                         |
@@ -230,6 +236,10 @@ mainVaultRelated:
 - [[🏷 Prompts]]
 - [[🏷 Syntax and Codes]]
 - [[🏷 Recordings]]
+- [[🏷 Books]]
+- [[🏷 Outcomes]]
+- [[🏷 References]]
+- [[🏷 Bible Commentary]]
 ### Backlinks
 - 백링크는 내 인지범위가 허락하는 선까지 [[]]
 - 한 번에 다 할 필요는 없음
@@ -294,7 +304,7 @@ mainVaultRelated:
 ## Folder Structure
 ```
 00. Inbox/                      # 임시 저장 및 처리 공간
-├── 01. Articles/               # 아티클 수집 (신설)
+├── _Gobi_Captures/             # Gobi 캡처 인박스
 ├── 02. Clippings/              # 웹 클리핑 (02-1. Literature Notes)
 ├── 03. AI Agent/               # ⭐ AI 코드 작업 전용 (PRIMARY)
 │   ├── 03-1. Claude Code (MBP)/    # Claude Code — MacBook Pro
@@ -324,7 +334,6 @@ mainVaultRelated:
 ├── 21. Lit Notes (Zotero)/     # Zotero 연동 문헌
 ├── 21. Web Articles/           # 웹 아티클 (빈 폴더)
 ├── 22. Reviews/                # 리뷰 및 분석
-├── 23. Sermon/                 # 설교 노트
 ├── 24. Web Articles/           # 웹 아티클
 ├── 28. Flashcards/             # 플래시카드
 └── 29. Terminologies/          # 용어 정리
@@ -342,6 +351,7 @@ mainVaultRelated:
 ├── 45. Partner Made/           # 파트너 제작 문서
 ├── 46. My Docs/                # 사용자 작성 기술 문서
 ├── 47. CMDS Docs/              # CMDS 시스템 관련 문서
+├── 48. Finance/                # 재무 기록 (Monthly·Transactions)
 └── 49. API Information/        # API 정보 및 레퍼런스
 
 50. Assets/                     # 미디어 및 자산
@@ -350,6 +360,8 @@ mainVaultRelated:
 ├── 53. Transcription Context/  # 전사(STT) 컨텍스트 자산
 ├── 54. Lecture Assets/         # 강의 재사용 자산
 ├── 55. Prompt/                 # 프롬프트 자산 (2026-07-18 재넘버링: 舊 51. Prompt — 51 번호 3중 충돌 해소, stale 사본 '51. Prompt and Syntax' 는 09. Legacy 격리)
+├── 56. Design References/      # 디자인 참고 자료 (페이지·UI 레퍼런스)
+├── 57. Visual Assets/          # 브랜드 비주얼 에셋 (커맨디·스페이시·아바타·장면·모션 — cmds-visual-gen 산출)
 └── 59. Obsidian Web Clipper/   # 웹 클리퍼 템플릿
 
 60. Collections/                # 엔티티 관리 컬렉션
@@ -388,10 +400,14 @@ mainVaultRelated:
 ├── 92. Templates (archived)/   # 아카이브 템플릿
 ├── 93. Generated Text/         # AI 생성 텍스트
 ├── 94. Agent Settings/         # AI agent 원본 (.claude/ symlink target)
+│   ├── schema/                 # 공통 필드·볼트 프로필 번들 I01 v1.0.1 (README·common-fields.json·main/wiki-profile.json·resolve-profile.rb)
+│   ├── cmux/                   # cmux 세션 분배 원장
 │   └── claude/
 │       ├── agents/             # Claude subagent 정의
 │       ├── commands/           # CMDS Process 슬래시 커맨드
-│       ├── rules/              # 8개 공통 룰 .md
+│       ├── hooks/              # PostToolUse 훅 (validate-frontmatter·qmd-reindex·transcript-lane-detect)
+│       ├── rules/              # 9개 공통 룰 .md
+│       ├── scripts/            # 검사 스크립트 (check-system-dates.rb·lint-description.rb·vault-hygiene.rb — .claude/ symlink 대상 아님)
 │       └── skills/             # Claude Code skills
 ├── 95. Fonts/                  # 폰트 파일
 ├── 96. Index/                  # 인덱스 파일
@@ -434,7 +450,8 @@ organization: "[[조직명]]"
 CMDS: "[[📚 831 Consulting]]"
 index: "[[🏷 Meeting Notes]]"
 status: inProgress
-tags: [meeting]
+tags:
+  - meeting
 ---
 ```
 ### 연구 노트 템플릿
@@ -455,7 +472,8 @@ keywords: []
 CMDS: "[[📚 820 Research]]"
 index: "[[🏷 Research Notes]]"
 status: reading
-tags: [research]
+tags:
+  - research
 ---
 ```
 ### 도서 노트 템플릿
@@ -478,7 +496,8 @@ myRate:
 status: unread
 CMDS: "[[📚 240 Books]]"
 index: "[[🏷 Books]]"
-tags: [📚Book]
+tags:
+  - 📚Book
 ---
 ```
 ### 인물 노트 템플릿
@@ -498,7 +517,8 @@ group:
 CMDS: 
 index: "[[🏷 People]]"
 status: 
-tags: [people]
+tags:
+  - people
 ---
 ```
 ## Property 네이밍 규칙 (Naming Convention)
@@ -586,7 +606,7 @@ date modified: 2026-03-30
 
 | 환경 | 기기 | Base Path |
 |------|------|-----------|
-| Primary | MacBook Pro (16-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
+| Primary | MacBook Pro (14-inch) | `/Users/yohankoo/Local Obsidian_MBP/CMDSPACE_Local_MBP` |
 | Secondary | Mac Studio | `/Users/yohankoo/Obsidian_Local/CMDSPACE_Studio_Local_Org` |
 
 - 모든 하위 경로와 파일이 동일하게 유지됩니다
@@ -596,7 +616,10 @@ date modified: 2026-03-30
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History
+- **v2.13** (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Optional Properties 절 추가, 예시 frontmatter 인용·배열 형식 정정, Folder Structure 실측 정합(01. Articles·23. Sermon 제거, _Gobi_Captures·48. Finance·56/57 Assets·94 schema/cmux/hooks/scripts, rules 9), Index 목록 19종, Sync Settings 14인치, token-estimate 재산정
+- **v2.12** (2026-10-29): tags 노이즈 세 번째 정리 (Linter `move-tags-to-yaml` 원인) — 본문 예시 태그를 백틱 처리해 재발 방지, Last Updated 배너를 frontmatter 바로 아래로 이동, Version 표기 2.12 (macro v4.15.1)
 - **v2.11** (2026-09-07): E07 — 마더십 wikiVaultRelated와 위키 mainVaultRelated의 방향·배열 값 형식 교정, 실재 대상 URI 예시 및 open/legacy 읽기 호환·반대 볼트 쓰기 경계 명시
+- **v2.10** (2026-08-22): 데일리·위클리 로그 이관 반영 — 00. Inbox/01. Daily Notes 폐지, 10. CMDS Process/15. Periodic/ (Daily/·Weekly/) 신설, Folder Structure 트리·Graph View 필터 예시 경로 갱신
 - **v2.9** (2026-07-13): Inbox 08. Unlisted → 08. Transcripts 재구조화 (Plaud/STT/Manual 착륙 레인), 06-3. STT 이관, 인박스 대기열 vs 44. Transcripts 아카이브 2계층 분리
 - **v2.8** (2026-07-02): 전수 감사 픽스 — tags 노이즈 회귀 재제거, merge 예시 CMDS:/index: 방향 오류 수정, 템플릿 예시 5종 description·date modified 보완, 날짜 형식 통일 (초 단위 제거), CMDS 타입/프로퍼티 중복 제거, index: 시스템 파일 예외 명문화, Folder Structure 실존 폴더 6개 추가
 - **v2.7** (2026-05-30): 🔗 Related System Files 섹션 추가 (DESIGN.md precedence 9 cross-link), 배너·버전 동기화

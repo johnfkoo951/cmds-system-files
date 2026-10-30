@@ -14,6 +14,7 @@
 | `03-6. Codex (Studio)/` | Codex | Mac Studio |
 | `03-7. Antigravity (MBP)/` | Antigravity (Google) | MacBook Pro |
 | `03-8. Antigravity (Studio)/` | Antigravity (Google) | Mac Studio |
+| `03-9. Grok Bot (MBP)/` | Grok Bot | MacBook Pro |
 
 **Auto-detection**: Check base path to determine machine:
 - `/Users/yohankoo/Local Obsidian_MBP/` → MBP
