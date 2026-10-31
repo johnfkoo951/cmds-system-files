@@ -6,7 +6,7 @@ flowchart LR
 %% @aux: anti, brain
   claude["`**Claude Code**
 CLAUDE.md · CMDS.md`"]
-  agents["`**Codex, Cursor, Gemini CLI**
+  agents["`**Codex · Cursor · Gemini CLI**
 AGENTS.md`"]
   anti["`**Antigravity (비공개 볼트)**
 ANTIGRAVITY.md`"]
@@ -16,7 +16,7 @@ BRAIN_PROMPT.md`"]
   people["`**사람**
 CMDS Guide
 CMDS Head Quarter`"]
-  rules["`**규칙 9개**
+  rules["`**공유 규칙 9개**
 .claude/rules/`"]
   claude --> rules
   agents --> rules

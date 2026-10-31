@@ -1,7 +1,7 @@
 ```mermaid
 treeView-beta
 %% @name: vault-tree-ko
-%% @alt: CMDS 볼트의 폴더 트리. 루트 폴더 10개(00~90), 00. Inbox 아래 에이전트 레인 03-1~03-9, 10. CMDS Process/15. Periodic 아래 Daily·Weekly, 에이전트 설정 정본 90. Settings/94. Agent Settings/claude/ 와 그곳을 가리키는 .claude/ 심링크.
+%% @alt: CMDS 볼트의 폴더 트리. 루트 폴더 10개(00~90), 00. Inbox 아래 에이전트 레인 03-1~03-9, 10. CMDS Process/15. Periodic 아래 Daily·Weekly, 에이전트 설정 정본 90. Settings/94. Agent Settings/claude/, 그리고 그곳을 가리키는 .claude/ symlink.
 %% @key: claude
   CMDSPACE 볼트/
     00. Inbox/ ## 미분류 · 에이전트 초안
@@ -20,6 +20,6 @@ treeView-beta
     90. Settings/
       94. Agent Settings/
         claude/ ## 정본: agents commands hooks rules skills scripts
-    .claude/ ## 심링크 → 94. Agent Settings/claude/
+    .claude/ ## symlink → 94. Agent Settings/claude/
 ```
-*루트 폴더 10개가 전부를 담습니다. 에이전트 설정은 90. Settings 에 한 번만 있고, `.claude/` 는 그곳을 가리키는 심링크일 뿐입니다.*
+*루트 폴더 10개가 전부를 담고, 에이전트 설정은 90. Settings에 한 번만 있으며 .claude/ 폴더는 그곳을 가리키는 symlink일 뿐입니다.*

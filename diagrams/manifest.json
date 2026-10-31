@@ -11,29 +11,29 @@
   "sizes": {
    "en": {
     "680": [
-     733,
-     486
+     494,
+     541
     ],
     "340": [
-     733,
-     486
+     466,
+     465
     ]
    },
    "ko": {
     "680": [
-     737,
-     486
+     494,
+     541
     ],
     "340": [
-     737,
-     486
+     466,
+     465
     ]
    }
   },
-  "bytes": 21247,
+  "bytes": 21051,
   "caption": {
-   "en": "CLAUDE.md is the single entry: the 9 rules and CMDS.md load every session, DESIGN, AGENTS and ANTIGRAVITY are read on trigger, and the two BRAIN files are read only by the Gobi app.",
-   "ko": "CLAUDE.md 하나가 입구입니다. 규칙 9개와 CMDS.md는 매 세션 자동으로 들어오고, DESIGN·AGENTS·ANTIGRAVITY는 트리거 때 읽으며, BRAIN 두 파일은 Gobi 앱만 읽습니다."
+   "en": "CLAUDE.md is the single entry: the nine shared rules and CMDS.md load every session, DESIGN, AGENTS and ANTIGRAVITY are read on trigger, and the two BRAIN files are read only by the Gobi app.",
+   "ko": "입구는 CLAUDE.md 하나이며, 공유 규칙 9개와 CMDS.md는 매 세션 자동으로 들어오고, DESIGN·AGENTS·ANTIGRAVITY는 트리거 때 읽으며, BRAIN 두 파일은 Gobi 앱만 읽습니다."
   }
  },
  "commands-parity": {
@@ -48,26 +48,26 @@
   "sizes": {
    "en": {
     "680": [
-     442,
+     449,
      357
     ],
     "340": [
-     430,
+     437,
      317
     ]
    },
    "ko": {
     "680": [
-     438,
+     443,
      357
     ],
     "340": [
-     426,
+     431,
      317
     ]
    }
   },
-  "bytes": 18299,
+  "bytes": 18761,
   "caption": {
    "en": "Eight operating commands are mirrored in all three harnesses; five are Claude Code only.",
    "ko": "운영 커맨드 8개는 세 하네스에 모두 있고, 5개는 Claude Code 전용입니다."
@@ -85,28 +85,28 @@
   "sizes": {
    "en": {
     "680": [
-     431,
-     548
+     437,
+     569
     ],
     "340": [
-     419,
-     468
+     425,
+     489
     ]
    },
    "ko": {
     "680": [
-     431,
-     548
+     410,
+     569
     ],
     "340": [
-     419,
-     468
+     398,
+     489
     ]
    }
   },
-  "bytes": 20422,
+  "bytes": 20827,
   "caption": {
-   "en": "Each reader has its own entry file; only the 9 rules are shared.",
+   "en": "Each reader has its own entry file; only the nine rules are shared.",
    "ko": "독자마다 입구 파일이 다르고, 규칙 9개만 공유합니다."
   }
  },
@@ -122,29 +122,29 @@
   "sizes": {
    "en": {
     "680": [
-     443,
-     419
+     459,
+     398
     ],
     "340": [
-     413,
-     395
+     429,
+     374
     ]
    },
    "ko": {
     "680": [
-     420,
-     419
+     435,
+     398
     ],
     "340": [
-     390,
-     395
+     405,
+     374
     ]
    }
   },
-  "bytes": 21128,
+  "bytes": 20659,
   "caption": {
    "en": "Folder and CMDS: are different axes: the folder says where a note lives, the frontmatter says what it is.",
-   "ko": "폴더와 CMDS:는 다른 축입니다. 폴더는 노트가 어디 있는지를, 프론트매터는 노트가 무엇인지를 말합니다."
+   "ko": "폴더와 CMDS:는 다른 축으로, 폴더는 노트가 어디 있는지를, frontmatter는 노트가 무엇인지를 말합니다."
   }
  },
  "process-flow": {
@@ -215,10 +215,10 @@
     ]
    }
   },
-  "bytes": 19264,
+  "bytes": 19229,
   "caption": {
-   "en": "One edit in the vault passes a gate, is synced to three local copies, then ships through GitHub and Vercel to this page; versions live on two layers, micro per file and macro per release.",
-   "ko": "볼트에서 고친 시스템 파일 하나가 게이트를 지나 세 곳에 동기화되고, GitHub 와 Vercel 을 거쳐 이 페이지가 됩니다. 버전은 파일별 마이크로와 릴리스별 매크로, 두 층으로 관리합니다."
+   "en": "One edit in the vault passes a gate, is synced to three local copies, then ships through GitHub and Vercel to this site; versions live on two layers, micro per file and macro per release.",
+   "ko": "볼트에서 고친 시스템 파일 하나가 게이트를 지나 세 곳에 동기화되고 GitHub와 Vercel을 거쳐 이 사이트가 되며, 버전은 파일별 마이크로와 릴리스별 매크로 두 층으로 관리합니다."
   }
  },
  "rules-include": {
@@ -233,29 +233,29 @@
   "sizes": {
    "en": {
     "680": [
-     635,
+     650,
      454
     ],
     "340": [
-     635,
+     650,
      454
     ]
    },
    "ko": {
     "680": [
-     637,
+     664,
      454
     ],
     "340": [
-     637,
+     664,
      454
     ]
    }
   },
-  "bytes": 27308,
+  "bytes": 27300,
   "caption": {
-   "en": "Nine rules live in one folder: CLAUDE.md pulls eight in with @include, wikilink-rules imports the ninth, and other agents read the folder explicitly.",
-   "ko": "규칙 9개는 한 폴더에 있습니다. CLAUDE.md 가 8개를 @include 로 끌어오고, wikilink-rules 가 아홉 번째를 import 하며, 다른 에이전트는 폴더를 명시적으로 읽습니다."
+   "en": "The nine shared rules live in one folder: CLAUDE.md pulls eight in with @include, wikilink-rules imports the ninth, and other agents read the folder explicitly.",
+   "ko": "공유 규칙 9개는 한 폴더에 있고, CLAUDE.md가 8개를 @include로 끌어오며, wikilink-rules가 아홉 번째를 import하고, 다른 에이전트는 폴더를 명시적으로 읽습니다."
   }
  },
  "sync-fanout": {
@@ -270,26 +270,26 @@
   "sizes": {
    "en": {
     "680": [
-     592,
+     584,
      506
     ],
     "340": [
-     580,
+     572,
      426
     ]
    },
    "ko": {
     "680": [
-     583,
+     555,
      506
     ],
     "340": [
-     571,
+     543,
      426
     ]
    }
   },
-  "bytes": 27430,
+  "bytes": 27555,
   "caption": {
    "en": "One vault source fans out to eight destinations, and this site is the fifth.",
    "ko": "볼트 원본 하나가 여덟 곳으로 퍼지고, 이 사이트는 그중 다섯 번째입니다."
@@ -326,10 +326,10 @@
     ]
    }
   },
-  "bytes": 25627,
+  "bytes": 25616,
   "caption": {
-   "en": "Ten root folders hold everything; agent settings live once, in 90. Settings, and `.claude/` is only a symlink to them.",
-   "ko": "루트 폴더 10개가 전부를 담습니다. 에이전트 설정은 90. Settings 에 한 번만 있고, `.claude/` 는 그곳을 가리키는 심링크일 뿐입니다."
+   "en": "Ten root folders hold everything; agent settings live once, in 90. Settings, and .claude/ is only a symlink to them.",
+   "ko": "루트 폴더 10개가 전부를 담고, 에이전트 설정은 90. Settings에 한 번만 있으며 .claude/ 폴더는 그곳을 가리키는 symlink일 뿐입니다."
   }
  }
 }

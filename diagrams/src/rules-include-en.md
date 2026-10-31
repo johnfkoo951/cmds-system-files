@@ -5,7 +5,7 @@ flowchart TD
 %% @key: CL
 %% @aux: AG
   CL["`**CLAUDE.md**
-entry for Claude Code`"]
+Claude Code entry`"]
   AG["`**AGENTS.md**
 Codex · Cursor · Gemini CLI`"]
   subgraph FOLDER[".claude/rules/ · 9 shared rules"]
@@ -18,7 +18,7 @@ Codex · Cursor · Gemini CLI`"]
     R7["mermaid-rules"]
     R8["directory-structure"]
     R9["`**file-move-rules**
-the 9th · not @included`"]
+the 9th · via wikilink-rules`"]
     R1 ~~~ R5 ~~~ R7
     R2 ~~~ R6 ~~~ R8
     R4 ~~~ R3
@@ -27,4 +27,4 @@ the 9th · not @included`"]
   CL -->|"@include · 8 of 9"| FOLDER
   AG -->|"reads explicitly · no @"| FOLDER
 ```
-*Nine rules live in one folder: CLAUDE.md pulls eight in with @include, wikilink-rules imports the ninth, and other agents read the folder explicitly.*
+*The nine shared rules live in one folder: CLAUDE.md pulls eight in with @include, wikilink-rules imports the ninth, and other agents read the folder explicitly.*

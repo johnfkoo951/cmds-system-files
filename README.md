@@ -12,7 +12,7 @@ CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system bu
 
 ## What's New in v4.16.1 (2026-10-30 ~ 31)
 
-- **Site: diagrams and guides (2026-10-31, files unchanged)** — the landing page and the docs now explain the system with 9 pre-rendered Pele diagrams (load order, CMDS Process, 8-way sync, note metadata, who-reads-what swimlane, rule loading, command parity, vault layout, release flow), a "Start here" reading order, and four static guide sections (Who reads what · Commands · Where things live · Versions & releases). Diagram sources live in `diagrams/src/` and are inlined by `scripts/build-diagrams.py`; theme follows the page via `assets/pele/cmds-pele.css`.
+- **Site: diagrams and guides (2026-10-31, files unchanged)** — the landing page and the docs now explain the system with 9 pre-rendered Pele diagrams (load order, CMDS Process, 8-way sync, note metadata, who-reads-what, rule loading, command parity, vault layout, release flow), a "Start here" reading order, and four static guide sections (Who reads what · Commands · Where things live · Versions & releases). Diagram sources live in `diagrams/src/` and are inlined by `scripts/build-diagrams.py`; theme follows the page via `assets/pele/cmds-pele.css`.
 
 - **v4.16.1 patch (2026-10-31)** — user-approved cleanup after the audit: five empty duplicate-numbered folders and five stray hub-prefixed Inbox notes were quarantined or renamed, and the Guide tree, directory-structure rule and inbox command were updated to match.
 

@@ -22,4 +22,4 @@ treeView-beta
         claude/ ## canonical: agents commands hooks rules skills scripts
     .claude/ ## symlink → 94. Agent Settings/claude/
 ```
-*Ten root folders hold everything; agent settings live once, in 90. Settings, and `.claude/` is only a symlink to them.*
+*Ten root folders hold everything; agent settings live once, in 90. Settings, and .claude/ is only a symlink to them.*

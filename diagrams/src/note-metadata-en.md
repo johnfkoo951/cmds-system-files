@@ -9,15 +9,14 @@ one .md file`"] -->|"where"| F["`**Folder**
 physical path
 00–90`"]
   N -->|"what"| R["`**Required 7 fields**
-type · aliases
-description · author
-date created
+type · aliases · description
+author · date created
 date modified · tags`"]
   R --> C["`**CMDS:**
-📚 subcategory
+subcategory
 100–900`"]
   R --> X["`**index: · status:**
-🏷 index note
+index note
 5 status values`"]
 ```
 *Folder and CMDS: are different axes: the folder says where a note lives, the frontmatter says what it is.*

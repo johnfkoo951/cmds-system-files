@@ -5,7 +5,8 @@ flowchart LR
 %% @key: V, B5
 %% @aux: S6, S7, S8
   V["`**Vault source**
-6 files + 9 rules`"]
+6 files
+9 shared rules`"]
   B12["`**① Backup · ② Share**
 copy · sanitized copy`"]
   B3["`**③ DEV + ZIP**
