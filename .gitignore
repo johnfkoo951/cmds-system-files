@@ -1,2 +1,4 @@
 .vercel
 .env*.local
+diagrams/out/
+scripts/__pycache__/

@@ -1,0 +1,335 @@
+{
+ "arch-load": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     733,
+     486
+    ],
+    "340": [
+     733,
+     486
+    ]
+   },
+   "ko": {
+    "680": [
+     737,
+     486
+    ],
+    "340": [
+     737,
+     486
+    ]
+   }
+  },
+  "bytes": 21247,
+  "caption": {
+   "en": "CLAUDE.md is the single entry: the 9 rules and CMDS.md load every session, DESIGN, AGENTS and ANTIGRAVITY are read on trigger, and the two BRAIN files are read only by the Gobi app.",
+   "ko": "CLAUDE.md 하나가 입구입니다. 규칙 9개와 CMDS.md는 매 세션 자동으로 들어오고, DESIGN·AGENTS·ANTIGRAVITY는 트리거 때 읽으며, BRAIN 두 파일은 Gobi 앱만 읽습니다."
+  }
+ },
+ "commands-parity": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "docs/index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     442,
+     357
+    ],
+    "340": [
+     430,
+     317
+    ]
+   },
+   "ko": {
+    "680": [
+     438,
+     357
+    ],
+    "340": [
+     426,
+     317
+    ]
+   }
+  },
+  "bytes": 18299,
+  "caption": {
+   "en": "Eight operating commands are mirrored in all three harnesses; five are Claude Code only.",
+   "ko": "운영 커맨드 8개는 세 하네스에 모두 있고, 5개는 Claude Code 전용입니다."
+  }
+ },
+ "load-swimlane": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "docs/index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     431,
+     548
+    ],
+    "340": [
+     419,
+     468
+    ]
+   },
+   "ko": {
+    "680": [
+     431,
+     548
+    ],
+    "340": [
+     419,
+     468
+    ]
+   }
+  },
+  "bytes": 20422,
+  "caption": {
+   "en": "Each reader has its own entry file; only the 9 rules are shared.",
+   "ko": "독자마다 입구 파일이 다르고, 규칙 9개만 공유합니다."
+  }
+ },
+ "note-metadata": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     443,
+     419
+    ],
+    "340": [
+     413,
+     395
+    ]
+   },
+   "ko": {
+    "680": [
+     420,
+     419
+    ],
+    "340": [
+     390,
+     395
+    ]
+   }
+  },
+  "bytes": 21128,
+  "caption": {
+   "en": "Folder and CMDS: are different axes: the folder says where a note lives, the frontmatter says what it is.",
+   "ko": "폴더와 CMDS:는 다른 축입니다. 폴더는 노트가 어디 있는지를, 프론트매터는 노트가 무엇인지를 말합니다."
+  }
+ },
+ "process-flow": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     459,
+     548
+    ],
+    "340": [
+     322,
+     652
+    ]
+   },
+   "ko": {
+    "680": [
+     450,
+     548
+    ],
+    "340": [
+     336,
+     708
+    ]
+   }
+  },
+  "bytes": 23472,
+  "caption": {
+   "en": "A note moves through four stages, Connect, Merge, Develop and Share, and each stage has one command and one category range.",
+   "ko": "노트는 Connect, Merge, Develop, Share 네 단계를 지나며, 단계마다 커맨드 하나와 카테고리 범위 하나가 있습니다."
+  }
+ },
+ "release-flow": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "docs/index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     250,
+     538
+    ],
+    "340": [
+     250,
+     538
+    ]
+   },
+   "ko": {
+    "680": [
+     239,
+     538
+    ],
+    "340": [
+     239,
+     538
+    ]
+   }
+  },
+  "bytes": 19264,
+  "caption": {
+   "en": "One edit in the vault passes a gate, is synced to three local copies, then ships through GitHub and Vercel to this page; versions live on two layers, micro per file and macro per release.",
+   "ko": "볼트에서 고친 시스템 파일 하나가 게이트를 지나 세 곳에 동기화되고, GitHub 와 Vercel 을 거쳐 이 페이지가 됩니다. 버전은 파일별 마이크로와 릴리스별 매크로, 두 층으로 관리합니다."
+  }
+ },
+ "rules-include": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "docs/index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     635,
+     454
+    ],
+    "340": [
+     635,
+     454
+    ]
+   },
+   "ko": {
+    "680": [
+     637,
+     454
+    ],
+    "340": [
+     637,
+     454
+    ]
+   }
+  },
+  "bytes": 27308,
+  "caption": {
+   "en": "Nine rules live in one folder: CLAUDE.md pulls eight in with @include, wikilink-rules imports the ninth, and other agents read the folder explicitly.",
+   "ko": "규칙 9개는 한 폴더에 있습니다. CLAUDE.md 가 8개를 @include 로 끌어오고, wikilink-rules 가 아홉 번째를 import 하며, 다른 에이전트는 폴더를 명시적으로 읽습니다."
+  }
+ },
+ "sync-fanout": {
+  "type": "flowchart",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     592,
+     506
+    ],
+    "340": [
+     580,
+     426
+    ]
+   },
+   "ko": {
+    "680": [
+     583,
+     506
+    ],
+    "340": [
+     571,
+     426
+    ]
+   }
+  },
+  "bytes": 27430,
+  "caption": {
+   "en": "One vault source fans out to eight destinations, and this site is the fifth.",
+   "ko": "볼트 원본 하나가 여덟 곳으로 퍼지고, 이 사이트는 그중 다섯 번째입니다."
+  }
+ },
+ "vault-tree": {
+  "type": "treeView",
+  "pele": "1.12.0",
+  "cmdsPele": "0.6.0",
+  "profile": "screen",
+  "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
+  "pages": [
+   "docs/index.html"
+  ],
+  "sizes": {
+   "en": {
+    "680": [
+     598,
+     520
+    ],
+    "340": [
+     332,
+     688
+    ]
+   },
+   "ko": {
+    "680": [
+     558,
+     520
+    ],
+    "340": [
+     330,
+     688
+    ]
+   }
+  },
+  "bytes": 25627,
+  "caption": {
+   "en": "Ten root folders hold everything; agent settings live once, in 90. Settings, and `.claude/` is only a symlink to them.",
+   "ko": "루트 폴더 10개가 전부를 담습니다. 에이전트 설정은 90. Settings 에 한 번만 있고, `.claude/` 는 그곳을 가리키는 심링크일 뿐입니다."
+  }
+ }
+}

@@ -54,6 +54,15 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+### 같은 날 사이트 보강 (2026-10-31, 파일 버전 변동 없음 — 매크로 v4.16.1 유지)
+
+system.cmdspace.work 의 랜딩(`index.html`)과 문서(`docs/index.html`)에 설명과 도식을 넣었다. 시스템 파일·규칙 본문은 바뀌지 않아 버전은 그대로다.
+
+- **Pele 도식 9종 (한·영 × 라이트·다크 × 데스크톱·폰)** — 랜딩 4: `arch-load`(CLAUDE.md 입구와 @include/트리거/Gobi 전용 구분) · `process-flow`(노트 → Connect→Merge→Develop→Share + 가로 커맨드) · `sync-fanout`(볼트 원본 → 8곳, ⑤ Vercel = 이 사이트) · `note-metadata`(폴더 ≠ `CMDS:` 두 축, 필수 7 + 선택 3). 문서 5: `load-swimlane`(독자별 입구 파일, 스윔레인) · `rules-include`(규칙 9 = @include 8 + wikilink-rules 안 import 1, 타 에이전트는 명시 Read) · `commands-parity`(핵심 8 = 세 하네스 미러, 5 = Claude Code 전용) · `vault-tree`(루트 폴더 10 + 에이전트 설정 정본) · `release-flow`(게이트 → ①②③ → ④ GitHub → ⑤ Vercel, 버전 2층). 기획했던 `categories-map`(9 카테고리 마인드맵)은 바로 아래 카테고리 그리드와 같은 내용이라 뺐다.
+- **설명 문단과 가이드** — 도식마다 한·영 설명 2~3문장 + 캡션 한 문장. 랜딩 Architecture 절에 "Start here" 읽는 순서 3단계. 문서 페이지에 정적 가이드 4절(Who reads what · Commands · Where things live · Versions & releases)과 사이드바 "Guides" 묶음, Shared Rules 소개절에 규칙 로딩 도식.
+- **빌드 파이프라인** — 소스 `diagrams/src/<slug>-{en,ko}.md`, `scripts/build-diagrams.py` 가 `pele-render.py --profile screen --widths 680,340 --theme auto` 로 렌더해 `<!-- diagram:<slug>:begin/end -->` 마커 사이에 인라인 SVG 로 넣는다(`--w` 자연폭을 달아 0.8배까지 줄이고 그 아래는 카드 안 가로 스크롤). 테마는 `assets/pele/cmds-pele.css`(cmds-pele 소비처 `cmds-system-files` 로 등록, `pele-sync.py --check` 대상) 가 페이지 토큰(`--bg-elev`·`--fg`·`--accent`)을 `--cp-*` 로 받아 라이트 초록/다크 분홍으로 칠한다.
+- **같은 김에 교정** — "ten slash commands" → "ten CMDS Process commands"(13 = 10 + /daily·/weekly·/insight 와 정합), 문서 사이드바 배지를 순번(3·4·5)에서 precedence(4·5·6)로, 한국어 `doc.rules.desc` 의 "8개" 잔재 → 9개, 언어 전환 시 TOC 재생성.
+
 ## v4.16.0 — 2026-10-30 (전수 감사 4회차: 시스템·스키마 파일 총점검과 업그레이드)
 
 ### File Version Snapshot

@@ -12,6 +12,8 @@ CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system bu
 
 ## What's New in v4.16.1 (2026-10-30 ~ 31)
 
+- **Site: diagrams and guides (2026-10-31, files unchanged)** — the landing page and the docs now explain the system with 9 pre-rendered Pele diagrams (load order, CMDS Process, 8-way sync, note metadata, who-reads-what swimlane, rule loading, command parity, vault layout, release flow), a "Start here" reading order, and four static guide sections (Who reads what · Commands · Where things live · Versions & releases). Diagram sources live in `diagrams/src/` and are inlined by `scripts/build-diagrams.py`; theme follows the page via `assets/pele/cmds-pele.css`.
+
 - **v4.16.1 patch (2026-10-31)** — user-approved cleanup after the audit: five empty duplicate-numbered folders and five stray hub-prefixed Inbox notes were quarantined or renamed, and the Guide tree, directory-structure rule and inbox command were updated to match.
 
 - **Full audit of the instruction layer** — 9 system files, 9 shared rules, 13 slash commands, the schema bundle, the sync surfaces and the satellite vaults were audited by a multi-agent workflow (finders → adversarial verification) and the confirmed defects were fixed in one release. Details in the audit note linked from the CHANGELOG.
@@ -67,6 +69,10 @@ rules/                     # 9 shared rules (mirror of .claude/rules/)
 └── video-project-workflow.md   # Remotion / video project placement rules
 
 CHANGELOG.md               # Version history
+
+diagrams/src/              # Pele (Mermaid) sources for the site diagrams, <slug>-en.md / <slug>-ko.md
+scripts/build-diagrams.py  # renders them (pele-render, screen profile, 680/340 px) and inlines the SVG between <!-- diagram:<slug> --> markers
+assets/pele/               # cmds-pele.css theme copy (synced from /DEV/cmds-pele by pele-sync.py)
 ```
 
 ## The 6 Core Files
@@ -149,6 +155,7 @@ Connect → Merge → Develop → Share
 | CMDS Categories | 9 (100-900) |
 | Subcategories | 87 |
 | Vault Notes | 14,000+ (2026-10-30) |
+| Site Diagrams | 9 (Pele, bilingual, light/dark) |
 
 ## Download
 

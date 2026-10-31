@@ -1,0 +1,18 @@
+{
+ "module": "cmds-pele",
+ "version": "0.6.0",
+ "pele": "1.12.0",
+ "files": {
+  "pele.global.js": "787ed66bb4bd56c15e224109ff5b89ed395ebfacf71fae2c0ccad1f86d6e24ef",
+  "pele.js": "111172ef3cfe3ab8fd58cba28f69e2c23f1d9f08c63db306fb9eb654a77de20b",
+  "LICENSE-pele.txt": "311bccc30de6f7b9cbfb64232bb0c911ccb2191abe316550813ae25b2c7925b9",
+  "cmds-pele.js": "320924a65b1d3513bd684e552f0a9917f2049491e3e052f0584c2a5a32d727f4",
+  "cmds-pele.css": "ca4e18d55b79d4f06b9b0e2a6c521e1aed17c2cb87632fbe4ac5e77692a99f4f",
+  "standalone/light.css": "3e93f557fece4af48db1b546cbbe41edae1ad6577f0ecaf81e03da1663870110",
+  "standalone/dark.css": "9892b975e34067866ad93bb8ad9e9d430f65785d642adfb5a9d62f252097a667",
+  "standalone/auto.css": "59ce9deb58dd1670b5a229511e3c66d23b2284a7d45dfa0e63a898f2c88ec490",
+  "obsidian/main.js": "448c917fd542fad48464143c098bd7bddc091c879c8a437c77ac8a329aac2c3c",
+  "obsidian/styles.css": "6be3f3abb11ea22175e8e7c2e9016e5d8a6d956b1281436b7a859399f6184e3f",
+  "obsidian/manifest.json": "1f6290b6ab6607c75e076752d9ba920b28caf65abb9eb875b05e373478478b73"
+ }
+}
