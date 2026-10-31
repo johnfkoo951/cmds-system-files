@@ -10,7 +10,9 @@
 
 CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian with 14,000+ notes (measured 2026-10-30). This repository contains the core system files that provide complete guidance for AI agents and human users working with the vault.
 
-## What's New in v4.16.0 (2026-10-30)
+## What's New in v4.16.1 (2026-10-30 ~ 31)
+
+- **v4.16.1 patch (2026-10-31)** — user-approved cleanup after the audit: five empty duplicate-numbered folders and five stray hub-prefixed Inbox notes were quarantined or renamed, and the Guide tree, directory-structure rule and inbox command were updated to match.
 
 - **Full audit of the instruction layer** — 9 system files, 9 shared rules, 13 slash commands, the schema bundle, the sync surfaces and the satellite vaults were audited by a multi-agent workflow (finders → adversarial verification) and the confirmed defects were fixed in one release. Details in the audit note linked from the CHANGELOG.
 - **One canonical sync script** — the three diverging copies of the ①~⑤ sync procedure were replaced by `scripts/sync-system-files.sh` in the vault (gates: tags regression, date consistency, version/count drift, web version labels; steps: backup incl. CHANGELOG copy, sanitized share with leak gate, DEV files + rules + ZIP, GitHub push + tag + Release, Vercel deploy + live check; satellite report).
@@ -168,4 +170,4 @@ All intellectual property rights belong to CMDSPACE.
 
 ---
 
-Last Updated: 2026-10-30 · v4.16.0
+Last Updated: 2026-10-31 · v4.16.1

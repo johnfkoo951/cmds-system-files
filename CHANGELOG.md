@@ -29,6 +29,31 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.16.1 — 2026-10-31 (감사 후속: 사용자 승인 정리 반영)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.16.0 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.14 | — |
+| AGENTS.md | 2.18 | — |
+| ANTIGRAVITY.md | 2.9 | — |
+| CMDS.md | 2.16 | — |
+| 🏛 CMDS Guide.md | 2.14 | ⬆ 2.13 → 2.14 |
+| 🏛 CMDS Head Quarter.md | 1.9 | — |
+| DESIGN.md | 1.5 | — |
+| BRAIN.md *(internal)* | 1.0.1 | — |
+| BRAIN_PROMPT.md *(internal)* | 1.0.1 | — |
+
+### Changes
+
+- 사용자가 v4.16.0 감사 노트 §5 의 정리 후보를 승인해 실행했다: 빈 중복 번호 폴더 `00. Inbox/03. Transcripts`·`00. Inbox/08. Unlisted`·`20. Literature Notes/21. Web Articles`·`80. References/86. Omnivore`(89 의 부분집합, 고유 파일 0)·루트 `shots/` 를 볼트 `.trash/audit-cleanup-2026-10-31/` 로 격리(원장 LEDGER.json), Inbox 의 📚·🏛 접두 stray 5건 정리(루트 허브와 이름이 겹치는 빈 stub 2건 격리, 3건은 접두 제거 개명 + 인바운드 링크 3곳 갱신).
+- **🏛 CMDS Guide.md 2.14** — Folder Structure 트리에서 제거된 두 폴더 줄 삭제.
+- **rules/directory-structure.md** — `08. Unlisted` 줄과 `shots/` 언급 제거. **commands/inbox.md** — 미등재 폴더 예시 갱신.
+- Obsidian Linter `filesToIgnore` 에 시스템 파일 9개 regex 가드를 적용했다(사용자 승인, 플러그인 설정이라 배포본과 무관 — 재발 클래스 1 의 근본 차단). cmds-vault PR #18 에 v4.13.0~v4.16.0 frontmatter 동기화를 얹어 push 했다(병합은 사용자).
+
+---
+
 ## v4.16.0 — 2026-10-30 (전수 감사 4회차: 시스템·스키마 파일 총점검과 업그레이드)
 
 ### File Version Snapshot

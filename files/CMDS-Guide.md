@@ -7,7 +7,7 @@ description: "Operational standards guide for the CMDS vault. Defines the 7 requ
 author:
   - "[[구요한]]"
 date created: 2025-09-15T23:39
-date modified: 2026-10-30T17:10
+date modified: 2026-10-31T11:30
 tags:
   - CMDS
   - system
@@ -24,9 +24,10 @@ optional-for:
 token-estimate: 8700
 links: []
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.13"
+version: "2.14"
 status: completed
 changelog:
+  - "2.14 (2026-10-31): 감사 후속 정리 반영 (macro v4.16.1) — 사용자 승인으로 빈 중복 번호 폴더 `20. Literature Notes/21. Web Articles`·`80. References/86. Omnivore`(89 의 부분집합)를 .trash 로 옮긴 뒤 Folder Structure 트리에서 두 줄 제거."
   - "2.13 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — token-estimate 실측화, author·organization 예시 큰따옴표 wikilink, Optional Properties(published*·model/effort·wikiVaultRelated·artifactStatus·session-link) 절 추가, 헤딩 뒤 빈 줄 정리, Collections Index 목록 19종, Folder Structure 실측 정합(_Gobi_Captures 추가·01. Articles 삭제(생성된 적 없음)·23. Sermon 삭제(2026-08-02 폐기)·48. Finance·56. Design References·57. Visual Assets·94 schema/cmux/hooks/scripts·rules 9), 템플릿 예시 4종 tags 하이픈 배열, Sync Settings MBP 14인치, Version History 에 2.12·2.13 반영."
   - "2.12 (2026-10-29): tags 노이즈 세 번째 정리 — 2026-09-29 Linter `move-tags-to-yaml`(저장·파일 전환 때 실행)이 본문 예시 태그 7개(태그는자유로워야지·index·NoteClass·maps·example·operation·service)를 한 줄 배열로 frontmatter 에 올리고 date modified 를 바꾼 기록 없는 변경을 되돌림. 재발 방지로 본문 예시 태그를 백틱으로 감싸 Linter·Obsidian 이 태그로 읽지 않게 함 (Tags·Index·Wis' Rule 절). 배포본·공유본 보류 해제. Last Updated 배너를 다른 시스템 파일처럼 frontmatter 바로 아래(제목 위)로 옮기고 본문 Version 표기를 2.12로 (macro v4.15.1)."
   - "2.11 (2026-09-07): E07 교차 볼트 참조 방향 교정 — 마더십 wikiVaultRelated·위키 mainVaultRelated 구분, 실재 대상의 advanced-uri 예시, open 폴백·legacy 읽기 호환·반대 볼트 쓰기 권한 경계 명시."
@@ -44,7 +45,7 @@ share: true
 share_link: https://canny-buffalo-436.convex.site/note/bq2eal9k.html
 share_expires: 2026-01-29T11:02:12.926Z
 ---
-> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
+> **🔄 Last Updated: 2026-10-31** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS-Guide_backup.md`
 
 # CMDS Guide
 
@@ -332,7 +333,6 @@ mainVaultRelated:
 
 20. Literature Notes/           # 문헌 노트 및 리뷰
 ├── 21. Lit Notes (Zotero)/     # Zotero 연동 문헌
-├── 21. Web Articles/           # 웹 아티클 (빈 폴더)
 ├── 22. Reviews/                # 리뷰 및 분석
 ├── 24. Web Articles/           # 웹 아티클
 ├── 28. Flashcards/             # 플래시카드
@@ -391,7 +391,6 @@ mainVaultRelated:
 ├── 83. References/             # 일반 참고자료
 ├── 84. References (Zotero)/    # Zotero 참고문헌
 ├── 85. References (Book)/      # 도서 참고자료
-├── 86. Omnivore/               # Omnivore 아티클
 ├── 86. References (Book, Yes24)/ # Yes24 도서
 └── 89. Omnivore/               # Omnivore 추가
 
@@ -616,6 +615,7 @@ date modified: 2026-03-30
 - `.obsidian` - macOS, Windows, Android
 - `.obsidian_mobile` - iOS, iPadOS
 ## Version History
+- **v2.14** (2026-10-31): 감사 후속 정리 — 21. Web Articles·86. Omnivore 폴더 제거 반영
 - **v2.13** (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Optional Properties 절 추가, 예시 frontmatter 인용·배열 형식 정정, Folder Structure 실측 정합(01. Articles·23. Sermon 제거, _Gobi_Captures·48. Finance·56/57 Assets·94 schema/cmux/hooks/scripts, rules 9), Index 목록 19종, Sync Settings 14인치, token-estimate 재산정
 - **v2.12** (2026-10-29): tags 노이즈 세 번째 정리 (Linter `move-tags-to-yaml` 원인) — 본문 예시 태그를 백틱 처리해 재발 방지, Last Updated 배너를 frontmatter 바로 아래로 이동, Version 표기 2.12 (macro v4.15.1)
 - **v2.11** (2026-09-07): E07 — 마더십 wikiVaultRelated와 위키 mainVaultRelated의 방향·배열 값 형식 교정, 실재 대상 URI 예시 및 open/legacy 읽기 호환·반대 볼트 쓰기 경계 명시
