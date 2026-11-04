@@ -1,8 +1,8 @@
 {
  "arch-load": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -38,8 +38,8 @@
  },
  "commands-parity": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -75,8 +75,8 @@
  },
  "load-swimlane": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -112,8 +112,8 @@
  },
  "note-metadata": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -149,8 +149,8 @@
  },
  "process-flow": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -186,8 +186,8 @@
  },
  "release-flow": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -223,8 +223,8 @@
  },
  "rules-include": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -260,8 +260,8 @@
  },
  "sync-fanout": {
   "type": "flowchart",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
@@ -297,8 +297,8 @@
  },
  "vault-tree": {
   "type": "treeView",
-  "pele": "1.12.0",
-  "cmdsPele": "0.6.0",
+  "pele": "1.13.0",
+  "cmdsPele": "0.7.0",
   "profile": "screen",
   "font": "\"Pretendard\", \"SF Pro Text\", -apple-system, system-ui, sans-serif",
   "pages": [
