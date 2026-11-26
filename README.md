@@ -10,6 +10,10 @@
 
 CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian with 14,000+ notes (measured 2026-10-30). This repository contains the core system files that provide complete guidance for AI agents and human users working with the vault.
 
+## What's New in v4.16.3 (2026-11-26)
+
+- **Diagram rules follow the new Obsidian** — every device now runs Obsidian 1.15.1, whose built-in Pele (1.13.0) matches the published renderer. `mermaid-rules.md` drops the vault-only limits (ASCII-only sankey node names, `#lt;` for angle brackets) and keeps them only for sources that may still open in Obsidian 1.15.0 or older; `DESIGN.md` 1.6 says the same.
+
 ## What's New in v4.16.2 (2026-11-26)
 
 - **Rule sync** — the shared `wikilink-rules.md` now ships the November revision of the `%%...%%` comment rule: comments are first sorted into prompts (the default), note comments and functional comments; only prompts are carried out and replaced, the other two are kept, and an unclear comment is never deleted.
@@ -182,4 +186,4 @@ All intellectual property rights belong to CMDSPACE.
 
 ---
 
-Last Updated: 2026-11-26 · v4.16.2
+Last Updated: 2026-11-26 · v4.16.3

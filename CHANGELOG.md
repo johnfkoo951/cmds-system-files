@@ -29,6 +29,31 @@ CMDS: "[[📚 501 Obsidian]]"
 
 ---
 
+## v4.16.3 — 2026-11-26 (볼트 Pele 기준선 1.15.1)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.16.2 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.14 | — |
+| AGENTS.md | 2.18 | — |
+| ANTIGRAVITY.md | 2.9 | — |
+| CMDS.md | 2.17 | — |
+| 🏛 CMDS Guide.md | 2.14 | — |
+| 🏛 CMDS Head Quarter.md | 1.9 | — |
+| DESIGN.md | 1.6 | ⬆ 1.5 → 1.6 |
+| BRAIN.md *(internal)* | 1.0.1 | — |
+| BRAIN_PROMPT.md *(internal)* | 1.0.1 | — |
+
+### Changes
+
+- **볼트 Pele 기준선 1.15.0(Pele 1.8.0) → 1.15.1(Pele 1.13.0)** — MBP·Mac Studio·iOS 모두 Obsidian 1.15.1 이상이 되어(iOS 는 사용자 확인) cmds-pele `catalog.json` 의 절차대로 기준선을 옮기고 `peleVaultGap` 9건을 닫았다. 지금은 볼트와 발행본이 같은 Pele 1.13.0 으로 그린다.
+- **rules/mermaid-rules.md** — 규칙 8: sankey 노드 이름에 한글을 쓸 수 있다. 규칙 10: 지금은 볼트판 차이가 없고, 발행본이 먼저 오르면 그 차이를 `peleVaultGap` 에 적는다. 두 규칙 모두 Obsidian 1.15.0 이하에서도 열릴 소스(스타터킷 등)에는 예전 제약을 남긴다. 검사 줄의 `vault-parse` 는 볼트가 늦을 때만 의미가 있다.
+- **DESIGN.md 1.6** — §4.6 도식 서술 두 줄을 같은 기준으로 고쳤다.
+- 같은 날 사이트 도식은 `pele-publish` 로 다시 렌더했다(커밋 `8ac8d1c`, 플러그인 스탬프만 변경).
+
+---
+
 ## v4.16.2 — 2026-11-26 (규칙 배포 누락분 + CMDS.md 커맨드 서술)
 
 ### File Version Snapshot

@@ -8,7 +8,7 @@ description: "Visual language specification for all CMDSPACE artifacts. Defines 
 author:
   - "[[구요한]]"
 date created: 2026-05-22T18:47
-date modified: 2026-10-30T17:10
+date modified: 2026-11-26
 tags:
   - CMDS
   - system
@@ -32,9 +32,10 @@ optional-for:
 token-estimate: 7600
 CMDS: "[[📚 731 Digital Art and Design]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "1.5"
+version: "1.6"
 status: completed
 changelog:
+  - "1.6 (2026-11-26): 볼트 Pele 기준선을 Obsidian 1.15.1(Pele 1.13.0)로 올린 것을 §4.6 도식 서술 두 줄에 반영했다. 지금은 볼트와 발행본의 Pele가 같아 볼트판 제약(sankey ASCII, #lt;)이 필요 없고, Obsidian 1.15.0 이하에서도 열릴 소스만 예외다. 정본은 mermaid-rules.md 규칙 8·10과 cmds-pele catalog.json (macro v4.16.3)."
   - "1.5 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Related System Files 의 @BRAIN_PROMPT 표기 제거, 버전 네임스페이스 주석의 v4.9.x 하드코딩을 CHANGELOG 참조로, §4.5 영상 라우팅에 cmds-motion-video·cmds-shorts-builder, §4.6·버전 주석의 Pele 1.9.0 하드코딩을 vendor/pele/CURRENT(1.12.0) 참조로, §9 제목을 이력으로."
   - "1.4 (2026-10-23): 볼트와 발행본이 같은 도식 색 규칙을 쓰게 했다. Obsidian 1.15가 Mermaid 대신 Pele(1.8.0)를 내장해 볼트 미리보기가 33/33이 되었으므로 §4.6의 25/33 서술과 §7.6의 8종 점검을 고치고, §1.6에 볼트 연결(`cmds-pele-vault` 플러그인이 같은 토큰을 Obsidian `--mermaid-*`에 넣고 강조 지시문을 적용)을 더했다. §4.6에 볼트 노트 행과 볼트·발행본 버전 차이(볼트 1.8.0, 발행본 1.9.0)를 적었다. 발행본 Pele 1.8.0 → 1.9.0."
   - "1.3.1 (2026-10-22): §4.6 도식 행의 Pele 버전 표기를 모듈 `vendor/pele/CURRENT` 참조로 바꿨다(Pele 1.6.0 → 1.8.0 업그레이드, 다음 업그레이드부터 이 파일을 고치지 않아도 된다)."
@@ -43,7 +44,7 @@ changelog:
   - "1.1 (2026-05-30): Went public as 6th deployed file (v4.8.0); header de-staled; §9 follow-ups resolved; counts hedged."
   - "1.0 (2026-05-22): Initial version. 9th system file added to mothership. Sources — getdesign.md pattern (2026-04-23 capture), v4.3 design standards (cmdspace-web-builder skill), Anti-AI-Slop guidelines (Claude Design system prompt captured 2026-05-04), 87-skill catalog mapped to visual surfaces. Triggered by /query — CMDSPACE 버전의 design.md 만들어줘 (2026-05-22)."
 ---
-> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/DESIGN_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (6th public file, deployed v4.8.0 2026-05-27)
+> **🔄 Last Updated: 2026-11-26** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/DESIGN_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work) (6th public file, deployed v4.8.0 2026-05-27)
 
 # DESIGN.md
 
@@ -278,8 +279,8 @@ This file is the **visual language spec** for all CMDSPACE artifacts. It complem
 | Knowledge graph | `graphify` | — | |
 | Obsidian Canvas | `obsidian-canvas`, `cmds-canvas` | `json-canvas` | |
 
-- 볼트 미리보기는 Obsidian 1.15+에 든 Pele(1.15.0은 1.8.0)가, 발행본은 cmds-pele의 Pele가 그린다. Mermaid 12.1의 33종이 모두 볼트에서 보인다(2026-10-23 실측, MBP·Studio). Obsidian 1.14.4의 Mermaid 11.13.0에서는 25종이라 swimlane, agentflow, eventmodeling, usecase, railroad, treeView, cynefin, wardley는 발행본에서만 보였다.
-- 볼트의 Pele가 발행본보다 늦을 수 있다(볼트 버전은 Obsidian 릴리스를 따르고 — 1.15.0은 1.8.0 — 발행본 버전은 모듈 `vendor/pele/CURRENT`가 정본이다. Pele는 2026-10-27부터 npm 최신판을 자동으로 따르므로 이 파일에 발행본 숫자를 적지 않는다). 그 사이에 생긴 기능은 볼트판 기준으로 쓴다: sankey 노드 이름은 ASCII, `List<T>` 같은 꺾쇠 글자는 `#lt;T#gt;`, 라벨의 `<code>`·`<kbd>`·`<sub>` 모양은 발행본에서만 난다(mermaid-rules.md 10번, 정본 목록은 `catalog.json`의 `peleVaultGap`).
+- 볼트 미리보기는 Obsidian 1.15+에 든 Pele(1.15.0은 1.8.0, 1.15.1은 1.13.0 — 2026-11-26부터 볼트 기준은 1.15.1)가, 발행본은 cmds-pele의 Pele가 그린다. Mermaid 12.1의 33종이 모두 볼트에서 보인다(2026-10-23 실측, MBP·Studio). Obsidian 1.14.4의 Mermaid 11.13.0에서는 25종이라 swimlane, agentflow, eventmodeling, usecase, railroad, treeView, cynefin, wardley는 발행본에서만 보였다.
+- 볼트의 Pele가 발행본보다 늦을 수 있다(볼트 버전은 Obsidian 릴리스를 따르고, 발행본 버전은 모듈 `vendor/pele/CURRENT`가 정본이다. Pele는 2026-10-27부터 npm 최신판을 자동으로 따르므로 이 파일에 발행본 숫자를 적지 않는다). 그 사이에 생긴 기능은 볼트판 기준으로 쓰고 `catalog.json`의 `peleVaultGap`에 적는다. 2026-11-26 현재는 둘이 같아 목록이 비어 있다. Obsidian 1.15.0 이하에서도 열릴 소스는 예전 제약(sankey 노드 이름 ASCII, `List<T>`는 `#lt;T#gt;`, 라벨의 `<code>`·`<kbd>`·`<sub>` 모양에 뜻을 기대지 않기)을 지킨다(mermaid-rules.md 8·10번).
 - 두 볼트의 기존 Mermaid 893블록 중 879블록이 Pele로 그려진다(2026-10-23 재측정, 1.8.0과 1.9.0 결과 같음). 거부된 14블록은 Mermaid 11.17.2도 거부한 작성 오류다.
 - 33종 갤러리: https://pele.cmdspace.work
 
