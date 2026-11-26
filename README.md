@@ -10,6 +10,11 @@
 
 CMDS (CMDSPACE) is a comprehensive Personal Knowledge Management (PKM) system built on Obsidian with 14,000+ notes (measured 2026-10-30). This repository contains the core system files that provide complete guidance for AI agents and human users working with the vault.
 
+## What's New in v4.16.2 (2026-11-26)
+
+- **Rule sync** — the shared `wikilink-rules.md` now ships the November revision of the `%%...%%` comment rule: comments are first sorted into prompts (the default), note comments and functional comments; only prompts are carried out and replaced, the other two are kept, and an unclear comment is never deleted.
+- **CMDS.md 2.17** — the command sentence now names `/insight` next to `/daily` and `/weekly`; the full inventory of 13 commands stays in the agent-system ledger.
+
 ## What's New in v4.16.1 (2026-10-30 ~ 31)
 
 - **Site: diagrams and guides (2026-10-31, files unchanged)** — the landing page and the docs now explain the system with 9 pre-rendered Pele diagrams (load order, CMDS Process, 8-way sync, note metadata, who-reads-what, rule loading, command parity, vault layout, release flow), a "Start here" reading order, and four static guide sections (Who reads what · Commands · Where things live · Versions & releases). Diagram sources live in `diagrams/src/` and are inlined by `scripts/build-diagrams.py`; theme follows the page via `assets/pele/cmds-pele.css`.
@@ -177,4 +182,4 @@ All intellectual property rights belong to CMDSPACE.
 
 ---
 
-Last Updated: 2026-10-31 · v4.16.1
+Last Updated: 2026-11-26 · v4.16.2

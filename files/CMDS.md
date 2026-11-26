@@ -7,7 +7,7 @@ description: "Context and philosophy guide for all LLM assistants working with t
 author:
   - "[[구요한]]"
 date created: 2025-10-22T21:52
-date modified: 2026-10-30T17:10
+date modified: 2026-11-26
 tags:
   - CMDS
   - system
@@ -24,9 +24,10 @@ optional-for:
 token-estimate: 10800
 CMDS: "[[📚 601 Knowledge Management]]"
 index: "[[🏛 CMDS Head Quarter]]"
-version: "2.16"
+version: "2.17"
 status: completed
 changelog:
+  - "2.17 (2026-11-26): CMDS Process as Operational Verbs 절에 /insight 추가 — 10개는 CMDS Process 커맨드, /daily·/weekly·/insight 는 별도이고 총 13개의 정본은 CMDS 에이전트 시스템 원장. CLAUDE.md § Command Map 과 일치시킴 (macro v4.16.2)."
   - "2.16 (2026-10-30): 전수 감사 4회차 픽스 세트 (macro v4.16.0) — Essential 의 400 Methods→400 Methodologies, DESIGN.md 표·주석을 on-demand Read 로 정정, 마더십 노트 수 ~8,000→~14,000(14,134 md 실측) 3곳, LLM Wiki 3-layer 를 Raw Sources·Wiki·Schema 로, 903↔909 경계 규칙 중복 통합, Key Hub Notes 의 HQ 중복 제거, Obsidian 플러그인 서술 실측화(Copilot·Smart Connections 비활성), symlink 폴더 5개(hooks), 커맨드 8→10(시간축 3 은 CLAUDE.md), Vault Statistics 2026-10-30 재측정(Note Types 11종), token-estimate 재산정."
   - "2.15 (2026-10-29): cmds-llm-wiki 스타터킷 버전 주장 v1.12.0 → v1.13.0 갱신 (GitHub Release 기준, system-version-audit 정본 드리프트 해소) (macro v4.15.0)."
   - "2.14 (2026-10-10): cmds-llm-wiki 스타터킷 버전 주장 v1.11.0 → v1.12.0 갱신 (2026-10-10 릴리스 — 에이전트 설정 정본 폴더 + 점폴더 symlink). v1.11.1 미반영분도 함께 해소."
@@ -45,7 +46,7 @@ changelog:
   - "2.1 (2026-04-01): precedence/memory-type/required-for/token-estimate 추가"
   - "2.0 (2026-03-15): 전면 리뷰, 통계 갱신, AI Tools 업데이트"
 ---
-> **🔄 Last Updated: 2026-10-30** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
+> **🔄 Last Updated: 2026-11-26** | Backup: `40. Docs/47. CMDS Docs/cmds-system-files/CMDS_backup.md` | Public: [system.cmdspace.work](https://system.cmdspace.work)
 
 # CMDS.md
 
@@ -619,7 +620,7 @@ If discussing PKM system itself:
 
 ### CMDS Process as Operational Verbs
 
-The CMDS Process is also encoded as **10 slash commands** (`/connect`, `/merge`, `/develop`, `/share` + `/inbox`, `/lint`, `/query`, `/status`, `/seeds`, `/harvest`; the time-axis `/daily`·`/weekly` are separate — see [[CLAUDE.md]] § Periodic Agent Notes). This makes "이걸 connect할까, merge할까?" the first metacognitive step of every session. **Command implementation details (parameters, dialog flows, output paths) are in [[CLAUDE.md]] § "CMDS Process Command Suite".** Source files live in `90. Settings/94. Agent Settings/claude/commands/`.
+The CMDS Process is also encoded as **10 slash commands** (`/connect`, `/merge`, `/develop`, `/share` + `/inbox`, `/lint`, `/query`, `/status`, `/seeds`, `/harvest`; the time-axis `/daily`·`/weekly` and the daily analysis `/insight` are separate — see [[CLAUDE.md]] § Periodic Agent Notes; the full count of 13 lives in [[CMDS 에이전트 시스템 원장]]). This makes "이걸 connect할까, merge할까?" the first metacognitive step of every session. **Command implementation details (parameters, dialog flows, output paths) are in [[CLAUDE.md]] § "CMDS Process Command Suite".** Source files live in `90. Settings/94. Agent Settings/claude/commands/`.
 
 ### When Searching for Context
 Look for relevant notes in:

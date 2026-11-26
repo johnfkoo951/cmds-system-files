@@ -7,7 +7,7 @@ description: Central version history for the 6 publicly deployed CMDS system fil
 author:
   - "[[구요한]]"
 date created: 2026-04-01T11:30
-date modified: 2026-10-23
+date modified: 2026-11-26
 tags: [CMDS, system, changelog]
 CMDS: "[[📚 501 Obsidian]]"
 ---
@@ -26,6 +26,30 @@ CMDS: "[[📚 501 Obsidian]]"
 | 🔬 **마이크로 (파일별)** | 각 파일의 evolution | 각 파일 frontmatter `version:` | CLAUDE 3.8, CMDS 2.5, ... |
 
 각 매크로 entry 에는 **그 시점의 9 files version snapshot matrix** 를 포함해 마이크로 ↔ 매크로 매핑이 명시됩니다.
+
+---
+
+## v4.16.2 — 2026-11-26 (규칙 배포 누락분 + CMDS.md 커맨드 서술)
+
+### File Version Snapshot
+
+| File | Version | Δ from v4.16.1 |
+|------|:-------:|:------------------:|
+| CLAUDE.md | 4.14 | — |
+| AGENTS.md | 2.18 | — |
+| ANTIGRAVITY.md | 2.9 | — |
+| CMDS.md | 2.17 | ⬆ 2.16 → 2.17 |
+| 🏛 CMDS Guide.md | 2.14 | — |
+| 🏛 CMDS Head Quarter.md | 1.9 | — |
+| DESIGN.md | 1.5 | — |
+| BRAIN.md *(internal)* | 1.0.1 | — |
+| BRAIN_PROMPT.md *(internal)* | 1.0.1 | — |
+
+### Changes
+
+- **rules/wikilink-rules.md §5** — `%%...%%` 주석 규칙의 2026-11-08 볼트 개정판을 배포본에 반영했다. 주석을 프롬프트(기본값)·노트 주석·기능성 주석 세 종류로 먼저 가르고, 판별 기준을 "문장형인가"에서 "에이전트에게 무언가를 하라는 말인가"로 바꿨다. 애매하면 지우지 않고 결과를 주석 아래에 덧붙인 뒤 보고에서 묻는다. 볼트에서는 11-08 에 바뀌었지만 배포 절차를 타지 않아 공개 번들이 옛 규칙이었다(`sync-system-files.sh --check` ③ 드리프트로 발견).
+- **CMDS.md 2.17** — CMDS Process as Operational Verbs 절에 `/insight` 를 넣었다. CMDS Process 커맨드 10개와 별도인 `/daily`·`/weekly`·`/insight` 를 합친 13개의 정본은 에이전트 시스템 원장이다(CLAUDE.md § Command Map 과 일치).
+- 점검 결과: `instruction-layer-check.sh` 9항목 통과, 위성 ⑦ stale 표현 0(no-op), ⑧ 스타터킷 canonical↔DEV 차이 0.
 
 ---
 
